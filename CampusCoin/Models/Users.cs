@@ -3,7 +3,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace ShellMixedSample.Models;
+namespace CampusCoin.Models;
 
 public partial class Users
 {
