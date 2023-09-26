@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace ShellMixedSample.Models;
+namespace CampusCoin.Models;
 
 public partial class CampusCoinContext : DbContext
 {
