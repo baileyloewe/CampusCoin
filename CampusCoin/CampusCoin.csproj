@@ -59,19 +59,26 @@
 	  <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.9" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Compile Update="Views\GraphTestPage.xaml.cs">
-	    <DependentUpon>GraphTestPage.xaml</DependentUpon>
-	  </Compile>
-	</ItemGroup>
+<ItemGroup>
+  <Compile Update="Views\RegistrationPage.xaml.cs">
+    <DependentUpon>RegistrationPage.xaml</DependentUpon>
+  </Compile>
+  <Compile Update="Views\GraphTestPage.xaml.cs">
+    <DependentUpon>GraphTestPage.xaml</DependentUpon>
+  </Compile>
+</ItemGroup>
 
-	<ItemGroup>
-	  <MauiXaml Update="Views\MainPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\GraphTestPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	</ItemGroup>
+<ItemGroup>
+  <MauiXaml Update="Views\MainPage.xaml">
+    <Generator>MSBuild:Compile</Generator>
+  </MauiXaml>
+  <MauiXaml Update="Views\RegistrationPage.xaml">
+    <Generator>MSBuild:Compile</Generator>
+  </MauiXaml>
+  <MauiXaml Update="Views\GraphTestPage.xaml">
+    <Generator>MSBuild:Compile</Generator>
+  </MauiXaml>
+</ItemGroup>
+
 
 </Project>
