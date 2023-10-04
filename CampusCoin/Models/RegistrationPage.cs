@@ -7,6 +7,7 @@ using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using CampusCoin.Models;
 
 
 namespace ShellMixedSample.Models
