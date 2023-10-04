@@ -39,7 +39,13 @@
                 ContentTemplate="{DataTemplate views:MainPage}"
                 Route="FourPage" />
             </Tab>
-        
+        <Tab Title="Tab 5" Icon="{StaticResource IconGraph}">
+            <ShellContent
+                Title="Graph Test"
+                ContentTemplate="{DataTemplate views:GraphTestPage}"
+                Route="FivePage" />
+        </Tab>
+
     </FlyoutItem>
     <FlyoutItem Title="Flyout Three" FlyoutIcon="{StaticResource IconThree}">
         <ShellContent

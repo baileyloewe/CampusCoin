@@ -26,6 +26,10 @@
                Size="22"
                Color="{StaticResource Primary}"
                Glyph="{x:Static resources:IconFont.DiceFour}"/>
+    <FontImage x:Key="IconGraph"
+               FontFamily="FontAwesome"
+               Color ="{StaticResource Primary}"
+               Glyph="{x:Static resources:IconFont.ChartArea }"/>
 
     <Style TargetType="ActivityIndicator">
         <Setter Property="Color" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
