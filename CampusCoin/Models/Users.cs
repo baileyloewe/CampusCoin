@@ -2,33 +2,33 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace CampusCoin.Models;
 
 public partial class Users
 {
-
-    public Users(int UserId, string Email, string Password, string PhoneNumber, string FirstName, string LastName)
-    {
-        this.UserId = UserId;
-        this.Email = Email;
-        this.Password = Password;
-        this.PhoneNumber = PhoneNumber;
-        this.FirstName = FirstName;
-        this.LastName = LastName;
-    }
-
+    [Key]
     public int UserId { get; set; }
+
+    [Required]
+    [StringLength(50)]
+    public string Username { get; set; }
+
+    [Required]
+    [StringLength(50)]
+    public string Password { get; set; }
 
     public string Email { get; set; }
 
-    public string Password { get; set; }
-
-
+    [StringLength(50)]
     public string PhoneNumber { get; set; }
 
+    [StringLength(50)]
     public string FirstName { get; set; }
 
+    [StringLength(50)]
     public string LastName { get; set; }
-
 }

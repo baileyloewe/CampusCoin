@@ -14,6 +14,7 @@ using ShellMixedSample.Views;
 using ShellMixedSample.Services;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using CampusCoin.Models;
 using CampusCoin.Views;
 
 namespace ShellMixedSample.ViewModels
