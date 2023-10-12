@@ -1,105 +1,93 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CampusCoin.Services;
+using CampusCoin.Models;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CampusCoin.Services;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Internal;
-using ShellMixedSample.Models;
-using ShellMixedSample.Views;
-using ShellMixedSample.Services;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using CampusCoin.Models;
 using CampusCoin.Views;
+namespace CampusCoin.ViewModels;
 
-namespace ShellMixedSample.ViewModels
+public partial class LoginPageViewModel : ObservableObject
 {
-    public partial class LoginPageViewModel : ObservableObject
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(IsNotBusy))]
+    bool isBusy;
+
+    [ObservableProperty]
+    string title;
+
+    [ObservableProperty]
+    string username;
+
+    [ObservableProperty]
+    string password;
+
+    public bool IsNotBusy => !IsBusy;
+
+    LoginService loginService;
+
+    public ObservableCollection<Users> UsersCollection { get; } = new();
+
+    public LoginPageViewModel(LoginService loginService)
     {
-        [ObservableProperty]
-        [NotifyPropertyChangedFor(nameof(IsNotBusy))]
-        bool isBusy;
+        this.loginService = loginService;
+    }
 
-        [ObservableProperty]
-        string title;
+    [RelayCommand]
+    async Task GetUsersAsync()
+    {
+        if (IsBusy)
+            return;
 
-        [ObservableProperty]
-        string username;
-
-        [ObservableProperty]
-        string password;
-
-        public bool IsNotBusy => !IsBusy;
-
-        LoginService loginService;
-
-        public ObservableCollection<Users> UsersCollection { get; } = new();
-
-        public LoginPageViewModel(LoginService loginService)
+        try
         {
-            this.loginService = loginService;
+            IsBusy = true;
+            var users = await loginService.GetUsers();
+
+            if (UsersCollection.Count != 0)
+                UsersCollection.Clear();
+
+            foreach (var user in users)
+                UsersCollection.Add(user);
         }
-
-        [RelayCommand]
-        async Task GetUsersAsync()
+        catch(Exception ex)
         {
-            if (IsBusy)
-                return;
-
-            try
-            {
-                IsBusy = true;
-                var users = await loginService.GetUsers();
-
-                if (UsersCollection.Count != 0)
-                    UsersCollection.Clear();
-
-                foreach (var user in users)
-                    UsersCollection.Add(user);
-            }
-            catch(Exception ex)
-            {
-                Debug.WriteLine(ex);
-                await Shell.Current.DisplayAlert("Error!",
-                    $"Unable to get users: {ex.Message}" , "OK");
-            }
-            finally
-            {
-                IsBusy = false;
-            }
+            Debug.WriteLine(ex);
+            await Shell.Current.DisplayAlert("Error!",
+                $"Unable to get users: {ex.Message}" , "OK");
         }
-
-        [RelayCommand]
-        async Task Login()
+        finally
         {
-            if (IsBusy)
-                return;
+            IsBusy = false;
+        }
+    }
 
-            try
-            {
-                IsBusy= true;
+    [RelayCommand]
+    async Task Login()
+    {
+        if (IsBusy)
+            return;
 
-                Console.WriteLine($"Bug");
-                var potentialUser = new Users();
-                potentialUser.Username = Username;
-                potentialUser.Password = Password;
+        try
+        {
+            IsBusy= true;
 
-            }
-            catch(Exception ex ) 
-            {
-                Debug.WriteLine(ex);
-                await Shell.Current.DisplayAlert("Error!",
-                    $"Incorrect Username and Password Combination: {ex.Message}", "OK");
-            }
-            finally 
-            { 
-                IsBusy = false; 
-            }
+            Console.WriteLine($"Bug");
+            var potentialUser = new Users();
+            potentialUser.Username = Username;
+            potentialUser.Password = Password;
+
+        }
+        catch(Exception ex ) 
+        {
+            Debug.WriteLine(ex);
+            await Shell.Current.DisplayAlert("Error!",
+                $"Incorrect Username and Password Combination: {ex.Message}", "OK");
+        }
+        finally 
+        { 
+            IsBusy = false; 
         }
     }
 }

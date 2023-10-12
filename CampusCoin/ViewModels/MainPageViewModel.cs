@@ -1,18 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using CampusCoin.Models;
 using CampusCoin.Services;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Internal;
-using ShellMixedSample.Models;
-using ShellMixedSample.Views;
-using CampusCoin.Views;
 
 namespace CampusCoin.ViewModels
 {
@@ -83,10 +74,8 @@ namespace CampusCoin.ViewModels
             {
                 await _messageOutputHandlingService.OutputValidationErrorsToUser(new List<ValidationResult> { new ValidationResult($"Database connection failed. {ex.Message}") });
             }
-
-
-
         }
+
         /// <summary>
         /// Routes to login page
         /// </summary>
@@ -95,6 +84,16 @@ namespace CampusCoin.ViewModels
         public async Task RouteToLoginPage()
         {
             await Shell.Current.GoToAsync(nameof(LoginPage));
+        }
+
+        /// <summary>
+        /// Routes to registration page
+        /// </summary>
+        /// <returns></returns>
+        [RelayCommand]
+        public async Task RouteToRegistrationPage()
+        {
+            await Shell.Current.GoToAsync(nameof(RegistrationPage));
         }
 
         private string GetCounterText()

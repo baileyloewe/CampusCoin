@@ -3,12 +3,6 @@ using CampusCoin.Services;
 using CampusCoin.ViewModels;
 using CampusCoin.Views;
 using Microsoft.EntityFrameworkCore;
-
-using ShellMixedSample.Models;
-using ShellMixedSample.Services;
-using ShellMixedSample.ViewModels;
-using ShellMixedSample.Views;
-
 using CampusCoin.Models;
 using SkiaSharp.Views.Maui.Controls.Hosting;
 
@@ -51,6 +45,8 @@ public static class MauiProgram
 
         mauiAppBuilder.Services.AddTransient<LoginPageViewModel>();
 
+        mauiAppBuilder.Services.AddTransient<RegistrationPageViewModel>();
+
         mauiAppBuilder.Services.AddSingleton<GraphTestPageViewModel>();
 
 
@@ -64,6 +60,7 @@ public static class MauiProgram
             .AddSingleton<MainPage>();
 
         mauiAppBuilder.Services.AddTransient<LoginPage>();
+        mauiAppBuilder.Services.AddTransient<RegistrationPage>();
 
         mauiAppBuilder
             .Services
