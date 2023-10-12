@@ -2,58 +2,95 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModels="clr-namespace:CampusCoin.ViewModels"
+             x:DataType="viewModels:RegistrationPageViewModel"
              x:Class="CampusCoin.Views.RegistrationPage"
              Title="RegistrationPage">
-    <ContentPage.BindingContext>
-        <viewModels:RegistrationPageViewModel />
-    </ContentPage.BindingContext>
-    <ScrollView>
-        <VerticalStackLayout 
-        Spacing="25" 
-        Padding="30,0" 
+    <VerticalStackLayout 
+        Spacing="25"
+        Padding="30,0"
         VerticalOptions="Center">
-            <Label 
-            Text="{Binding Title}"
-            SemanticProperties.HeadingLevel="Level1"
-            FontSize="32"
-            HorizontalOptions="Center" />
+        <Grid 
+            RowSpacing="5" 
+            Grid.Row="1" 
+            Margin="20,20,20,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="300"/>
+            </Grid.RowDefinitions>
+            <Label
+                Grid.Row="1"
+                Text="Registration"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="32"
+                FontAttributes="Bold"
+                Padding="0"
+                Margin="0"
+                HorizontalOptions="Center"/>
 
-            <Label 
-            Text="{Binding Description}"
-            SemanticProperties.HeadingLevel="Level2"
-            SemanticProperties.Description="Create a CampusCoin Account"
-            FontSize="18"
-            HorizontalOptions="Center" />
-
-            <Entry x:Name="Email"
-            Placeholder="Enter your email" />
-
-
-            <Entry x:Name="Password"
-            Placeholder="Enter your password" />
-
-
-            <Entry x:Name="ConfirmPassword"
-            Placeholder="Re-enter your password" />
-
-
-            <Entry x:Name="FirstName"
-            Placeholder="Enter your First Name" />
-
-
-            <Entry x:Name="LastName"
-            Placeholder="Enter your First Name" />
-
-
-            <Entry x:Name="PhoneNumber"
-            Placeholder="Enter your Phone Number" />
-
-            <Button 
-            x:Name="Submit"
-            Text="{Binding SubmitText}"
-            SemanticProperties.Hint="Submit's your information to be registered"
-            Command="{Binding SubmitCommand}"
-            HorizontalOptions="Center" />
-        </VerticalStackLayout>
-    </ScrollView>
+            <StackLayout 
+                Grid.Row="2" 
+                Orientation="Vertical" 
+                HorizontalOptions="CenterAndExpand">
+                <Entry 
+                    x:Name="txtUserName"                      
+                    Text="{Binding Email}"                                         
+                    Placeholder="Username:"                      
+                    TextColor="Black"                      
+                    FontAttributes="Bold"                     
+                    VerticalOptions="Center"                      
+                    HorizontalOptions="Fill"                       
+                    Margin="0,0,20,10"/>
+                <Entry 
+                    x:Name="txtPassword"
+                    Text="{Binding Password}"
+                    Placeholder="Password:"
+                    VerticalOptions="Center" 
+                    HorizontalOptions="Fill" 
+                    Margin="0,0,20,10"/>
+                <StackLayout 
+                    Orientation="Horizontal" 
+                    Margin="0,10,0,0" 
+                    Padding="0">
+                    <CheckBox IsChecked="False"/>
+                    <Label
+                        Text="Remember Me"
+                        TextColor="DarkGray"
+                        VerticalTextAlignment="Center"
+                        HorizontalTextAlignment="Center"/>
+                    <Label
+                        Text="Forgot Password"
+                        TextColor="Blue"
+                        FontAttributes="Bold"
+                        VerticalTextAlignment="Center"
+                        HorizontalTextAlignment="Center"
+                        HorizontalOptions="EndAndExpand"
+                        Margin="50,0,0,0"/>
+                </StackLayout>
+                <Button
+                    x:Name="AttemptRegistrationBtn"
+                    Text="Registration"
+                    SemanticProperties.Hint="Register"
+                    HorizontalOptions="Center"
+                    FontAttributes="Bold"
+                    WidthRequest="200"
+                    Margin="0,15,0,0"
+                    IsEnabled="True"
+                    Command="{Binding RegistrationCommand}"/>
+                <StackLayout 
+                    Orientation="Horizontal"
+                    HorizontalOptions="CenterAndExpand"
+                    Margin="0,60,0,0"
+                    Padding="0">
+                    <Label 
+                        Text="New User? "
+                        TextColor="DarkGray"/>
+                    <Label
+                        Text="Sign Up"
+                        TextColor="Blue"
+                        FontAttributes="Bold"/>
+                </StackLayout>
+            </StackLayout>
+        </Grid>
+    </VerticalStackLayout>
 </ContentPage>
