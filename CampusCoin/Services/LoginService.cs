@@ -1,32 +1,32 @@
 using System.Net.Http.Json;
 using CampusCoin.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace CampusCoin.Services;
 
 public class LoginService
 {
-    HttpClient httpClient;
-    public LoginService()
+    private IDbContextFactory<CampusCoinContext> _context; 
+    public LoginService(IDbContextFactory<CampusCoinContext> context)
     {
-        httpClient = new HttpClient();
+        _context = context;
     }
 
-    List<Users> usersList = new();
-    public async Task<List<Users>> GetUsers()
+    
+    public async Task<Users> GetUserByEmail(string email)
     {
-        if (usersList?.Count > 0)
-            return usersList;
-
-        // TODO: update url for users data
-        var url = "https://tobedetermined.com";
-
-        var response = await httpClient.GetAsync(url);
-
-        if (response.IsSuccessStatusCode)
+        var dbContext = await _context.CreateDbContextAsync();
+        Users user = null;
+        try 
         {
-            usersList = await response.Content.ReadFromJsonAsync<List<Users>>();
+            using (dbContext) 
+            {
+                user = dbContext.Users.FirstOrDefault(u => u.Email == email);
+            }
         }
-
-        return usersList;
+        catch (Exception ex)
+        { 
+        }
+        return user;
     }
 }
