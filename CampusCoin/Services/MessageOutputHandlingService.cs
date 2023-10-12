@@ -20,7 +20,9 @@ namespace CampusCoin.Services
         /// </summary>
         /// <param name="errors"></param>
         /// <returns></returns>
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
         public async Task OutputValidationErrorsToUser(IEnumerable<ValidationResult> errors)
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
         {
             // convert the errors to a list and then for each error, display an alert to the user
             errors.ToList().ForEach(async error => await App.Current.MainPage.DisplayAlert("Error", error.ErrorMessage, "OK")); 

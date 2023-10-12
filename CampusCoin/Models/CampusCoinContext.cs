@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace ShellMixedSample.Models;
+namespace CampusCoin.Models;
 
 public partial class CampusCoinContext : DbContext
 {
@@ -21,12 +21,30 @@ public partial class CampusCoinContext : DbContext
         {
             entity.HasKey(e => e.UserId).HasName("PK__Users__1788CC4CDAD8C5E8");
 
+            entity.Property(e => e.Email)
+                .IsRequired()
+                .HasMaxLength(50);
+
             entity.Property(e => e.Password)
                 .IsRequired()
                 .HasMaxLength(50);
-            entity.Property(e => e.Username)
+
+
+            entity.Property(e => e.PhoneNumber)
+                .IsRequired()
+                .HasMaxLength(10);
+
+
+            entity.Property(e => e.FirstName)
                 .IsRequired()
                 .HasMaxLength(50);
+
+
+
+            entity.Property(e => e.LastName)
+                .IsRequired()
+                .HasMaxLength(50);
+
         });
 
         OnModelCreatingPartial(modelBuilder);

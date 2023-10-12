@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CampusCoin.Views.GraphTestPage"
+             xmlns:viewmodel="clr-namespace:CampusCoin.ViewModels"
+             xmlns:maui="clr-namespace:LiveChartsCore.SkiaSharpView.Maui;assembly=LiveChartsCore.SkiaSharpView.Maui"
+             x:DataType="viewmodel:GraphTestPageViewModel"
+             Title="GraphTestPage" >
+    <ContentPage.Content>
+        <Grid >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+            <HorizontalStackLayout>
+                <Label Text="Graph Test Page" Grid.Row="0" FontSize="20" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />
+                <Switch   HorizontalOptions="End" VerticalOptions="CenterAndExpand" />
+            </HorizontalStackLayout>
+           
+            <maui:CartesianChart Grid.Row="1" 
+                Series="{Binding Series}" ZoomMode="Both">
+            </maui:CartesianChart>
+        </Grid>
+
+    
+    </ContentPage.Content>
+
+</ContentPage>

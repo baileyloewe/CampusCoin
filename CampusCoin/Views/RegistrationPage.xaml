@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:CampusCoin.ViewModels"
+             x:Class="CampusCoin.Views.RegistrationPage"
+             Title="RegistrationPage">
+    <ContentPage.BindingContext>
+        <viewModels:RegistrationPageViewModel />
+    </ContentPage.BindingContext>
+    <ScrollView>
+        <VerticalStackLayout 
+        Spacing="25" 
+        Padding="30,0" 
+        VerticalOptions="Center">
+            <Label 
+            Text="{Binding Title}"
+            SemanticProperties.HeadingLevel="Level1"
+            FontSize="32"
+            HorizontalOptions="Center" />
+
+            <Label 
+            Text="{Binding Description}"
+            SemanticProperties.HeadingLevel="Level2"
+            SemanticProperties.Description="Create a CampusCoin Account"
+            FontSize="18"
+            HorizontalOptions="Center" />
+
+            <Entry x:Name="Email"
+            Placeholder="Enter your email" />
+
+
+            <Entry x:Name="Password"
+            Placeholder="Enter your password" />
+
+
+            <Entry x:Name="ConfirmPassword"
+            Placeholder="Re-enter your password" />
+
+
+            <Entry x:Name="FirstName"
+            Placeholder="Enter your First Name" />
+
+
+            <Entry x:Name="LastName"
+            Placeholder="Enter your First Name" />
+
+
+            <Entry x:Name="PhoneNumber"
+            Placeholder="Enter your Phone Number" />
+
+            <Button 
+            x:Name="Submit"
+            Text="{Binding SubmitText}"
+            SemanticProperties.Hint="Submit's your information to be registered"
+            Command="{Binding SubmitCommand}"
+            HorizontalOptions="Center" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

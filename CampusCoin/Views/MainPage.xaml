@@ -15,12 +15,20 @@
                 SemanticProperties.HeadingLevel="Level1"
                 FontSize="32"
                 HorizontalOptions="Center" />
+
+          <Label 
+                Text="Welcome to CampusCoin"
+                SemanticProperties.HeadingLevel="Level2"
+                SemanticProperties.Description="Welcome to CampusCoin Template"
+                FontSize="18"
+                HorizontalOptions="Center" />
+          
             <Button 
                 x:Name="LoginBtn"
                 Text="Login"
                 SemanticProperties.Hint="Redirects to the login page"
                 Command="{Binding RouteToLoginPageCommand}"
-                HorizontalOptions="Center" />
+
             <Button 
                 x:Name="SignUpBtn"
                 Text="Sign Up"
