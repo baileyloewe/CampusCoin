@@ -1,23 +1,15 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Mail;
-using System.Net;
-using System.Text;
+﻿using System.Net.Mail;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using CampusCoin.Models;
 
+namespace CampusCoin.Models;
 
-namespace ShellMixedSample.Models
-{
-    // This class handles the registration page data (which is the purpose of model classes) It performs input validation for the registration page VM and View & creates users once all validate properly
-    internal class RegistrationPage
+// This class handles the registration page data (which is the purpose of model classes) It performs input validation for the registration page VM and View & creates users once all validate properly
+internal class Registration
     {
         public CampusCoinContext _dbContext;
 
-        public RegistrationPage(CampusCoinContext dbContext)
+        public Registration(CampusCoinContext dbContext)
         {
             _dbContext = dbContext;
         }
@@ -102,4 +94,4 @@ namespace ShellMixedSample.Models
         }
 
     }
-}
+
