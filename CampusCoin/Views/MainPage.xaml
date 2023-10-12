@@ -34,7 +34,6 @@
                 Text="Registration"
                 SemanticProperties.Hint="Redirects to the login page"
                 Command="{Binding RouteToRegistrationPageCommand}"/>
-                Command="{Binding RouteToLoginPageCommand}"></Button>
 
             <Button 
                 x:Name="SignUpBtn"

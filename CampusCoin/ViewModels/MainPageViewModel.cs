@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using CampusCoin.Models;
 using CampusCoin.Services;
 using Microsoft.EntityFrameworkCore;
+using CampusCoin.Views;
 
 namespace CampusCoin.ViewModels
 {

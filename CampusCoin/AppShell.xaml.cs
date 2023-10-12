@@ -1,4 +1,5 @@
-﻿using ShellMixedSample.Views;
+﻿using CampusCoin.Views;
+
 
 namespace CampusCoin;
 

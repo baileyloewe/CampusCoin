@@ -1,6 +1,8 @@
-using ShellMixedSample.ViewModels;
 
-namespace ShellMixedSample.Views;
+
+using CampusCoin.ViewModels;
+
+namespace CampusCoin.Views;
 
 public partial class LoginPage : ContentPage
 {
