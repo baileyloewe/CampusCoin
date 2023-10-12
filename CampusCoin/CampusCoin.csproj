@@ -49,6 +49,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Remove="Services\Interface1.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <None Remove="Resources\Fonts\fa_solid.ttf" />
 	</ItemGroup>
 
@@ -78,7 +82,9 @@
   <MauiXaml Update="Views\GraphTestPage.xaml">
     <Generator>MSBuild:Compile</Generator>
   </MauiXaml>
+  <MauiXaml Update="Views\LoginPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	</MauiXaml>
 </ItemGroup>
-
 
 </Project>

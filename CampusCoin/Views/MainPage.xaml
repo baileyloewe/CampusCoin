@@ -11,22 +11,28 @@
             Padding="30,0" 
             VerticalOptions="Center">
             <Label 
-                Text="Hello, World!"
+                Text="Campu$Coin"
                 SemanticProperties.HeadingLevel="Level1"
                 FontSize="32"
                 HorizontalOptions="Center" />
-            
-            <Label 
+
+          <Label 
                 Text="Welcome to CampusCoin"
                 SemanticProperties.HeadingLevel="Level2"
                 SemanticProperties.Description="Welcome to CampusCoin Template"
                 FontSize="18"
                 HorizontalOptions="Center" />
+          
+            <Button 
+                x:Name="LoginBtn"
+                Text="Login"
+                SemanticProperties.Hint="Redirects to the login page"
+                Command="{Binding RouteToLoginPageCommand}"
 
             <Button 
-                x:Name="CounterBtn"
-                Text="{Binding CounterText}"
-                SemanticProperties.Hint="Counts the number of times you click"
+                x:Name="SignUpBtn"
+                Text="Sign Up"
+                SemanticProperties.Hint="Redirects to the account registration page"
                 Command="{Binding IncrementCountCommand}"
                 HorizontalOptions="Center" />
             <Button 
