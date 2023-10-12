@@ -4,7 +4,8 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-
+using CampusCoin.Models;
+using CampusCoin.Views;
 namespace CampusCoin.ViewModels;
 
 public partial class LoginPageViewModel : ObservableObject
