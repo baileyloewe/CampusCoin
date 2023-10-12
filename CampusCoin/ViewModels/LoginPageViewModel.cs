@@ -4,8 +4,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using CampusCoin.Models;
-using CampusCoin.Views;
+
 namespace CampusCoin.ViewModels;
 
 public partial class LoginPageViewModel : ObservableObject
@@ -18,7 +17,7 @@ public partial class LoginPageViewModel : ObservableObject
     string title;
 
     [ObservableProperty]
-    string username;
+    string email;
 
     [ObservableProperty]
     string password;
@@ -75,7 +74,7 @@ public partial class LoginPageViewModel : ObservableObject
 
             Console.WriteLine($"Bug");
             var potentialUser = new Users();
-            potentialUser.Username = Username;
+            potentialUser.Email = Email;
             potentialUser.Password = Password;
 
         }
@@ -83,7 +82,7 @@ public partial class LoginPageViewModel : ObservableObject
         {
             Debug.WriteLine(ex);
             await Shell.Current.DisplayAlert("Error!",
-                $"Incorrect Username and Password Combination: {ex.Message}", "OK");
+                $"Incorrect Email and Password Combination: {ex.Message}", "OK");
         }
         finally 
         { 

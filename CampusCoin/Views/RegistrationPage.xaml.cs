@@ -1,10 +1,12 @@
-using CommunityToolkit.Mvvm.Input;
-using CommunityToolkit.Mvvm.ComponentModel;
-using System.Windows.Input;
+using CampusCoin.ViewModels;
 
-namespace CampusCoin.ViewModels;
+namespace CampusCoin.Views;
 
-internal class NoteViewModel : ObservableObject
+public partial class RegistrationPage : ContentPage
 {
-    
+    public RegistrationPage(RegistrationPageViewModel vm)
+    {
+        InitializeComponent();
+        BindingContext = vm;
+    }
 }

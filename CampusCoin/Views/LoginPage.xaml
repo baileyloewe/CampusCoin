@@ -34,7 +34,7 @@
                 HorizontalOptions="CenterAndExpand">
                 <Entry 
                     x:Name="txtUserName"                      
-                    Text="{Binding Username}"                                         
+                    Text="{Binding Email}"                                         
                     Placeholder="Username:"                      
                     TextColor="Black"                      
                     FontAttributes="Bold"                     
@@ -83,7 +83,7 @@
                     Margin="0,60,0,0"
                     Padding="0">
                     <Label 
-                        Text="New User?"
+                        Text="New User? "
                         TextColor="DarkGray"/>
                     <Label
                         Text="Sign Up"
