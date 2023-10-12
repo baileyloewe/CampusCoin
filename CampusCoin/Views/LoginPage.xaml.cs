@@ -1,5 +1,3 @@
-
-
 using CampusCoin.ViewModels;
 
 namespace CampusCoin.Views;
