@@ -4,6 +4,9 @@ using CampusCoin.ViewModels;
 using CampusCoin.Views;
 using Microsoft.EntityFrameworkCore;
 using ShellMixedSample.Models;
+using ShellMixedSample.Services;
+using ShellMixedSample.ViewModels;
+using ShellMixedSample.Views;
 
 namespace CampusCoin;
 
@@ -39,6 +42,7 @@ public static class MauiProgram
     public static MauiAppBuilder RegisterViewModels(this MauiAppBuilder mauiAppBuilder)
     {
         mauiAppBuilder.Services.AddSingleton<MainPageViewModel>();
+        mauiAppBuilder.Services.AddTransient<LoginPageViewModel>();
 
         return mauiAppBuilder;
     }
@@ -48,6 +52,7 @@ public static class MauiProgram
         mauiAppBuilder
             .Services
             .AddSingleton<MainPage>();
+        mauiAppBuilder.Services.AddTransient<LoginPage>();
 
         return mauiAppBuilder;
     }
@@ -57,6 +62,7 @@ public static class MauiProgram
         mauiAppBuilder
             .Services
             .AddSingleton<IMessageOutputHandlingService, MessageOutputHandlingService>();
+        mauiAppBuilder.Services.AddSingleton<LoginService>();
         return mauiAppBuilder;
     }
 

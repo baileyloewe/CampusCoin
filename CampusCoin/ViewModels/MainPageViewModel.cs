@@ -10,6 +10,8 @@ using CampusCoin.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
 using ShellMixedSample.Models;
+using ShellMixedSample.Views;
+using CampusCoin.Views;
 
 namespace CampusCoin.ViewModels
 {
@@ -84,6 +86,16 @@ namespace CampusCoin.ViewModels
 
 
         }
+        /// <summary>
+        /// Routes to login page
+        /// </summary>
+        /// <returns></returns>
+        [RelayCommand]
+        public async Task RouteToLoginPage()
+        {
+            await Shell.Current.GoToAsync(nameof(LoginPage));
+        }
+
         private string GetCounterText()
         {
             return Count switch
