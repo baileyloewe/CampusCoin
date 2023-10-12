@@ -77,8 +77,9 @@ public static class MauiProgram
             .AddSingleton<IMessageOutputHandlingService, MessageOutputHandlingService>();
 
         mauiAppBuilder.Services.AddSingleton<LoginService>();
+        mauiAppBuilder.Services.AddSingleton<RegistrationService>();
 
-    
+
 
         return mauiAppBuilder;
     }
