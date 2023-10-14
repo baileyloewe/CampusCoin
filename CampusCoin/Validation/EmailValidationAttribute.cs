@@ -8,6 +8,10 @@ using System.Threading.Tasks;
 
 namespace CampusCoin.Validation
 {
+
+    /// <summary>
+    /// Validates that the email address is in a valid format, uses a regex pattern to validate
+    /// </summary>
     public class EmailValidationAttribute : ValidationAttribute
     {
         private readonly string _emailRegexPattern = @"^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,6}$";

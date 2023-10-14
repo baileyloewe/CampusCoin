@@ -39,27 +39,27 @@ public partial class LoginPageViewModel : ObservableObject
         if (IsBusy)
             return;
 
-        try
-        {
-            IsBusy = true;
-            var users = await loginService.GetUsers();
+        //try
+        //{
+        //    IsBusy = true;
+        //    var users = await loginService.GetUserByEmail("temp");
 
-            if (UsersCollection.Count != 0)
-                UsersCollection.Clear();
+        //    if (UsersCollection.Count != 0)
+        //        UsersCollection.Clear();
 
-            foreach (var user in users)
-                UsersCollection.Add(user);
-        }
-        catch(Exception ex)
-        {
-            Debug.WriteLine(ex);
-            await Shell.Current.DisplayAlert("Error!",
-                $"Unable to get users: {ex.Message}" , "OK");
-        }
-        finally
-        {
-            IsBusy = false;
-        }
+        //    foreach (var user in users)
+        //        UsersCollection.Add(user);
+        //}
+        //catch(Exception ex)
+        //{
+        //    Debug.WriteLine(ex);
+        //    await Shell.Current.DisplayAlert("Error!",
+        //        $"Unable to get users: {ex.Message}" , "OK");
+        //}
+        //finally
+        //{
+        //    IsBusy = false;
+        //}
     }
 
     [RelayCommand]
