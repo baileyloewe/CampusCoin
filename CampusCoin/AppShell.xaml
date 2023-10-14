@@ -71,7 +71,7 @@
     <!-- Main Sections -->
     <FlyoutItem FlyoutItemIsVisible="False">
         <Tab Title="Log In Page" Icon="{StaticResource IconLogin }">
-            <ShellContent Title="Dashboard" ContentTemplate="{DataTemplate views:MainPage}" Route="LogInPage" />
+            <ShellContent ContentTemplate="{DataTemplate views:MainPage}" Route="LogInPage" />
         </Tab>
     </FlyoutItem>
 
