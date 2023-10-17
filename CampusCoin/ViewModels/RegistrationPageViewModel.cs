@@ -34,7 +34,7 @@ public partial class RegistrationPageViewModel : ObservableObject
 
     public bool IsNotBusy => !IsBusy;
 
-RegistrationService registrationService;
+    RegistrationService registrationService;
 
     public ObservableCollection<Users> UsersCollection { get; } = new();
 
@@ -106,18 +106,17 @@ RegistrationService registrationService;
             await GetUsersAsync();
 
 
-            if (!UserExistsWithEmail(potentialUser)) 
-            { 
+            if (!UserExistsWithEmail(potentialUser))
+            {
                 potentialUser.Email = Email;
                 potentialUser.Password = Password;
                 potentialUser.PhoneNumber = Phonenumber;
                 potentialUser.FirstName = Firstname;
                 potentialUser.LastName = Lastname;
-                
+
 
                 await registrationService.RegisterUser(potentialUser);
-                System.Diagnostics.Debug.WriteLine("Test3");
-                
+
 
                 // Change pages (likely not to main page but to the page post login and authetication)
                 // Pass the user to the page (likely not potential user but instead the user from DB including userID # for pulling data from DB)

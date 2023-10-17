@@ -1,6 +1,5 @@
 ﻿using CampusCoin.Views;
 
-
 namespace CampusCoin;
 
 public partial class AppShell : Shell
