@@ -25,51 +25,57 @@
                 FontSize="32"
                 FontAttributes="Bold"
                 Padding="0"
-                Margin="0"
+                Margin="-5"
                 HorizontalOptions="Center"/>
 
             <StackLayout 
                 Grid.Row="2" 
                 Orientation="Vertical" 
-                HorizontalOptions="CenterAndExpand">
+                HorizontalOptions="Center">
                 <Entry 
-                    x:Name="txtUserName"                      
-                    Text="{Binding Email}"                                         
-                    Placeholder="Username:"                      
-                    TextColor="Black"                      
-                    FontAttributes="Bold"                     
+                    x:Name="txtEmail" 
+                    Background="#512BD4"
+                    Text="{Binding Email}" 
+                    Placeholder="Email:"                                                      
                     VerticalOptions="Center"                      
                     HorizontalOptions="Fill"                       
                     Margin="0,0,20,10"/>
                 <Entry 
                     x:Name="txtPassword"
+                    Background="#512BD4"
                     Text="{Binding Password}"
                     Placeholder="Password:"
                     VerticalOptions="Center" 
                     HorizontalOptions="Fill" 
+                    IsPassword="True"
                     Margin="0,0,20,10"/>
-                <StackLayout 
-                    Orientation="Horizontal" 
-                    Margin="0,10,0,0" 
-                    Padding="0">
-                    <CheckBox IsChecked="False"/>
-                    <Label
-                        Text="Remember Me"
-                        TextColor="DarkGray"
-                        VerticalTextAlignment="Center"
-                        HorizontalTextAlignment="Center"/>
-                    <Label
-                        Text="Forgot Password"
-                        TextColor="Blue"
-                        FontAttributes="Bold"
-                        VerticalTextAlignment="Center"
-                        HorizontalTextAlignment="Center"
-                        HorizontalOptions="EndAndExpand"
-                        Margin="50,0,0,0"/>
-                </StackLayout>
+                <Entry 
+                    x:Name="txtPhonenumber"
+                    Background="#512BD4"
+                    Text="{Binding Phonenumber}"
+                    Placeholder="Phone number:"
+                    VerticalOptions="Center" 
+                    HorizontalOptions="Fill" 
+                    Margin="0,0,20,10"/>    
+                <Entry 
+                    x:Name="txtFirstname"
+                    Background="#512BD4"
+                    Text="{Binding Firstname}"
+                    Placeholder="First name:"
+                    VerticalOptions="Center" 
+                    HorizontalOptions="Fill" 
+                    Margin="0,0,20,10"/>
+                <Entry 
+                    x:Name="txtLastname"
+                    Background="#512BD4"
+                    Text="{Binding Lastname}"
+                    Placeholder="Last name:"
+                    VerticalOptions="Center" 
+                    HorizontalOptions="Fill" 
+                    Margin="0,0,20,10"/>
                 <Button
                     x:Name="AttemptRegistrationBtn"
-                    Text="Registration"
+                    Text="Create My Account"
                     SemanticProperties.Hint="Register"
                     HorizontalOptions="Center"
                     FontAttributes="Bold"
@@ -77,19 +83,6 @@
                     Margin="0,15,0,0"
                     IsEnabled="True"
                     Command="{Binding RegistrationCommand}"/>
-                <StackLayout 
-                    Orientation="Horizontal"
-                    HorizontalOptions="CenterAndExpand"
-                    Margin="0,60,0,0"
-                    Padding="0">
-                    <Label 
-                        Text="New User? "
-                        TextColor="DarkGray"/>
-                    <Label
-                        Text="Sign Up"
-                        TextColor="Blue"
-                        FontAttributes="Bold"/>
-                </StackLayout>
             </StackLayout>
         </Grid>
     </VerticalStackLayout>
