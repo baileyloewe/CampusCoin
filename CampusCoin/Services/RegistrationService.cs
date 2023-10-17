@@ -1,32 +1,32 @@
 using System.Net.Http.Json;
 using CampusCoin.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace CampusCoin.Services;
 
 public class RegistrationService
 {
-    HttpClient httpClient;
-    public RegistrationService()
+    private IDbContextFactory<CampusCoinContext> _context;
+    public DbSet<Users> UsersList { get; set; }
+    public string DbPath { get; }
+
+
+    public RegistrationService(IDbContextFactory<CampusCoinContext> context)
     {
-        httpClient = new HttpClient();
+        _context = context;
     }
 
     List<Users> usersList = new();
     public async Task<List<Users>> GetUsers()
     {
-        if (usersList?.Count > 0)
-            return usersList;
+        var dbContext = await _context.CreateDbContextAsync();
+        return await dbContext.Users.ToListAsync();
+    }
 
-        // TODO: update url for users data
-        var url = "https://tobedetermined.com";
-
-        var response = await httpClient.GetAsync(url);
-
-        if (response.IsSuccessStatusCode)
-        {
-            usersList = await response.Content.ReadFromJsonAsync<List<Users>>();
-        }
-
-        return usersList;
+    public async Task RegisterUser(Users user)
+    {
+        var dbContext = await _context.CreateDbContextAsync();
+        dbContext.Users.Add(user);
+        dbContext.SaveChanges();
     }
 }

@@ -4,6 +4,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using CampusCoin.Views;
 
 namespace CampusCoin.ViewModels;
 
@@ -14,7 +15,7 @@ public partial class RegistrationPageViewModel : ObservableObject
     bool isBusy;
 
     [ObservableProperty]
-    string title;
+    private string title;
 
     [ObservableProperty]
     string email;
@@ -22,9 +23,18 @@ public partial class RegistrationPageViewModel : ObservableObject
     [ObservableProperty]
     string password;
 
+    [ObservableProperty]
+    string phonenumber;
+
+    [ObservableProperty]
+    string firstname;
+
+    [ObservableProperty]
+    string lastname;
+
     public bool IsNotBusy => !IsBusy;
 
-    RegistrationService registrationService;
+RegistrationService registrationService;
 
     public ObservableCollection<Users> UsersCollection { get; } = new();
 
@@ -36,13 +46,10 @@ public partial class RegistrationPageViewModel : ObservableObject
     [RelayCommand]
     async Task GetUsersAsync()
     {
-        if (IsBusy)
-            return;
-
         try
         {
-            IsBusy = true;
             var users = await registrationService.GetUsers();
+            System.Diagnostics.Debug.WriteLine("users[0]:", users[0]);
 
             if (UsersCollection.Count != 0)
                 UsersCollection.Clear();
@@ -58,8 +65,33 @@ public partial class RegistrationPageViewModel : ObservableObject
         }
         finally
         {
-            IsBusy = false;
         }
+    }
+
+    private Boolean UserExistsWithEmail(Users potentialUser)
+    {
+        try
+        {
+            foreach (var user in UsersCollection)
+            {
+                System.Diagnostics.Debug.WriteLine("Here");
+                System.Diagnostics.Debug.WriteLine(user.Email);
+                if (user.Email == potentialUser.Email)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+        }
+        return true;
     }
 
     [RelayCommand]
@@ -67,16 +99,34 @@ public partial class RegistrationPageViewModel : ObservableObject
     {
         if (IsBusy)
             return;
-
         try
         {
-            IsBusy= true;
-
-            Console.WriteLine($"Bug");
+            IsBusy = true;
             var potentialUser = new Users();
-            potentialUser.Email = Email;
-            potentialUser.Password = Password;
+            await GetUsersAsync();
 
+
+            if (!UserExistsWithEmail(potentialUser)) 
+            { 
+                potentialUser.Email = Email;
+                potentialUser.Password = Password;
+                potentialUser.PhoneNumber = Phonenumber;
+                potentialUser.FirstName = Firstname;
+                potentialUser.LastName = Lastname;
+                
+
+                await registrationService.RegisterUser(potentialUser);
+                System.Diagnostics.Debug.WriteLine("Test3");
+                
+
+                // Change pages (likely not to main page but to the page post login and authetication)
+                // Pass the user to the page (likely not potential user but instead the user from DB including userID # for pulling data from DB)
+                await Shell.Current.GoToAsync($"{nameof(MainPage)}?User={potentialUser}",
+                    new Dictionary<string, object>
+                    {
+                        {nameof(MainPage), new object() }
+                    });
+            }
         }
         catch (Exception ex)
         {
