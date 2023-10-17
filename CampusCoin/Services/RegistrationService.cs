@@ -7,7 +7,6 @@ namespace CampusCoin.Services;
 public class RegistrationService
 {
     private IDbContextFactory<CampusCoinContext> _context;
-    public DbSet<Users> UsersList { get; set; }
     public string DbPath { get; }
 
 
@@ -16,7 +15,6 @@ public class RegistrationService
         _context = context;
     }
 
-    List<Users> usersList = new();
     public async Task<List<Users>> GetUsers()
     {
         var dbContext = await _context.CreateDbContextAsync();
