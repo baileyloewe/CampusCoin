@@ -22,10 +22,11 @@
                 Grid.Row="1"
                 Text="Registration"
                 SemanticProperties.HeadingLevel="Level1"
-                FontSize="32"
+                FontSize="40"
+                TextColor="#191144"
                 FontAttributes="Bold"
                 Padding="0"
-                Margin="-5"
+                Margin="-15,-20,0,0"
                 HorizontalOptions="Center"/>
 
             <StackLayout 
@@ -34,16 +35,18 @@
                 HorizontalOptions="Center">
                 <Entry 
                     x:Name="txtEmail" 
-                    Background="#512BD4"
+                    Background="#191144"
                     Text="{Binding Email}" 
+                    TextColor="White"
                     Placeholder="Email:"                                                      
                     VerticalOptions="Center"                      
                     HorizontalOptions="Fill"                       
                     Margin="0,0,20,10"/>
                 <Entry 
                     x:Name="txtPassword"
-                    Background="#512BD4"
+                    Background="#191144"
                     Text="{Binding Password}"
+                    TextColor="White"
                     Placeholder="Password:"
                     VerticalOptions="Center" 
                     HorizontalOptions="Fill" 
@@ -51,24 +54,27 @@
                     Margin="0,0,20,10"/>
                 <Entry 
                     x:Name="txtPhonenumber"
-                    Background="#512BD4"
+                    Background="#191144"
                     Text="{Binding Phonenumber}"
+                    TextColor="White"
                     Placeholder="Phone number:"
                     VerticalOptions="Center" 
                     HorizontalOptions="Fill" 
                     Margin="0,0,20,10"/>    
                 <Entry 
                     x:Name="txtFirstname"
-                    Background="#512BD4"
+                    Background="#191144"
                     Text="{Binding Firstname}"
+                    TextColor="White"
                     Placeholder="First name:"
                     VerticalOptions="Center" 
                     HorizontalOptions="Fill" 
                     Margin="0,0,20,10"/>
                 <Entry 
                     x:Name="txtLastname"
-                    Background="#512BD4"
+                    Background="#191144"
                     Text="{Binding Lastname}"
+                    TextColor="White"
                     Placeholder="Last name:"
                     VerticalOptions="Center" 
                     HorizontalOptions="Fill" 
@@ -80,9 +86,14 @@
                     HorizontalOptions="Center"
                     FontAttributes="Bold"
                     WidthRequest="200"
-                    Margin="0,15,0,0"
+                    Margin="-15,15,0,0"
                     IsEnabled="True"
                     Command="{Binding RegistrationCommand}"/>
+
+                <Label 
+                    Text="{Binding ErrorText}"
+                    TextColor="DarkRed" 
+                    Margin="15,0,0,0"/>
             </StackLayout>
         </Grid>
     </VerticalStackLayout>
