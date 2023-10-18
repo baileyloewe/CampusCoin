@@ -10,7 +10,7 @@ namespace CampusCoin.Validation
 {
 
     /// <summary>
-    /// Validates that the First name is in a valid format, uses a regex pattern to validate
+    /// Validates that the first name is in a valid format, uses a regex pattern to validate
     /// </summary>
     public class FirstnameValidationAttribute : ValidationAttribute
     {
@@ -20,7 +20,7 @@ namespace CampusCoin.Validation
         {
             if (value == null)
             {
-                return new ValidationResult("Firstname is required");
+                return new ValidationResult("First name is required");
             }
 
             string firstname = value.ToString();
