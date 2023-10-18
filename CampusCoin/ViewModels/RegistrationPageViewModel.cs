@@ -5,6 +5,7 @@ using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using CampusCoin.Views;
+using System.Collections.Generic;
 
 namespace CampusCoin.ViewModels;
 
@@ -31,6 +32,12 @@ public partial class RegistrationPageViewModel : ObservableObject
 
     [ObservableProperty]
     string lastname;
+
+    [ObservableProperty]
+    string errorText;
+
+    [ObservableProperty]
+    List<String> errorList;
 
     public bool IsNotBusy => !IsBusy;
 
@@ -67,12 +74,12 @@ public partial class RegistrationPageViewModel : ObservableObject
         }
     }
 
-
     [RelayCommand]
     async Task Registration()
     {
         if (IsBusy)
             return;
+        ErrorText = "";
         try
         {
             IsBusy = true;
@@ -94,7 +101,6 @@ public partial class RegistrationPageViewModel : ObservableObject
                 {
                     {nameof(MainPage), new object() }
                 });
-
         }
         catch (Exception ex)
         {
