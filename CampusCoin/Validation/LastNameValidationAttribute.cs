@@ -10,24 +10,24 @@ namespace CampusCoin.Validation
 {
 
     /// <summary>
-    /// Validates that the email address is in a valid format, uses a regex pattern to validate
+    /// Validates that the last name is in a valid format, uses a regex pattern to validate
     /// </summary>
-    public class EmailValidationAttribute : ValidationAttribute
+    public class LastnameValidationAttribute : ValidationAttribute
     {
-        private readonly string _emailRegexPattern = @"^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,6}$";
+        private readonly string _lastnameRegexPattern = @"^.+$";
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             if (value == null)
             {
-                return new ValidationResult("Email address is required");
+                return new ValidationResult("Last name is required");
             }
 
-            string email = value.ToString();
+            string lastname = value.ToString();
 
-            if (!Regex.IsMatch(email, _emailRegexPattern))
+            if (!Regex.IsMatch(lastname, _lastnameRegexPattern))
             {
-                return new ValidationResult("Invalid email address format");
+                return new ValidationResult("Last name must contain at least one character");
             }
 
             return ValidationResult.Success;

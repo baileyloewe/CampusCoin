@@ -10,7 +10,7 @@ namespace CampusCoin.Validation
 {
 
     /// <summary>
-    /// Validates that the Password address is in a valid format, uses a regex pattern to validate
+    /// Validates that the password is in a valid format, uses a regex pattern to validate
     /// </summary>
     public class PasswordValidationAttribute : ValidationAttribute
     {
