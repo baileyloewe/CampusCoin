@@ -5,6 +5,7 @@ using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using CampusCoin.Views;
+using System.Collections.Generic;
 
 namespace CampusCoin.ViewModels;
 
@@ -32,6 +33,12 @@ public partial class RegistrationPageViewModel : ObservableObject
     [ObservableProperty]
     string lastname;
 
+    [ObservableProperty]
+    string errorText;
+
+    [ObservableProperty]
+    List<String> errorList;
+
     public bool IsNotBusy => !IsBusy;
 
     RegistrationService registrationService;
@@ -49,7 +56,6 @@ public partial class RegistrationPageViewModel : ObservableObject
         try
         {
             var users = await registrationService.GetUsers();
-            System.Diagnostics.Debug.WriteLine("users[0]:", users[0]);
 
             if (UsersCollection.Count != 0)
                 UsersCollection.Clear();
@@ -68,56 +74,29 @@ public partial class RegistrationPageViewModel : ObservableObject
         }
     }
 
-    private Boolean UserExistsWithEmail(Users potentialUser)
-    {
-        try
-        {
-            foreach (var user in UsersCollection)
-            {
-                System.Diagnostics.Debug.WriteLine("Here");
-                System.Diagnostics.Debug.WriteLine(user.Email);
-                if (user.Email == potentialUser.Email)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-
-        }
-        catch (Exception ex)
-        {
-            Debug.WriteLine(ex);
-        }
-        return true;
-    }
-
     [RelayCommand]
     async Task Registration()
     {
         if (IsBusy)
             return;
+        ErrorText = "";
         try
         {
             IsBusy = true;
             var potentialUser = new Users();
             await GetUsersAsync();
 
+            potentialUser.Email = Email;
+            potentialUser.Password = Password;
+            potentialUser.PhoneNumber = Phonenumber;
+            potentialUser.FirstName = Firstname;
+            potentialUser.LastName = Lastname;
 
-            if (!UserExistsWithEmail(potentialUser))
+            ErrorList = registrationService.ValidateUserInput(potentialUser);
+
+            if (ErrorList.Count == 0)
             {
-                potentialUser.Email = Email;
-                potentialUser.Password = Password;
-                potentialUser.PhoneNumber = Phonenumber;
-                potentialUser.FirstName = Firstname;
-                potentialUser.LastName = Lastname;
-
-
                 await registrationService.RegisterUser(potentialUser);
-
-
                 // Change pages (likely not to main page but to the page post login and authetication)
                 // Pass the user to the page (likely not potential user but instead the user from DB including userID # for pulling data from DB)
                 await Shell.Current.GoToAsync($"{nameof(MainPage)}?User={potentialUser}",
@@ -126,6 +105,12 @@ public partial class RegistrationPageViewModel : ObservableObject
                         {nameof(MainPage), new object() }
                     });
             }
+            else
+            {
+                foreach (var error in ErrorList) { ErrorText += error + "\n";}
+                ErrorList.Clear();
+            }
+
         }
         catch (Exception ex)
         {
