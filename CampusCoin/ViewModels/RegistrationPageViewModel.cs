@@ -85,32 +85,22 @@ public partial class RegistrationPageViewModel : ObservableObject
             IsBusy = true;
             var potentialUser = new Users();
             await GetUsersAsync();
-
+        
             potentialUser.Email = Email;
             potentialUser.Password = Password;
             potentialUser.PhoneNumber = Phonenumber;
             potentialUser.FirstName = Firstname;
             potentialUser.LastName = Lastname;
 
-            ErrorList = registrationService.ValidateUserInput(potentialUser);
+            await registrationService.RegisterUser(potentialUser);
 
-            if (ErrorList.Count == 0)
-            {
-                await registrationService.RegisterUser(potentialUser);
-                // Change pages (likely not to main page but to the page post login and authetication)
-                // Pass the user to the page (likely not potential user but instead the user from DB including userID # for pulling data from DB)
-                await Shell.Current.GoToAsync($"{nameof(MainPage)}?User={potentialUser}",
-                    new Dictionary<string, object>
-                    {
-                        {nameof(MainPage), new object() }
-                    });
-            }
-            else
-            {
-                foreach (var error in ErrorList) { ErrorText += error + "\n";}
-                ErrorList.Clear();
-            }
-
+            // Change pages to main page
+            // Pass the user to the page (likely not potential user but instead the user from DB including userID # for pulling data from DB)
+            await Shell.Current.GoToAsync($"{nameof(MainPage)}?User={potentialUser}",
+                new Dictionary<string, object>
+                {
+                    {nameof(MainPage), new object() }
+                });
         }
         catch (Exception ex)
         {
