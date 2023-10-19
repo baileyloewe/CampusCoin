@@ -22,74 +22,73 @@
                 Grid.Row="1"
                 Text="Registration"
                 SemanticProperties.HeadingLevel="Level1"
-                FontSize="32"
+                FontSize="40"
+                TextColor="#191144"
                 FontAttributes="Bold"
                 Padding="0"
-                Margin="0"
+                Margin="-15,-20,0,0"
                 HorizontalOptions="Center"/>
 
             <StackLayout 
                 Grid.Row="2" 
                 Orientation="Vertical" 
-                HorizontalOptions="CenterAndExpand">
+                HorizontalOptions="Center">
                 <Entry 
-                    x:Name="txtUserName"                      
-                    Text="{Binding Email}"                                         
-                    Placeholder="Username:"                      
-                    TextColor="Black"                      
-                    FontAttributes="Bold"                     
+                    x:Name="txtEmail" 
+                    Background="#191144"
+                    Text="{Binding Email}" 
+                    TextColor="White"
+                    Placeholder="Email:"                                                      
                     VerticalOptions="Center"                      
                     HorizontalOptions="Fill"                       
                     Margin="0,0,20,10"/>
                 <Entry 
                     x:Name="txtPassword"
+                    Background="#191144"
                     Text="{Binding Password}"
+                    TextColor="White"
                     Placeholder="Password:"
                     VerticalOptions="Center" 
                     HorizontalOptions="Fill" 
+                    IsPassword="True"
                     Margin="0,0,20,10"/>
-                <StackLayout 
-                    Orientation="Horizontal" 
-                    Margin="0,10,0,0" 
-                    Padding="0">
-                    <CheckBox IsChecked="False"/>
-                    <Label
-                        Text="Remember Me"
-                        TextColor="DarkGray"
-                        VerticalTextAlignment="Center"
-                        HorizontalTextAlignment="Center"/>
-                    <Label
-                        Text="Forgot Password"
-                        TextColor="Blue"
-                        FontAttributes="Bold"
-                        VerticalTextAlignment="Center"
-                        HorizontalTextAlignment="Center"
-                        HorizontalOptions="EndAndExpand"
-                        Margin="50,0,0,0"/>
-                </StackLayout>
+                <Entry 
+                    x:Name="txtPhonenumber"
+                    Background="#191144"
+                    Text="{Binding Phonenumber}"
+                    TextColor="White"
+                    Placeholder="Phone number:"
+                    VerticalOptions="Center" 
+                    HorizontalOptions="Fill" 
+                    Margin="0,0,20,10"/>    
+                <Entry 
+                    x:Name="txtFirstname"
+                    Background="#191144"
+                    Text="{Binding Firstname}"
+                    TextColor="White"
+                    Placeholder="First name:"
+                    VerticalOptions="Center" 
+                    HorizontalOptions="Fill" 
+                    Margin="0,0,20,10"/>
+                <Entry 
+                    x:Name="txtLastname"
+                    Background="#191144"
+                    Text="{Binding Lastname}"
+                    TextColor="White"
+                    Placeholder="Last name:"
+                    VerticalOptions="Center" 
+                    HorizontalOptions="Fill" 
+                    Margin="0,0,20,10"/>
                 <Button
                     x:Name="AttemptRegistrationBtn"
-                    Text="Registration"
+                    Text="Create My Account"
                     SemanticProperties.Hint="Register"
                     HorizontalOptions="Center"
                     FontAttributes="Bold"
                     WidthRequest="200"
-                    Margin="0,15,0,0"
+                    Margin="-15,15,0,0"
                     IsEnabled="True"
                     Command="{Binding RegistrationCommand}"/>
-                <StackLayout 
-                    Orientation="Horizontal"
-                    HorizontalOptions="CenterAndExpand"
-                    Margin="0,60,0,0"
-                    Padding="0">
-                    <Label 
-                        Text="New User? "
-                        TextColor="DarkGray"/>
-                    <Label
-                        Text="Sign Up"
-                        TextColor="Blue"
-                        FontAttributes="Bold"/>
-                </StackLayout>
             </StackLayout>
         </Grid>
     </VerticalStackLayout>

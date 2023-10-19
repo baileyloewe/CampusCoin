@@ -4,23 +4,49 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using CampusCoin.Views;
+using System.Collections.Generic;
+using CampusCoin.Validation;
 
 namespace CampusCoin.ViewModels;
 
-public partial class RegistrationPageViewModel : ObservableObject
+public partial class RegistrationPageViewModel : ObservableValidator
 {
+
+    private readonly IMessageOutputHandlingService _messageOutputHandlingService;
+
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(IsNotBusy))]
     bool isBusy;
 
     [ObservableProperty]
-    string title;
+    private string title;
 
+    [EmailValidation]
     [ObservableProperty]
     string email;
 
+    [PasswordValidation]
     [ObservableProperty]
     string password;
+
+    [PhoneNumberValidation]
+    [ObservableProperty]
+    string phonenumber;
+
+    [FirstnameValidation]
+    [ObservableProperty]
+    string firstname;
+
+    [LastnameValidation]
+    [ObservableProperty]
+    string lastname;
+
+    [ObservableProperty]
+    string errorText;
+
+    [ObservableProperty]
+    List<String> errorList;
 
     public bool IsNotBusy => !IsBusy;
 
@@ -28,20 +54,17 @@ public partial class RegistrationPageViewModel : ObservableObject
 
     public ObservableCollection<Users> UsersCollection { get; } = new();
 
-    public RegistrationPageViewModel(RegistrationService registrationService)
+    public RegistrationPageViewModel(RegistrationService registrationService, IMessageOutputHandlingService messageOutputHandlingService)
     {
         this.registrationService = registrationService;
+        _messageOutputHandlingService=messageOutputHandlingService;
     }
 
     [RelayCommand]
     async Task GetUsersAsync()
     {
-        if (IsBusy)
-            return;
-
         try
         {
-            IsBusy = true;
             var users = await registrationService.GetUsers();
 
             if (UsersCollection.Count != 0)
@@ -58,7 +81,6 @@ public partial class RegistrationPageViewModel : ObservableObject
         }
         finally
         {
-            IsBusy = false;
         }
     }
 
@@ -67,16 +89,36 @@ public partial class RegistrationPageViewModel : ObservableObject
     {
         if (IsBusy)
             return;
-
+        ErrorText = "";
         try
         {
-            IsBusy= true;
-
-            Console.WriteLine($"Bug");
+            IsBusy = true;
             var potentialUser = new Users();
+            await GetUsersAsync();
+        
             potentialUser.Email = Email;
             potentialUser.Password = Password;
+            potentialUser.PhoneNumber = Phonenumber;
+            potentialUser.FirstName = Firstname;
+            potentialUser.LastName = Lastname;
 
+            ValidateAllProperties();
+            if (!HasErrors)
+            {
+                await registrationService.RegisterUser(potentialUser);
+
+                // Change pages to main page
+                // Pass the user to the page (likely not potential user but instead the user from DB including userID # for pulling data from DB)
+                await Shell.Current.GoToAsync($"{nameof(MainPage)}?User={potentialUser}",
+                    new Dictionary<string, object>
+                    {
+                    {nameof(MainPage), new object() }
+                    });
+            }
+            else
+            {
+                await _messageOutputHandlingService.OutputValidationErrorsToUser(GetErrors());
+            }
         }
         catch (Exception ex)
         {

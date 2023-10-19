@@ -33,7 +33,7 @@
                 Orientation="Vertical" 
                 HorizontalOptions="CenterAndExpand">
                 <Entry 
-                    x:Name="txtUserName"                      
+                    x:Name="txtEmail"                      
                     Text="{Binding Email}"                                         
                     Placeholder="Email:"                      
                     TextColor="Black"                      
@@ -70,7 +70,7 @@
                 <Button
                     x:Name="AttemptLoginBtn"
                     Text="Login"
-                    SemanticProperties.Hint="Login with username and password if account exists"
+                    SemanticProperties.Hint="Login with email and password if account exists"
                     HorizontalOptions="Center"
                     FontAttributes="Bold"
                     WidthRequest="200"

@@ -1,32 +1,37 @@
+using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Net.Http.Json;
+using System.Net.Mail;
 using CampusCoin.Models;
+using CampusCoin.ViewModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace CampusCoin.Services;
 
 public class RegistrationService
 {
-    HttpClient httpClient;
-    public RegistrationService()
+    private IDbContextFactory<CampusCoinContext> _context;
+    public string DbPath { get; }
+    public ObservableCollection<Users> UsersCollection { get; } = new();
+    List<Users> usersList = new();
+
+    public RegistrationService(IDbContextFactory<CampusCoinContext> context)
     {
-        httpClient = new HttpClient();
+        _context = context;
     }
 
-    List<Users> usersList = new();
     public async Task<List<Users>> GetUsers()
     {
-        if (usersList?.Count > 0)
-            return usersList;
 
-        // TODO: update url for users data
-        var url = "https://tobedetermined.com";
-
-        var response = await httpClient.GetAsync(url);
-
-        if (response.IsSuccessStatusCode)
-        {
-            usersList = await response.Content.ReadFromJsonAsync<List<Users>>();
-        }
-
+        var dbContext = await _context.CreateDbContextAsync();
+        usersList = await dbContext.Users.ToListAsync();
         return usersList;
+    }
+
+    public async Task RegisterUser(Users user)
+    {
+        var dbContext = await _context.CreateDbContextAsync();
+        dbContext.Users.Add(user);
+        dbContext.SaveChanges();
     }
 }

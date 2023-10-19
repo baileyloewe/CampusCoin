@@ -3,61 +3,100 @@
     x:Class="CampusCoin.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:CampusCoin" 
+    xmlns:local="clr-namespace:CampusCoin"
     xmlns:views="clr-namespace:CampusCoin.Views"
-    Shell.FlyoutBehavior="Flyout">
+    xmlns:viewModels="clr-namespace:CampusCoin.ViewModels"
+    Shell.FlyoutBehavior="Flyout"
+    xmlns:resources="clr-namespace:CampusCoin.Resources">
 
-    <FlyoutItem Title="Flyout One" FlyoutIcon="{StaticResource IconOne}">
-        <ShellContent
-            Title="One"
-            ContentTemplate="{DataTemplate views:MainPage}"
-            Route="OnePage" />
-    </FlyoutItem>
-    <FlyoutItem Title="Flyout Two" FlyoutIcon="{StaticResource IconTwo}">
-        
-            <Tab Title="Tab 1" Icon="{StaticResource IconOne}">
-                <ShellContent
-                Title="One"
-                ContentTemplate="{DataTemplate views:MainPage}"
-                Route="OnePage" />
-            </Tab>
-            <Tab Title="Tab 2" Icon="{StaticResource IconTwo}">
-                <ShellContent
-                Title="Two"
-                ContentTemplate="{DataTemplate views:MainPage}"
-                Route="TwoPage" />
-            </Tab>
-            <Tab Title="Tab 3" Icon="{StaticResource IconThree}">
-                <ShellContent
-                Title="Three"
-                ContentTemplate="{DataTemplate views:MainPage}"
-                Route="ThreePage" />
-            </Tab>
-            <Tab Title="Tab 4" Icon="{StaticResource IconFour}">
-                <ShellContent
-                Title="Four"
-                ContentTemplate="{DataTemplate views:MainPage}"
-                Route="FourPage" />
-            </Tab>
-        <Tab Title="Tab 5" Icon="{StaticResource IconGraph}">
-            <ShellContent
-                Title="Graph Test"
-                ContentTemplate="{DataTemplate views:GraphTestPage}"
-                Route="FivePage" />
+    <Shell.FlyoutBackground>
+        <LinearGradientBrush StartPoint="0,0"
+                             EndPoint="1,1">
+            <GradientStop Color="{StaticResource White}"
+                          Offset="0.7" />
+            <GradientStop Color="{StaticResource Primary}"
+                          Offset="1.0" />
+        </LinearGradientBrush>
+    </Shell.FlyoutBackground>
+
+    <Shell.FlyoutHeader>
+        <StackLayout>
+
+
+            <Image Grid.Column="1" Grid.Row="1" Source="CampusCoinLogo2.png" Aspect="Fill" VerticalOptions="Start" HorizontalOptions="Center" HeightRequest="200" WidthRequest="200" />
+
+            <Frame BorderColor="Black"  HasShadow="True" Margin="10">
+                <Frame.Padding>
+                    <OnPlatform x:TypeArguments="Thickness" Default="2,2,2,2" />
+                </Frame.Padding>
+                <HorizontalStackLayout BackgroundColor="{StaticResource White}">
+                    <Image HeightRequest="35" WidthRequest="35" Margin="20,0,0,0" >
+                        <Image.Source>
+                            <FontImageSource FontFamily="FontAwesome" Glyph="{x:Static resources:IconFont.UserCircle }"
+                                             Size="80" Color="{StaticResource Primary}" />
+                        </Image.Source>
+                    </Image>
+
+                    <!-- Username -->
+                    <Label Grid.Column="1" Text="Username Placeholder" VerticalOptions="Center" FontSize="Small" Margin="10,10,10,10" />
+                </HorizontalStackLayout>
+            </Frame>
+        </StackLayout>
+    </Shell.FlyoutHeader>
+
+    <Shell.FlyoutFooter>
+        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+
+            <Frame BorderColor="{StaticResource Primary}" Padding="10" Margin="10" CornerRadius="30" HeightRequest="60" WidthRequest="60" HorizontalOptions="StartAndExpand" VerticalOptions="Center" BackgroundColor="#7FFFFFFF">
+                <ImageButton Command="{Binding NavigateToSettingsCommand}" BackgroundColor="Transparent">
+                    <ImageButton.Source>
+                        <FontImageSource FontFamily="FontAwesome" Glyph="{x:Static resources:IconFont.Cog}"
+                                         Size="40" Color="{StaticResource Primary}" />
+                    </ImageButton.Source>
+                </ImageButton>
+            </Frame>
+
+
+            <Frame BorderColor="{StaticResource Primary}" Padding="10" Margin="10" HeightRequest="60" WidthRequest="60" CornerRadius="30" HorizontalOptions="EndAndExpand" VerticalOptions="Center" BackgroundColor="#7FFFFFFF">
+                <ImageButton BackgroundColor="Transparent" Command="{Binding NavigateToSettingsCommand}">
+                    <ImageButton.Source>
+                        <FontImageSource FontFamily="FontAwesome" Glyph="{x:Static resources:IconFont.SignOutAlt}"
+                                         Size="40" Color="{StaticResource Primary}" />
+                    </ImageButton.Source>
+                </ImageButton>
+            </Frame>
+
+        </StackLayout>
+    </Shell.FlyoutFooter>
+    <!-- Main Sections -->
+    <FlyoutItem FlyoutItemIsVisible="False">
+        <Tab Title="Log In Page" Icon="{StaticResource IconLogin }">
+            <ShellContent ContentTemplate="{DataTemplate views:MainPage}" Route="LogInPage" />
         </Tab>
-
-    </FlyoutItem>
-    <FlyoutItem Title="Flyout Three" FlyoutIcon="{StaticResource IconThree}">
-        <ShellContent
-            Title="Three"
-            ContentTemplate="{DataTemplate views:MainPage}"
-            Route="ThreePage" />
-    </FlyoutItem>
-    <FlyoutItem Title="Flyout Four" FlyoutIcon="{StaticResource IconFour}">
-        <ShellContent
-            Title="Four"
-            ContentTemplate="{DataTemplate views:MainPage}"
-            Route="FourPage" />
     </FlyoutItem>
 
+    <!-- Tabbed Section -->
+    <FlyoutItem Title="Tabbed Section">
+        <Tab Title="Tab 1" Icon="{StaticResource IconOne}">
+            <ShellContent Title="Tab One" ContentTemplate="{DataTemplate views:GraphTestPage}" Route="TabOnePage" />
+        </Tab>
+        <Tab Title="Tab 2" Icon="{StaticResource IconTwo}">
+            <ShellContent Title="Tab Two" ContentTemplate="{DataTemplate views:LoginPage}" Route="TabTwoPage" />
+        </Tab>
+        <Tab Title="Tab 3" Icon="{StaticResource IconThree}">
+            <ShellContent Title="Tab Three" ContentTemplate="{DataTemplate views:GraphTestPage}" Route="TabThreePage" />
+        </Tab>
+        <Tab Title="Tab 4" Icon="{StaticResource IconFour}">
+            <ShellContent Title="Tab Four" ContentTemplate="{DataTemplate views:LoginPage}" Route="TabFourPage" />
+        </Tab>
+        <Tab Title="Tab 5" Icon="{StaticResource IconGraph}">
+            <ShellContent Title="Graph Test" ContentTemplate="{DataTemplate views:GraphTestPage}" Route="GraphTestPage" />
+        </Tab>
+    </FlyoutItem>
+
+    <!-- Additional Sections -->
+    <FlyoutItem Title="Additional Sections">
+        <ShellContent Title="Section Three" ContentTemplate="{DataTemplate views:MainPage}" Route="AdditionalOnePage" />
+        <ShellContent Title="Section Four" ContentTemplate="{DataTemplate views:MainPage}" Route="AdditionalTwoPage" />
+    </FlyoutItem>
 </Shell>

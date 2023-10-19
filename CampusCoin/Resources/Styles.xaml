@@ -30,6 +30,30 @@
                FontFamily="FontAwesome"
                Color ="{StaticResource Primary}"
                Glyph="{x:Static resources:IconFont.ChartArea }"/>
+    // dashboard icons
+    <FontImage x:Key="IconDashboard"
+               FontFamily="FontAwesome"
+               Color ="{StaticResource Primary}"
+               Glyph="{x:Static resources:IconFont.ChartArea }"/>
+    <FontImage x:Key="IconWallet"
+                FontFamily="FontAwesome"
+                Color ="{StaticResource Primary}"
+                Glyph="{x:Static resources:IconFont.Wallet }"/>
+    // money icon
+    <FontImage x:Key="IconMoney"
+                FontFamily="FontAwesome"
+                Color ="{StaticResource Primary}"
+                Glyph="{x:Static resources:IconFont.Coins }"/>
+    // log in icon
+    <FontImage x:Key="IconLogin"
+                FontFamily="FontAwesome"
+                Color ="{StaticResource Primary}"
+                Glyph="{x:Static resources:IconFont.SignInAlt }"/>
+    //profile picture
+    <FontImage x:Key="IconProfile"
+                FontFamily="FontAwesome"
+                Color ="{StaticResource Primary}"
+                Glyph="{x:Static resources:IconFont.User }"/>
 
     <Style TargetType="ActivityIndicator">
         <Setter Property="Color" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
@@ -131,10 +155,11 @@
         <Setter Property="FontFamily" Value="OpenSansRegular"/>
         <Setter Property="FontSize" Value="14" />
         <Setter Property="PlaceholderColor" Value="{AppThemeBinding Light={StaticResource LightGray}, Dark={StaticResource DarkGray}}" />
-        <Setter Property="VisualStateManager.VisualStateGroups">
+            <Setter Property="VisualStateManager.VisualStateGroups">
             <VisualStateGroupList>
                 <VisualStateGroup x:Name="CommonStates">
-                    <VisualState x:Name="Normal" />
+                    <VisualState x:Name="Normal" >
+                    </VisualState>
                     <VisualState x:Name="Disabled">
                         <VisualState.Setters>
                             <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LightGray}, Dark={StaticResource DarkGray}}" />
