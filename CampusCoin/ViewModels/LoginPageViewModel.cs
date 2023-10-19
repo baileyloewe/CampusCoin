@@ -5,11 +5,14 @@ using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using CampusCoin.Views;
+using CampusCoin.Validation;
 
 namespace CampusCoin.ViewModels;
 
-public partial class LoginPageViewModel : ObservableObject
+public partial class LoginPageViewModel : ObservableValidator
 {
+    private readonly IMessageOutputHandlingService _messageOutputHandlingService;
+
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(IsNotBusy))]
     bool isBusy;
@@ -17,9 +20,11 @@ public partial class LoginPageViewModel : ObservableObject
     [ObservableProperty]
     string title;
 
+    [EmailValidation]
     [ObservableProperty]
     string email;
 
+    //[PasswordValidation]
     [ObservableProperty]
     string password;
 
@@ -27,9 +32,10 @@ public partial class LoginPageViewModel : ObservableObject
 
     LoginService loginService;
 
-    public LoginPageViewModel(LoginService loginService)
+    public LoginPageViewModel(LoginService loginService, IMessageOutputHandlingService messageOutputHandlingService)
     {
         this.loginService = loginService;
+        _messageOutputHandlingService = messageOutputHandlingService;
     }
 
     [RelayCommand]
@@ -70,14 +76,27 @@ public partial class LoginPageViewModel : ObservableObject
             potentialUser.Email = Email;
             potentialUser.Password = Password;
 
-            Users matchedUser = await loginService.GetUserByEmail(Email);
+            ValidateAllProperties();
+            if (!HasErrors)
+            {
+                Users matchedUser = await loginService.GetUserByEmail(Email);
 
-            if (Password!= matchedUser.Password)
-                await Shell.Current.DisplayAlert("Error", "Invalid Password", "OK");
+                if (matchedUser == null)
+                {
+                    await Shell.Current.DisplayAlert("Error", "Email not registered", "OK");
+                    return;
+                }
+                if (potentialUser.Password != matchedUser.Password)
+                    await Shell.Current.DisplayAlert("Error", "Invalid Password", "OK");
 
+                else
+                    // Temporary route to potential post-login view
+                    await Shell.Current.GoToAsync(nameof(GraphTestPage));
+            }
             else
-                // Temporary route to potential post-login view
-                await Shell.Current.GoToAsync(nameof(GraphTestPage));
+            {
+                await _messageOutputHandlingService.OutputValidationErrorsToUser(GetErrors());
+            }
         }
         catch(Exception ex ) 
         {
