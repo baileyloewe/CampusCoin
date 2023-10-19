@@ -4,6 +4,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using CampusCoin.Views;
 
 namespace CampusCoin.ViewModels;
 
@@ -26,40 +27,33 @@ public partial class LoginPageViewModel : ObservableObject
 
     LoginService loginService;
 
-    public ObservableCollection<Users> UsersCollection { get; } = new();
-
     public LoginPageViewModel(LoginService loginService)
     {
         this.loginService = loginService;
     }
 
     [RelayCommand]
-    async Task GetUsersAsync()
+    async Task GetUserByEmailAsync()
     {
         if (IsBusy)
             return;
 
-        //try
-        //{
-        //    IsBusy = true;
-        //    var users = await loginService.GetUserByEmail("temp");
-
-        //    if (UsersCollection.Count != 0)
-        //        UsersCollection.Clear();
-
-        //    foreach (var user in users)
-        //        UsersCollection.Add(user);
-        //}
-        //catch(Exception ex)
-        //{
-        //    Debug.WriteLine(ex);
-        //    await Shell.Current.DisplayAlert("Error!",
-        //        $"Unable to get users: {ex.Message}" , "OK");
-        //}
-        //finally
-        //{
-        //    IsBusy = false;
-        //}
+        try
+        {
+            IsBusy = true;
+            var user = await loginService.GetUserByEmail(Email);
+    
+        }
+        catch(Exception ex)
+        {
+            Debug.WriteLine(ex);
+            await Shell.Current.DisplayAlert("Error!",
+                $"Unable to get users: {ex.Message}" , "OK");
+        }
+        finally
+        {
+            IsBusy = false;
+        }
     }
 
     [RelayCommand]
@@ -72,17 +66,24 @@ public partial class LoginPageViewModel : ObservableObject
         {
             IsBusy= true;
 
-            Console.WriteLine($"Bug");
             var potentialUser = new Users();
             potentialUser.Email = Email;
             potentialUser.Password = Password;
 
+            Users matchedUser = await loginService.GetUserByEmail(Email);
+
+            if (Password!= matchedUser.Password)
+                await Shell.Current.DisplayAlert("Error", "Invalid Password", "OK");
+
+            else
+                // Temporary route to potential post-login view
+                await Shell.Current.GoToAsync(nameof(GraphTestPage));
         }
         catch(Exception ex ) 
         {
             Debug.WriteLine(ex);
-            await Shell.Current.DisplayAlert("Error!",
-                $"Incorrect Email and Password Combination: {ex.Message}", "OK");
+            await Shell.Current.DisplayAlert("Error",
+                $"Invalid email", "OK");
         }
         finally 
         { 

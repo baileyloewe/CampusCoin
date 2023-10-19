@@ -37,13 +37,6 @@
                 Command="{Binding RouteToRegistrationPageCommand}"/>
 
             <Button 
-                x:Name="SignUpBtn"
-                Text="Sign Up"
-                SemanticProperties.Hint="Redirects to the account registration page"
-                Command="{Binding IncrementCountCommand}"
-                HorizontalOptions="Center" />
-            
-            <Button 
                 x:Name="DatabaseTestBtn"
                 Text="Test database connection"
                 SemanticProperties.Hint="Test connection"

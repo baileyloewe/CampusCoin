@@ -11,6 +11,9 @@ public partial class Users
 
     [Required]
     [StringLength(50)]
+
+    [Required]
+    [StringLength(50)]
     public string Email { get; set; }
 
     [Required]

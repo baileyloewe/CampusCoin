@@ -1,5 +1,7 @@
+using System.Diagnostics;
 using System.Net.Http.Json;
 using CampusCoin.Models;
+using CampusCoin.Views;
 using Microsoft.EntityFrameworkCore;
 
 namespace CampusCoin.Services;
@@ -25,7 +27,10 @@ public class LoginService
             }
         }
         catch (Exception ex)
-        { 
+        {
+            Debug.WriteLine(ex);
+            await Shell.Current.DisplayAlert("Error!",
+                $"Unable to find user: {ex.Message}", "OK");
         }
         return user;
     }
