@@ -30,5 +30,4 @@ public partial class Users
 
     [Required]
     public string Salt { get; set; }
-
 }
