@@ -49,9 +49,6 @@ public partial class LoginPageViewModel : ObservableValidator
         try
         {
             IsBusy= true;
-            var potentialUser = new Users();
-            potentialUser.Email = Email;
-            potentialUser.Password = Password;
 
             ValidateAllProperties();
             if (!HasErrors)
@@ -63,8 +60,8 @@ public partial class LoginPageViewModel : ObservableValidator
                     await Shell.Current.DisplayAlert("Error", "Email not registered", "OK");
                     return;
                 }
-                if (potentialUser.Password != matchedUser.Password)
-                    await Shell.Current.DisplayAlert("Error", "Invalid Password", "OK");
+                if (SaltHash.HashPassword(Password, matchedUser.Salt) != matchedUser.Password)
+                    await Shell.Current.DisplayAlert("Error", "Incorrect Password", "OK");
 
                 else
                     // Temporary route to potential post-login view

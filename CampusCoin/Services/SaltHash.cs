@@ -11,12 +11,6 @@ namespace CampusCoin.Services;
 
 public class SaltHash
 {
-    private IDbContextFactory<CampusCoinContext> _context;
-    public SaltHash(IDbContextFactory<CampusCoinContext> context)
-    {
-        _context = context;
-    }
-
     public static string GenerateSalt()
     {
         byte[] salt = new byte[32];
