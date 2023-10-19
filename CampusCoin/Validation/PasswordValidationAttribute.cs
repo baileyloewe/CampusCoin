@@ -20,7 +20,7 @@ namespace CampusCoin.Validation
         {
             if (value == null)
             {
-                return new ValidationResult("Password address is required");
+                return new ValidationResult("Password is required");
             }
 
             string password = value.ToString();

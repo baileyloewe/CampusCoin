@@ -89,11 +89,6 @@
                     Margin="-15,15,0,0"
                     IsEnabled="True"
                     Command="{Binding RegistrationCommand}"/>
-
-                <Label 
-                    Text="{Binding ErrorText}"
-                    TextColor="DarkRed" 
-                    Margin="15,0,0,0"/>
             </StackLayout>
         </Grid>
     </VerticalStackLayout>

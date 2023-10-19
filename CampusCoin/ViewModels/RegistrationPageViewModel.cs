@@ -6,11 +6,15 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using CampusCoin.Views;
 using System.Collections.Generic;
+using CampusCoin.Validation;
 
 namespace CampusCoin.ViewModels;
 
-public partial class RegistrationPageViewModel : ObservableObject
+public partial class RegistrationPageViewModel : ObservableValidator
 {
+
+    private readonly IMessageOutputHandlingService _messageOutputHandlingService;
+
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(IsNotBusy))]
     bool isBusy;
@@ -18,18 +22,23 @@ public partial class RegistrationPageViewModel : ObservableObject
     [ObservableProperty]
     private string title;
 
+    [EmailValidation]
     [ObservableProperty]
     string email;
 
+    [PasswordValidation]
     [ObservableProperty]
     string password;
 
+    [PhoneNumberValidation]
     [ObservableProperty]
     string phonenumber;
 
+    [FirstnameValidation]
     [ObservableProperty]
     string firstname;
 
+    [LastnameValidation]
     [ObservableProperty]
     string lastname;
 
@@ -45,9 +54,10 @@ public partial class RegistrationPageViewModel : ObservableObject
 
     public ObservableCollection<Users> UsersCollection { get; } = new();
 
-    public RegistrationPageViewModel(RegistrationService registrationService)
+    public RegistrationPageViewModel(RegistrationService registrationService, IMessageOutputHandlingService messageOutputHandlingService)
     {
         this.registrationService = registrationService;
+        _messageOutputHandlingService=messageOutputHandlingService;
     }
 
     [RelayCommand]
@@ -92,15 +102,23 @@ public partial class RegistrationPageViewModel : ObservableObject
             potentialUser.FirstName = Firstname;
             potentialUser.LastName = Lastname;
 
-            await registrationService.RegisterUser(potentialUser);
+            ValidateAllProperties();
+            if (!HasErrors)
+            {
+                await registrationService.RegisterUser(potentialUser);
 
-            // Change pages to main page
-            // Pass the user to the page (likely not potential user but instead the user from DB including userID # for pulling data from DB)
-            await Shell.Current.GoToAsync($"{nameof(MainPage)}?User={potentialUser}",
-                new Dictionary<string, object>
-                {
+                // Change pages to main page
+                // Pass the user to the page (likely not potential user but instead the user from DB including userID # for pulling data from DB)
+                await Shell.Current.GoToAsync($"{nameof(MainPage)}?User={potentialUser}",
+                    new Dictionary<string, object>
+                    {
                     {nameof(MainPage), new object() }
-                });
+                    });
+            }
+            else
+            {
+                await _messageOutputHandlingService.OutputValidationErrorsToUser(GetErrors());
+            }
         }
         catch (Exception ex)
         {
