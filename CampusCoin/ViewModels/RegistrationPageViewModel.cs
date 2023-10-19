@@ -97,7 +97,8 @@ public partial class RegistrationPageViewModel : ObservableValidator
             await GetUsersAsync();
         
             potentialUser.Email = Email;
-            potentialUser.Password = Password;
+            potentialUser.Salt = SaltHash.GenerateSalt();
+            potentialUser.Password = SaltHash.HashPassword(Password, potentialUser.Salt);
             potentialUser.PhoneNumber = Phonenumber;
             potentialUser.FirstName = Firstname;
             potentialUser.LastName = Lastname;

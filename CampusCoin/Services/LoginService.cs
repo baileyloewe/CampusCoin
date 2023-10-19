@@ -1,6 +1,7 @@
 using System.Net.Http.Json;
 using CampusCoin.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
 
 namespace CampusCoin.Services;
 
@@ -12,7 +13,6 @@ public class LoginService
         _context = context;
     }
 
-    
     public async Task<Users> GetUserByEmail(string email)
     {
         var dbContext = await _context.CreateDbContextAsync();
@@ -25,7 +25,8 @@ public class LoginService
             }
         }
         catch (Exception ex)
-        { 
+        {
+            Debug.WriteLine(ex);
         }
         return user;
     }
