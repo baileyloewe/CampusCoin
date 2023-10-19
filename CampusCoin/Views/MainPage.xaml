@@ -28,20 +28,22 @@
                 x:Name="LoginBtn"
                 Text="Login"
                 SemanticProperties.Hint="Redirects to the login page"
-                Command="{Binding RouteToLoginPageCommand}"/>
+                Command="{Binding RouteToLoginPageCommand}"
+                HorizontalOptions="Center"/>
 
             <Button 
                 x:Name="RegistrationBtn"
                 Text="Registration"
                 SemanticProperties.Hint="Redirects to the login page"
-                Command="{Binding RouteToRegistrationPageCommand}"/>
+                Command="{Binding RouteToRegistrationPageCommand}"
+                HorizontalOptions="Center"/>
 
             <Button 
                 x:Name="DatabaseTestBtn"
                 Text="Test database connection"
                 SemanticProperties.Hint="Test connection"
                 Command="{Binding CheckDatabaseConnectionCommand}"
-                HorizontalOptions="Center" />   
+                HorizontalOptions="Center"/>   
         </VerticalStackLayout>
     </ScrollView>
  
