@@ -32,37 +32,15 @@ public partial class LoginPageViewModel : ObservableValidator
 
     LoginService loginService;
 
+    public ObservableCollection<Users> UsersCollection { get; } = new();
+
+    Users user;
+
     public LoginPageViewModel(LoginService loginService, IMessageOutputHandlingService messageOutputHandlingService)
     {
         this.loginService = loginService;
         _messageOutputHandlingService = messageOutputHandlingService;
     }
-
-    [RelayCommand]
-    async Task GetUserByEmailAsync()
-    {
-        if (IsBusy)
-            return;
-
-        try
-        {
-            IsBusy = true;
-            var user = await loginService.GetUserByEmail(Email);
-    
-        }
-        catch(Exception ex)
-        {
-            Debug.WriteLine(ex);
-            await Shell.Current.DisplayAlert("Error!",
-                $"Unable to get users: {ex.Message}" , "OK");
-        }
-        finally
-        {
-            IsBusy = false;
-        }
-    }
-
-    [RelayCommand]
     async Task Login()
     {
         if (IsBusy)
@@ -71,7 +49,6 @@ public partial class LoginPageViewModel : ObservableValidator
         try
         {
             IsBusy= true;
-
             var potentialUser = new Users();
             potentialUser.Email = Email;
             potentialUser.Password = Password;

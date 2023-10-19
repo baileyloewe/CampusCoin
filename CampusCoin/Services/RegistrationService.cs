@@ -6,6 +6,7 @@ using CampusCoin.Models;
 using CampusCoin.ViewModels;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace CampusCoin.Services;
 
 public class RegistrationService
@@ -22,7 +23,6 @@ public class RegistrationService
 
     public async Task<List<Users>> GetUsers()
     {
-
         var dbContext = await _context.CreateDbContextAsync();
         usersList = await dbContext.Users.ToListAsync();
         return usersList;

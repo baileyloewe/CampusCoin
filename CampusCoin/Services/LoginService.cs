@@ -3,6 +3,7 @@ using System.Net.Http.Json;
 using CampusCoin.Models;
 using CampusCoin.Views;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
 
 namespace CampusCoin.Services;
 
@@ -14,7 +15,6 @@ public class LoginService
         _context = context;
     }
 
-    
     public async Task<Users> GetUserByEmail(string email)
     {
         var dbContext = await _context.CreateDbContextAsync();
@@ -29,8 +29,6 @@ public class LoginService
         catch (Exception ex)
         {
             Debug.WriteLine(ex);
-            await Shell.Current.DisplayAlert("Error!",
-                $"Unable to find user: {ex.Message}", "OK");
         }
         return user;
     }
