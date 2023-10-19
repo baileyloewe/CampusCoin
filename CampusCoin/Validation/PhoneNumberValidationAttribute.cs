@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CampusCoin.Services;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -29,7 +30,6 @@ namespace CampusCoin.Validation
             {
                 return new ValidationResult("Invalid phone number format, phone number must be 10 or more characters and only contain digits");
             }
-
             return ValidationResult.Success;
         }
     }

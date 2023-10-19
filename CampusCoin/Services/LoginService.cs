@@ -1,7 +1,5 @@
 using System.Diagnostics;
-using System.Net.Http.Json;
 using CampusCoin.Models;
-using CampusCoin.Views;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
@@ -9,7 +7,7 @@ namespace CampusCoin.Services;
 
 public class LoginService
 {
-    private IDbContextFactory<CampusCoinContext> _context; 
+    private IDbContextFactory<CampusCoinContext> _context;
     public LoginService(IDbContextFactory<CampusCoinContext> context)
     {
         _context = context;
@@ -19,9 +17,9 @@ public class LoginService
     {
         var dbContext = await _context.CreateDbContextAsync();
         Users user = null;
-        try 
+        try
         {
-            using (dbContext) 
+            using (dbContext)
             {
                 user = dbContext.Users.FirstOrDefault(u => u.Email == email);
             }
