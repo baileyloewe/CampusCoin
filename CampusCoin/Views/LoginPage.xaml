@@ -35,7 +35,7 @@
                 <Entry 
                     x:Name="txtUserName"                      
                     Text="{Binding Email}"                                         
-                    Placeholder="Username:"                      
+                    Placeholder="Email:"                      
                     TextColor="Black"                      
                     FontAttributes="Bold"                     
                     VerticalOptions="Center"                      
