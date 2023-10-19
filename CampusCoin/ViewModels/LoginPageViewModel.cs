@@ -5,11 +5,14 @@ using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using CampusCoin.Views;
+using CampusCoin.Validation;
 
 namespace CampusCoin.ViewModels;
 
-public partial class LoginPageViewModel : ObservableObject
+public partial class LoginPageViewModel : ObservableValidator
 {
+    private readonly IMessageOutputHandlingService _messageOutputHandlingService;
+
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(IsNotBusy))]
     bool isBusy;
@@ -17,9 +20,11 @@ public partial class LoginPageViewModel : ObservableObject
     [ObservableProperty]
     string title;
 
+    [EmailValidation]
     [ObservableProperty]
     string email;
 
+    //[PasswordValidation]
     [ObservableProperty]
     string password;
 
@@ -31,12 +36,11 @@ public partial class LoginPageViewModel : ObservableObject
 
     Users user;
 
-    public LoginPageViewModel(LoginService loginService)
+    public LoginPageViewModel(LoginService loginService, IMessageOutputHandlingService messageOutputHandlingService)
     {
         this.loginService = loginService;
+        _messageOutputHandlingService = messageOutputHandlingService;
     }
-
-    [RelayCommand]
     async Task Login()
     {
         if (IsBusy)
@@ -45,26 +49,37 @@ public partial class LoginPageViewModel : ObservableObject
         try
         {
             IsBusy= true;
+            var potentialUser = new Users();
+            potentialUser.Email = Email;
+            potentialUser.Password = Password;
 
-            Console.WriteLine($"Bug");
-            user = await loginService.GetUserByEmail(Email);
-
-            if (user.Password == SaltHash.HashPassword(Password, user.Salt))
+            ValidateAllProperties();
+            if (!HasErrors)
             {
-                // Change pages to main page
-                // Pass the user to the page (likely not user but instead the user from DB including userID # for pulling data from DB)
-                await Shell.Current.GoToAsync($"{nameof(MainPage)}?User={user}",
-                    new Dictionary<string, object>
-                    {
-                    {nameof(MainPage), new object() }
-                    });
+                Users matchedUser = await loginService.GetUserByEmail(Email);
+
+                if (matchedUser == null)
+                {
+                    await Shell.Current.DisplayAlert("Error", "Email not registered", "OK");
+                    return;
+                }
+                if (potentialUser.Password != matchedUser.Password)
+                    await Shell.Current.DisplayAlert("Error", "Invalid Password", "OK");
+
+                else
+                    // Temporary route to potential post-login view
+                    await Shell.Current.GoToAsync(nameof(GraphTestPage));
+            }
+            else
+            {
+                await _messageOutputHandlingService.OutputValidationErrorsToUser(GetErrors());
             }
         }
         catch(Exception ex ) 
         {
             Debug.WriteLine(ex);
-            await Shell.Current.DisplayAlert("Error!",
-                $"Incorrect Email and Password Combination: {ex.Message}", "OK");
+            await Shell.Current.DisplayAlert("Error",
+                $"Invalid email", "OK");
         }
         finally 
         { 

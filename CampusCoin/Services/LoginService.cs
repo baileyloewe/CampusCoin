@@ -1,5 +1,7 @@
+using System.Diagnostics;
 using System.Net.Http.Json;
 using CampusCoin.Models;
+using CampusCoin.Views;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
