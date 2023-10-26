@@ -41,6 +41,8 @@ public partial class LoginPageViewModel : ObservableValidator
         this.loginService = loginService;
         _messageOutputHandlingService = messageOutputHandlingService;
     }
+
+    [RelayCommand]
     async Task Login()
     {
         if (IsBusy)
