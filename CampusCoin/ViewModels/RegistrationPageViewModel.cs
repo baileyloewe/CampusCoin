@@ -109,11 +109,11 @@ public partial class RegistrationPageViewModel : ObservableValidator
                 await registrationService.RegisterUser(potentialUser);
 
                 // Change pages to main page
-                // Pass the user to the page (likely not potential user but instead the user from DB including userID # for pulling data from DB)
-                await Shell.Current.GoToAsync($"{nameof(MainPage)}?User={potentialUser}",
+                // Pass the user to the GraphTestPage (likely not potential user? later but instead the user from DB including userID # for pulling data from DB)
+                await Shell.Current.GoToAsync($"{nameof(GraphTestPage)}?User={potentialUser}",
                     new Dictionary<string, object>
                     {
-                    {nameof(MainPage), new object() }
+                    {nameof(GraphTestPage), new object() }
                     });
             }
             else
@@ -124,8 +124,6 @@ public partial class RegistrationPageViewModel : ObservableValidator
         catch (Exception ex)
         {
             Debug.WriteLine(ex);
-            await Shell.Current.DisplayAlert("Error!",
-                $"Incorrect Email and Password Combination: {ex.Message}", "OK");
         }
         finally
         {
