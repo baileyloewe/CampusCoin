@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CampusCoin.Views.ExpensesPage"
+             Title="ExpensesPage">
+    <VerticalStackLayout
+        HorizontalOptions="Center"
+        Margin="0,200,0,0"
+        WidthRequest="500">
+        <Label
+                Text="Expenses"
+                Margin="0,0,0,50"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="32"
+                FontAttributes="Bold"
+                HorizontalOptions="Center"/>
+        <HorizontalStackLayout 
+            Spacing="50" 
+            HorizontalOptions="CenterAndExpand">
+            <Label
+                Text="Bills"
+                FontSize="20"
+                FontAttributes="Bold"
+                Padding="0,20,0,0"
+                HorizontalOptions="Center"
+                />
+            <Entry
+                x:Name="txtBills"                      
+                Text="{Binding Email}"                                         
+                Placeholder="Amount spent on bills:"                      
+                TextColor="Black"                      
+                FontAttributes="Bold"                     
+                VerticalOptions="Center"                      
+                HorizontalOptions="Fill"
+                Margin="0,20,20,0"/>
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout 
+            Spacing="50" 
+            HorizontalOptions="CenterAndExpand">
+            <Label
+                Text="Food"
+                FontSize="20"
+                FontAttributes="Bold"
+                Padding="0,20,0,0"
+                HorizontalOptions="Center"/>
+            <Entry
+                x:Name="txtFood"                      
+                Text="{Binding Email}"                                         
+                Placeholder="Amount spent on food:"                      
+                TextColor="Black"                      
+                FontAttributes="Bold"                     
+                VerticalOptions="Center"                      
+                HorizontalOptions="Fill"                       
+                Margin="0,20,20,0"/>
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout 
+            Spacing="50"
+            HorizontalOptions="CenterAndExpand">
+            <Label
+                Text="Auto"
+                FontSize="20"
+                FontAttributes="Bold"
+                Padding="0,20,0,0"
+                HorizontalOptions="Center"/>
+            <Entry
+                x:Name="txtAuto"                      
+                Text="{Binding Email}"                                         
+                Placeholder="Amount spent on auto:"                      
+                TextColor="Black"                      
+                FontAttributes="Bold"                     
+                VerticalOptions="Center"                      
+                HorizontalOptions="Fill"                       
+                Margin="0,20,20,0"/>
+        </HorizontalStackLayout>
+        
+        <HorizontalStackLayout 
+            Spacing="50"
+            HorizontalOptions="CenterAndExpand"
+            Margin="0,0,27,0">
+            <Label
+                Text="Entertainment"
+                FontSize="20"
+                FontAttributes="Bold"
+                Padding="0,20,0,0"
+                HorizontalOptions="Center"/>
+            <Entry
+                x:Name="txtEntertainment"                      
+                Text="{Binding Email}"                                         
+                Placeholder="Amount spent on entertainment:"                      
+                TextColor="Black"                      
+                FontAttributes="Bold"                     
+                VerticalOptions="Center"                      
+                HorizontalOptions="Fill"                       
+                Margin="0,20,20,0"/>
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout 
+            Spacing="50"
+            HorizontalOptions="CenterAndExpand"
+            Margin="0,0,25,0">
+            <Label
+                Text="Investments"
+                FontSize="20"
+                FontAttributes="Bold"
+                Padding="0,20,0,0"
+                HorizontalOptions="Center"/>
+            <Entry
+                x:Name="txtInvestments"                      
+                Text="{Binding Email}"                                         
+                Placeholder="Amount spent on investments:"                      
+                TextColor="Black"                      
+                FontAttributes="Bold"                     
+                VerticalOptions="Center"                      
+                HorizontalOptions="Fill"                       
+                Margin="0,20,20,0"/>
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout 
+            Spacing="50"
+            HorizontalOptions="CenterAndExpand">
+            <Label
+                Text="Misc"
+                FontSize="20"
+                FontAttributes="Bold"
+                Padding="0,20,0,0"
+                HorizontalOptions="Center"/>
+            <Entry
+                x:Name="txtMisc"                      
+                Text="{Binding Email}"                                         
+                Placeholder="Amount spent on misc:"                      
+                TextColor="Black"                      
+                FontAttributes="Bold"                     
+                VerticalOptions="Center"                      
+                HorizontalOptions="Fill"                       
+                Margin="0,20,20,0"/>
+        </HorizontalStackLayout>
+    </VerticalStackLayout>
+</ContentPage>

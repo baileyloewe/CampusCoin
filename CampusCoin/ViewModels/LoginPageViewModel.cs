@@ -67,7 +67,7 @@ public partial class LoginPageViewModel : ObservableValidator
 
                 else
                     // Temporary route to potential post-login view
-                    await Shell.Current.GoToAsync(nameof(GraphTestPage));
+                    await Shell.Current.GoToAsync(nameof(ExpensesPage));
             }
             else
             {
