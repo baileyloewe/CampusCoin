@@ -64,10 +64,11 @@ public partial class LoginPageViewModel : ObservableValidator
                 }
                 if (SaltHash.HashPassword(Password, matchedUser.Salt) != matchedUser.Password)
                     await Shell.Current.DisplayAlert("Error", "Incorrect Password", "OK");
-
                 else
-                    // Temporary route to potential post-login view
-                    await Shell.Current.GoToAsync(nameof(ExpensesPage));
+                Email = null;
+                Password = null;
+                // Temporary route to potential post-login view
+                await Shell.Current.GoToAsync(nameof(ExpensesPage));
             }
             else
             {

@@ -83,10 +83,10 @@
                     Margin="0,60,0,0"
                     Padding="0">
                     <Label 
-                        Text="New User? "
+                        Text="New User?"
                         TextColor="DarkGray"/>
                     <Label
-                        Text="Sign Up"
+                        Text=" Sign Up"
                         TextColor="Blue"
                         FontAttributes="Bold"/>
                 </StackLayout>
