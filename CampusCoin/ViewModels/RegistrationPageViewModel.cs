@@ -108,6 +108,12 @@ public partial class RegistrationPageViewModel : ObservableValidator
             {
                 await registrationService.RegisterUser(potentialUser);
 
+                Email = null;
+                Password = null;
+                Phonenumber = null;
+                Firstname = null;
+                Lastname = null;
+
                 // Change pages to main page
                 // Pass the user to the GraphTestPage (likely not potential user? later but instead the user from DB including userID # for pulling data from DB)
                 await Shell.Current.GoToAsync($"{nameof(GraphTestPage)}?User={potentialUser}",
