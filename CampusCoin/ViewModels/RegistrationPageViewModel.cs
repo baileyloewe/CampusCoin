@@ -49,12 +49,16 @@ public partial class RegistrationPageViewModel : ObservableValidator
     private bool isVerificationCodeVisible;
 
     [ObservableProperty]
+    private bool isVerificationCodeBtnVisible;
+
+    [ObservableProperty]
     string errorText;
 
     [ObservableProperty]
     List<String> errorList;
 
     public bool IsNotBusy => !IsBusy;
+    public bool VerificationEntered = false;
 
     RegistrationService registrationService;
     EmailService emailService;
@@ -66,6 +70,7 @@ public partial class RegistrationPageViewModel : ObservableValidator
         this.registrationService = registrationService;
         this.emailService = emailService;
         _messageOutputHandlingService=messageOutputHandlingService;
+        IsVerificationCodeBtnVisible = false;
         IsVerificationCodeVisible = false;
     }
 
@@ -104,7 +109,7 @@ public partial class RegistrationPageViewModel : ObservableValidator
             IsBusy = true;
             var potentialUser = new Users();
             await GetUsersAsync();
-        
+
             potentialUser.Email = Email;
             potentialUser.Salt = SaltHash.GenerateSalt();
             potentialUser.Password = SaltHash.HashPassword(Password, potentialUser.Salt);
@@ -116,13 +121,15 @@ public partial class RegistrationPageViewModel : ObservableValidator
             if (!HasErrors)
             {
                 await emailService.SendVerificationEmail(potentialUser.Email);
-                await App.Current.MainPage.DisplayAlert("Code sent", "Verification Code was sent to: " + potentialUser.Email + "\nPlease allow up to 2 minutes for email to arrive", "OK");
                 IsVerificationCodeVisible = true;
+                IsVerificationCodeBtnVisible = true;
+                await App.Current.MainPage.DisplayAlert("Code sent", "Verification Code was sent to: " + potentialUser.Email + "\nPlease allow up to 3 minutes for code to arrive", "OK");
+
 
                 while (true)
                 {
                     // Wait for the verification code to be entered
-                    while (string.IsNullOrEmpty(Verificationcode))
+                    while (!VerificationEntered)
                     {
                         await Task.Delay(100); // Wait for .1 second before checking again
                     }
@@ -131,7 +138,8 @@ public partial class RegistrationPageViewModel : ObservableValidator
                     {
 
                         await registrationService.RegisterUser(potentialUser);
-
+                        await emailService.SendSuccessEmail(potentialUser.Email);
+                        await App.Current.MainPage.DisplayAlert("Account registered!", "Your account has been successfully registered", "OK");
                         Email = null;
                         Password = null;
                         Phonenumber = null;
@@ -139,6 +147,7 @@ public partial class RegistrationPageViewModel : ObservableValidator
                         Lastname = null;
 
                         IsVerificationCodeVisible = false;
+                        IsVerificationCodeBtnVisible= false;
                         // Change pages to main page
                         // Pass the user to the GraphTestPage (likely not potential user? later but instead the user from DB including userID # for pulling data from DB)
 
@@ -152,6 +161,7 @@ public partial class RegistrationPageViewModel : ObservableValidator
                     {
                         await App.Current.MainPage.DisplayAlert("Error", "Invalid verification code. Please try again.", "OK");
                         Verificationcode = null;
+                        VerificationEntered = false; 
                     }
                 }
             }
@@ -168,5 +178,11 @@ public partial class RegistrationPageViewModel : ObservableValidator
         {
             IsBusy = false;
         }
+    }
+
+    [RelayCommand]
+    private void Verification()
+    {
+        VerificationEntered = true;
     }
 }
