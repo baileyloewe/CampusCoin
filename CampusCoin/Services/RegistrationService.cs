@@ -30,8 +30,8 @@ public class RegistrationService
 
     public async Task RegisterUser(Users user)
     {
-        var dbContext = await _context.CreateDbContextAsync();
-        dbContext.Users.Add(user);
-        dbContext.SaveChanges();
+        var dbContext = await _context.CreateDbContextAsync(); // Create database context
+        dbContext.Users.Add(user); // Add the user to the database
+        dbContext.SaveChanges(); // Save the changes to the database
     }
 }
