@@ -89,6 +89,16 @@
                     Margin="-15,15,0,0"
                     IsEnabled="True"
                     Command="{Binding RegistrationCommand}"/>
+                <Entry 
+                    x:Name="txtVerificationCode"
+                    Background="#191144"
+                    Text="{Binding Verificationcode}"
+                    TextColor="White"
+                    Placeholder="Enter Verification Code:"
+                    VerticalOptions="Center" 
+                    HorizontalOptions="Fill" 
+                    Margin="-10,40,0,0"
+                    IsVisible="{Binding IsVerificationCodeVisible}" />
             </StackLayout>
         </Grid>
     </VerticalStackLayout>

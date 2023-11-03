@@ -43,6 +43,12 @@ public partial class RegistrationPageViewModel : ObservableValidator
     string lastname;
 
     [ObservableProperty]
+    string verificationcode;
+
+    [ObservableProperty]
+    private bool isVerificationCodeVisible;
+
+    [ObservableProperty]
     string errorText;
 
     [ObservableProperty]
@@ -51,13 +57,16 @@ public partial class RegistrationPageViewModel : ObservableValidator
     public bool IsNotBusy => !IsBusy;
 
     RegistrationService registrationService;
+    EmailService emailService;
 
     public ObservableCollection<Users> UsersCollection { get; } = new();
 
-    public RegistrationPageViewModel(RegistrationService registrationService, IMessageOutputHandlingService messageOutputHandlingService)
+    public RegistrationPageViewModel(RegistrationService registrationService, EmailService emailService, IMessageOutputHandlingService messageOutputHandlingService)
     {
         this.registrationService = registrationService;
+        this.emailService = emailService;
         _messageOutputHandlingService=messageOutputHandlingService;
+        IsVerificationCodeVisible = false;
     }
 
     [RelayCommand]
@@ -106,21 +115,45 @@ public partial class RegistrationPageViewModel : ObservableValidator
             ValidateAllProperties();
             if (!HasErrors)
             {
-                await registrationService.RegisterUser(potentialUser);
+                await emailService.SendVerificationEmail(potentialUser.Email);
+                await App.Current.MainPage.DisplayAlert("Code sent", "Verification Code was sent to: " + potentialUser.Email + "\nPlease allow up to 2 minutes for email to arrive", "OK");
+                IsVerificationCodeVisible = true;
 
-                Email = null;
-                Password = null;
-                Phonenumber = null;
-                Firstname = null;
-                Lastname = null;
-
-                // Change pages to main page
-                // Pass the user to the GraphTestPage (likely not potential user? later but instead the user from DB including userID # for pulling data from DB)
-                await Shell.Current.GoToAsync($"{nameof(GraphTestPage)}?User={potentialUser}",
-                    new Dictionary<string, object>
+                while (true)
+                {
+                    // Wait for the verification code to be entered
+                    while (string.IsNullOrEmpty(Verificationcode))
                     {
-                    {nameof(GraphTestPage), new object() }
-                    });
+                        await Task.Delay(100); // Wait for .1 second before checking again
+                    }
+
+                    if (Verificationcode == emailService.verificationCode.ToString())
+                    {
+
+                        await registrationService.RegisterUser(potentialUser);
+
+                        Email = null;
+                        Password = null;
+                        Phonenumber = null;
+                        Firstname = null;
+                        Lastname = null;
+
+                        IsVerificationCodeVisible = false;
+                        // Change pages to main page
+                        // Pass the user to the GraphTestPage (likely not potential user? later but instead the user from DB including userID # for pulling data from DB)
+
+                        await Shell.Current.GoToAsync($"{nameof(GraphTestPage)}?User={potentialUser}",
+                            new Dictionary<string, object>
+                            {
+                            {nameof(GraphTestPage), new object() }
+                            });
+                    }
+                    else
+                    {
+                        await App.Current.MainPage.DisplayAlert("Error", "Invalid verification code. Please try again.", "OK");
+                        Verificationcode = null;
+                    }
+                }
             }
             else
             {

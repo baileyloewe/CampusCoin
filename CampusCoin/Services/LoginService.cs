@@ -1,7 +1,6 @@
 using System.Diagnostics;
 using CampusCoin.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Diagnostics;
 
 namespace CampusCoin.Services;
 
