@@ -71,7 +71,7 @@ public class EmailService
     {
         GenerateCode();
         string subject = "Account Verification for CampusCoin";
-        string htmlBody = "<html><body style='text-align: center;'>";
+        string htmlBody = "<html><body>";
         htmlBody += "<h1>Your verification code is below</h1>";
         htmlBody += "<p>Your verification code is:   <strong><font size = '6'>" + verificationCode + "</font></strong></p>";
         htmlBody += "</body></html>";
@@ -81,9 +81,9 @@ public class EmailService
     public async Task SendSuccessEmail(string userEmail)
     {   
         string subject = "Registration Successful for CampusCoin";
-        string htmlBody = "<html><body style='text-align: center;'>";
+        string htmlBody = "<html><body>";
         htmlBody += "<h1>Welcome to CampusCoin!</h1>";
-        htmlBody += "<p>Your email for future sign-ins is: <strong>" + userEmail + "</strong></p>";
+        htmlBody += "<p>Your email for future logins: <strong>" + userEmail + "</strong></p>";
         htmlBody += "</body></html>";
         await SendEmail(subject, htmlBody, userEmail, true);
     }
