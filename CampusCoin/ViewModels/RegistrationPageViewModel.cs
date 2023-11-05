@@ -112,7 +112,7 @@ public partial class RegistrationPageViewModel : ObservableValidator
 
             potentialUser.Email = Email;
             potentialUser.Salt = SaltHash.GenerateSalt();
-            potentialUser.Password = SaltHash.HashPassword(Password, potentialUser.Salt);
+            potentialUser.Password = Password;
             potentialUser.PhoneNumber = Phonenumber;
             potentialUser.FirstName = Firstname;
             potentialUser.LastName = Lastname;
@@ -120,6 +120,7 @@ public partial class RegistrationPageViewModel : ObservableValidator
             ValidateAllProperties();
             if (!HasErrors)
             {
+                potentialUser.Password = SaltHash.HashPassword(Password, potentialUser.Salt);
                 await emailService.SendVerificationEmail(potentialUser.Email);
                 IsVerificationCodeVisible = true;
                 IsVerificationCodeBtnVisible = true;
