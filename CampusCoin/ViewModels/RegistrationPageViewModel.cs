@@ -63,7 +63,7 @@ public partial class RegistrationPageViewModel : ObservableValidator
     RegistrationService registrationService;
     EmailService emailService;
 
-    public ObservableCollection<Users> UsersCollection { get; } = new();
+    public ObservableCollection<User> UsersCollection { get; } = new();
 
     public RegistrationPageViewModel(RegistrationService registrationService, EmailService emailService, IMessageOutputHandlingService messageOutputHandlingService)
     {
@@ -101,30 +101,20 @@ public partial class RegistrationPageViewModel : ObservableValidator
     [RelayCommand]
     async Task Registration()
     {
-        if (IsBusy)
-            return;
         ErrorText = "";
         try
         {
-            IsBusy = true;
-            var potentialUser = new Users();
+            var user = new User();
             await GetUsersAsync();
-
-            potentialUser.Email = Email;
-            potentialUser.Salt = SaltHash.GenerateSalt();
-            potentialUser.Password = Password;
-            potentialUser.PhoneNumber = Phonenumber;
-            potentialUser.FirstName = Firstname;
-            potentialUser.LastName = Lastname;
-
+            user = SetUserVals(user);
+            
             ValidateAllProperties();
             if (!HasErrors)
             {
-                potentialUser.Password = SaltHash.HashPassword(Password, potentialUser.Salt);
-                await emailService.SendVerificationEmail(potentialUser.Email);
-                IsVerificationCodeVisible = true;
-                IsVerificationCodeBtnVisible = true;
-                await App.Current.MainPage.DisplayAlert("Code sent", "Verification Code was sent to: " + potentialUser.Email + "\n\nPlease allow up to 3 minutes for code to arrive", "OK");
+                user = HashUserPassword(user);
+                await emailService.SendVerificationEmail(user.Email);
+                SetVisibilityOfVerificationButtons(true);
+                await App.Current.MainPage.DisplayAlert("Code sent", "Verification Code was sent to: " + user.Email + "\n\nPlease allow up to 3 minutes for code to arrive", "OK");
 
 
                 while (true)
@@ -138,25 +128,13 @@ public partial class RegistrationPageViewModel : ObservableValidator
                     if (Verificationcode == emailService.verificationCode.ToString())
                     {
 
-                        await registrationService.RegisterUser(potentialUser);
-                        await emailService.SendSuccessEmail(potentialUser.Email);
+                        await registrationService.RegisterUser(user);
+                        await EmailService.SendSuccessEmail(user.Email);
                         await App.Current.MainPage.DisplayAlert("Account registered!", "Your account has been successfully registered", "OK");
-                        Email = null;
-                        Password = null;
-                        Phonenumber = null;
-                        Firstname = null;
-                        Lastname = null;
-
-                        IsVerificationCodeVisible = false;
-                        IsVerificationCodeBtnVisible= false;
-                        // Change pages to main page
-                        // Pass the user to the GraphTestPage (likely not potential user? later but instead the user from DB including userID # for pulling data from DB)
-
-                        await Shell.Current.GoToAsync($"{nameof(GraphTestPage)}?User={potentialUser}",
-                            new Dictionary<string, object>
-                            {
-                            {nameof(GraphTestPage), new object() }
-                            });
+                        ResetValues();
+                        SetVisibilityOfVerificationButtons(false);
+                        // Change pages to graph test page
+                        await Shell.Current.GoToAsync(nameof(GraphTestPage));
                     }
                     else
                     {
@@ -175,10 +153,6 @@ public partial class RegistrationPageViewModel : ObservableValidator
         {
             Debug.WriteLine(ex);
         }
-        finally
-        {
-            IsBusy = false;
-        }
     }
 
     [RelayCommand]
@@ -186,4 +160,37 @@ public partial class RegistrationPageViewModel : ObservableValidator
     {
         VerificationEntered = true;
     }
+
+    public User SetUserVals(User user)
+    {
+        user.Email = Email;
+        user.Salt = SaltHash.GenerateSalt();
+        user.Password = Password;
+        user.PhoneNumber = Phonenumber;
+        user.FirstName = Firstname;
+        user.LastName = Lastname;
+        return user;
+    }
+
+    public User HashUserPassword(User user)
+    {
+        user.Password = SaltHash.HashPassword(Password, user.Salt);
+        return user;
+    }
+
+    public void SetVisibilityOfVerificationButtons(bool visibileStatus)
+    {
+        IsVerificationCodeVisible = visibileStatus;
+        IsVerificationCodeBtnVisible = visibileStatus;
+    }
+
+    public void ResetValues()
+    {
+        Email = null;
+        Password = null;
+        Phonenumber = null;
+        Firstname = null;
+        Lastname = null;
+    }
+
 }

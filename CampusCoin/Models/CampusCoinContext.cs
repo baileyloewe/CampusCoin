@@ -11,11 +11,11 @@ public partial class CampusCoinContext : DbContext
     {
     }
 
-    public virtual DbSet<Users> Users { get; set; }
+    public virtual DbSet<User> Users { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Users>(entity =>
+        modelBuilder.Entity<User>(entity =>
         {
             entity.HasKey(e => e.UserId).HasName("PK__Users__1788CC4CDAD8C5E8");
         });

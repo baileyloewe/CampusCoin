@@ -25,7 +25,11 @@ namespace CampusCoin.Services
             errorMessage = errorMessage.Trim(); // Remove the leading & trailing newline characters
             await App.Current.MainPage.DisplayAlert("Error", errorMessage, "OK");
         }
-
+        /// <summary>
+        /// Outputs success message to user
+        /// </summary>
+        /// <param name="message"></param>
+        /// <returns></returns>
         public async Task OutputSuccessToUser(string message)
         {
             await App.Current.MainPage.DisplayAlert("Success", message, "OK");

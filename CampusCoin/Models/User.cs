@@ -4,9 +4,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 namespace CampusCoin.Models;
 
-public partial class Users
+public partial class User
 {
     [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int UserId { get; set; }
 
     [Required]

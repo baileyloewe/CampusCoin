@@ -18,12 +18,25 @@ public class EmailService
         _context = context;
     }
 
+    /// <summary>
+    /// Generates a verification code
+    /// </summary>
+    /// <param></param>
+    /// <returns></returns>
     public void GenerateCode()
     {
         verificationCode = new Random().Next(10000000, 100000000);
     }
 
-    private async Task SendEmail(string subject, string body, string userEmail, bool isHtml)
+    /// <summary>
+    /// Outputs validation errors to the user
+    /// </summary>
+    /// <param name="subject">Subject of the email</param>
+    /// <param name="body">Body of the email</param>
+    /// <param name="userEmail">The email address that will recieve this email</param>
+    /// <param name="isHtml">Indicates whether the body of the email is a string or html</param>
+    /// <returns></returns>
+    private static async Task SendEmail(string subject, string body, string userEmail, bool isHtml)
     {
         try
         {
@@ -67,6 +80,11 @@ public class EmailService
         }
     }
 
+    /// <summary>
+    /// Sends a verification email
+    /// </summary>
+    /// <param name="userEmail">The email address that will recieve this email</param>
+    /// <returns></returns>
     public async Task SendVerificationEmail(string userEmail)
     {
         GenerateCode();
@@ -75,17 +93,21 @@ public class EmailService
         htmlBody += "<h1>Your verification code is below</h1>";
         htmlBody += "<p>Your verification code is:   <strong><font size = '6'>" + verificationCode + "</font></strong></p>";
         htmlBody += "</body></html>";
-        await SendEmail(subject, htmlBody, userEmail, true);
+        await EmailService.SendEmail(subject, htmlBody, userEmail, true);
     }
-
-    public async Task SendSuccessEmail(string userEmail)
+    /// <summary>
+    /// Sends a sucessful sign up email
+    /// </summary>
+    /// <param name="userEmail">The email address that will recieve this email</param>
+    /// <returns></returns>
+    public static async Task SendSuccessEmail(string userEmail)
     {   
         string subject = "Registration Successful for CampusCoin";
         string htmlBody = "<html><body>";
         htmlBody += "<h1>Welcome to CampusCoin!</h1>";
         htmlBody += "<p>Your email for future logins: <strong>" + userEmail + "</strong></p>";
         htmlBody += "</body></html>";
-        await SendEmail(subject, htmlBody, userEmail, true);
+        await EmailService.SendEmail(subject, htmlBody, userEmail, true);
     }
 
 
