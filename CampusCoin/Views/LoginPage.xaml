@@ -39,7 +39,9 @@
                     TextColor="Black"                      
                     FontAttributes="Bold"                     
                     VerticalOptions="Center"                      
-                    HorizontalOptions="Fill"                       
+                    HorizontalOptions="Fill"   
+                    IsSpellCheckEnabled="False"
+                    IsTextPredictionEnabled="False"
                     Margin="0,0,20,10"/>
                 <Entry 
                     x:Name="txtPassword"
@@ -47,6 +49,8 @@
                     Placeholder="Password:"
                     VerticalOptions="Center" 
                     HorizontalOptions="Fill" 
+                    IsSpellCheckEnabled="False"
+                    IsTextPredictionEnabled="False"
                     Margin="0,0,20,10"/>
                 <StackLayout 
                     Orientation="Horizontal" 
