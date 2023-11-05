@@ -129,7 +129,7 @@ public partial class RegistrationPageViewModel : ObservableValidator
                     {
 
                         await registrationService.RegisterUser(user);
-                        await EmailService.SendSuccessEmail(user.Email);
+                        await EmailService.SendRegistrationSuccessEmail(user.Email);
                         await App.Current.MainPage.DisplayAlert("Account registered!", "Your account has been successfully registered", "OK");
                         ResetValues();
                         SetVisibilityOfVerificationButtons(false);

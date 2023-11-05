@@ -92,6 +92,8 @@ public class EmailService
         string htmlBody = "<html><body>";
         htmlBody += "<h1>Your verification code is below</h1>";
         htmlBody += "<p>Your verification code is:   <strong><font size = '6'>" + verificationCode + "</font></strong></p>";
+        htmlBody += "<p><br /></p>";
+        htmlBody += "<p>Enter your code into the CampusCoin app to verify your email address and complete your Registration</p>";
         htmlBody += "</body></html>";
         await EmailService.SendEmail(subject, htmlBody, userEmail, true);
     }
@@ -100,7 +102,7 @@ public class EmailService
     /// </summary>
     /// <param name="userEmail">The email address that will recieve this email</param>
     /// <returns></returns>
-    public static async Task SendSuccessEmail(string userEmail)
+    public static async Task SendRegistrationSuccessEmail(string userEmail)
     {   
         string subject = "Registration Successful for CampusCoin";
         string htmlBody = "<html><body>";
@@ -110,5 +112,37 @@ public class EmailService
         await EmailService.SendEmail(subject, htmlBody, userEmail, true);
     }
 
+    /// <summary>
+    /// Sends a reset password email
+    /// </summary>
+    /// <param name="userEmail">The email address that will recieve this email</param>
+    /// <returns></returns>
+    public async Task SendPasswordResetEmail(string userEmail)
+    {
+        GenerateCode();
+        string subject = "Password Reset for Campus Coin";
+        string htmlBody = "<html><body>";
+        htmlBody += "<h1>Your verification code is below</h1>";
+        htmlBody += "<p>Your verification code for resetting your password is:   <strong><font size = '6'>" + verificationCode + "</font></strong></p>";
+        htmlBody += "<p><br /></p>";
+        htmlBody += "<p>Enter your code into the CampusCoin app to reset your password</p>";
+        htmlBody += "</body></html>";
+        await EmailService.SendEmail(subject, htmlBody, userEmail, true);
+    }
+
+    /// <summary>
+    /// Sends a sucessful password reset email
+    /// </summary>
+    /// <param name="userEmail">The email address that will recieve this email</param>
+    /// <returns></returns>
+    public static async Task SendPasswordResetSuccessEmail(string userEmail)
+    {
+        string subject = "Registration Successful for CampusCoin";
+        string htmlBody = "<html><body>";
+        htmlBody += "<h1>Welcome to CampusCoin!</h1>";
+        htmlBody += "<p>Your email for future logins: <strong>" + userEmail + "</strong></p>";
+        htmlBody += "</body></html>";
+        await EmailService.SendEmail(subject, htmlBody, userEmail, true);
+    }
 
 }
