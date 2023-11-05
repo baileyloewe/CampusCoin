@@ -32,9 +32,9 @@ public partial class LoginPageViewModel : ObservableValidator
 
     LoginService loginService;
 
-    public ObservableCollection<Users> UsersCollection { get; } = new();
+    public ObservableCollection<User> UsersCollection { get; } = new();
 
-    Users user;
+    User user;
 
     public LoginPageViewModel(LoginService loginService, IMessageOutputHandlingService messageOutputHandlingService)
     {
@@ -55,7 +55,7 @@ public partial class LoginPageViewModel : ObservableValidator
             ValidateAllProperties();
             if (!HasErrors)
             {
-                Users matchedUser = await loginService.GetUserByEmail(Email);
+                User matchedUser = await loginService.GetUserByEmail(Email);
 
                 if (matchedUser == null)
                 {
