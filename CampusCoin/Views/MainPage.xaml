@@ -43,6 +43,7 @@
                 Text="Test database connection"
                 SemanticProperties.Hint="Test connection"
                 Command="{Binding CheckDatabaseConnectionCommand}"
+                IsVisible="false"
                 HorizontalOptions="Center"/>   
         </VerticalStackLayout>
     </ScrollView>

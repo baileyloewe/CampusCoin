@@ -40,7 +40,9 @@
                     TextColor="White"
                     Placeholder="Email:"                                                      
                     VerticalOptions="Center"                      
-                    HorizontalOptions="Fill"                       
+                    HorizontalOptions="Fill"    
+                    IsSpellCheckEnabled="False"
+                    IsTextPredictionEnabled="False"
                     Margin="0,0,0,10"/>
                 <Entry 
                     x:Name="txtPassword"
@@ -51,6 +53,8 @@
                     VerticalOptions="Center" 
                     HorizontalOptions="Fill" 
                     IsPassword="True"
+                    IsSpellCheckEnabled="False"
+                    IsTextPredictionEnabled="False"
                     Margin="0,0,0,10"/>
                 <Entry 
                     x:Name="txtPhonenumber"
@@ -60,6 +64,8 @@
                     Placeholder="Phone number:"
                     VerticalOptions="Center" 
                     HorizontalOptions="Fill" 
+                    IsSpellCheckEnabled="False"
+                    IsTextPredictionEnabled="False"
                     Margin="0,0,0,10"/>    
                 <Entry 
                     x:Name="txtFirstname"
@@ -69,6 +75,8 @@
                     Placeholder="First name:"
                     VerticalOptions="Center" 
                     HorizontalOptions="Fill" 
+                    IsSpellCheckEnabled="False"
+                    IsTextPredictionEnabled="False"
                     Margin="0,0,0,10"/>
                 <Entry 
                     x:Name="txtLastname"
@@ -78,6 +86,8 @@
                     Placeholder="Last name:"
                     VerticalOptions="Center" 
                     HorizontalOptions="Fill" 
+                    IsSpellCheckEnabled="False"
+                    IsTextPredictionEnabled="False"
                     Margin="0,0,0,10"/>
                 <Button
                     x:Name="AttemptRegistrationBtn"
@@ -99,6 +109,8 @@
                     HorizontalOptions="Center" 
                     WidthRequest="200"
                     Margin="0,35,0,0"
+                    IsSpellCheckEnabled="False"
+                    IsTextPredictionEnabled="False"
                     IsVisible="{Binding IsVerificationCodeVisible}" />
                 <Button
                     x:Name="SubmitVerificationCodeBtn"
