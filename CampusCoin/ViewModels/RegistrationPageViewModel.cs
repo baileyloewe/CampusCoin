@@ -124,7 +124,7 @@ public partial class RegistrationPageViewModel : ObservableValidator
                 await emailService.SendVerificationEmail(potentialUser.Email);
                 IsVerificationCodeVisible = true;
                 IsVerificationCodeBtnVisible = true;
-                await App.Current.MainPage.DisplayAlert("Code sent", "Verification Code was sent to: " + potentialUser.Email + "\nPlease allow up to 3 minutes for code to arrive", "OK");
+                await App.Current.MainPage.DisplayAlert("Code sent", "Verification Code was sent to: " + potentialUser.Email + "\n\nPlease allow up to 3 minutes for code to arrive", "OK");
 
 
                 while (true)
