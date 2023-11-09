@@ -78,6 +78,9 @@
   <MauiXaml Update="Views\ExpensesPage.xaml">
     <Generator>MSBuild:Compile</Generator>
   </MauiXaml>
+  <MauiXaml Update="Views\ExpensesTestPage.xaml">
+    <Generator>MSBuild:Compile</Generator>
+  </MauiXaml>
   <MauiXaml Update="Views\MainPage.xaml">
     <Generator>MSBuild:Compile</Generator>
   </MauiXaml>

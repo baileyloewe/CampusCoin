@@ -14,7 +14,6 @@ public partial class LoginPageViewModel : ObservableValidator
     private readonly IMessageOutputHandlingService _messageOutputHandlingService;
 
     [ObservableProperty]
-    [NotifyPropertyChangedFor(nameof(IsNotBusy))]
     bool isBusy;
 
     [ObservableProperty]
@@ -28,13 +27,9 @@ public partial class LoginPageViewModel : ObservableValidator
     [ObservableProperty]
     string password;
 
-    public bool IsNotBusy => !IsBusy;
+    //public bool IsNotBusy => !IsBusy;
 
     LoginService loginService;
-
-    public ObservableCollection<User> UsersCollection { get; } = new();
-
-    User user;
 
     public LoginPageViewModel(LoginService loginService, IMessageOutputHandlingService messageOutputHandlingService)
     {
@@ -45,13 +40,8 @@ public partial class LoginPageViewModel : ObservableValidator
     [RelayCommand]
     async Task Login()
     {
-        if (IsBusy)
-            return;
-
         try
         {
-            IsBusy= true;
-
             ValidateAllProperties();
             if (!HasErrors)
             {
@@ -68,18 +58,18 @@ public partial class LoginPageViewModel : ObservableValidator
                 Email = null;
                 Password = null;
                 // Temporary route to potential post-login view
-                await Shell.Current.GoToAsync(nameof(ExpensesPage));
+                await Shell.Current.GoToAsync(nameof(ExpensesTestPage));
             }
             else
             {
                 await _messageOutputHandlingService.OutputValidationErrorsToUser(GetErrors());
             }
         }
-        catch(Exception ex ) 
+        catch(Exception ex) 
         {
             Debug.WriteLine(ex);
             await Shell.Current.DisplayAlert("Error",
-                $"Invalid email", "OK");
+                $"Something went wrong :(", "OK");
         }
         finally 
         { 
