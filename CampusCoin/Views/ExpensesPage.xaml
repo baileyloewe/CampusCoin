@@ -26,7 +26,7 @@
                 />
             <Entry
                 x:Name="txtBills"                      
-                Text="{Binding Email}"                                         
+                Text=""                                         
                 Placeholder="Amount spent on bills:"                      
                 Background="#191144"
                 TextColor="White"                       
@@ -47,7 +47,7 @@
                 HorizontalOptions="Center"/>
             <Entry
                 x:Name="txtFood"                      
-                Text="{Binding Email}"                                         
+                Text=""                                         
                 Placeholder="Amount spent on food:"                      
                 Background="#191144"
                 TextColor="White"                      
@@ -68,7 +68,7 @@
                 HorizontalOptions="Center"/>
             <Entry
                 x:Name="txtAuto"                      
-                Text="{Binding Email}"                                         
+                Text=""                                         
                 Placeholder="Amount spent on auto:"                      
                 Background="#191144"
                 TextColor="White"                       
@@ -90,7 +90,7 @@
                 HorizontalOptions="Center"/>
             <Entry
                 x:Name="txtEntertainment"                      
-                Text="{Binding Email}"                                         
+                Text=""                                         
                 Placeholder="Amount spent on entertainment:"                      
                 Background="#191144"
                 TextColor="White"                         
@@ -112,7 +112,7 @@
                 HorizontalOptions="Center"/>
             <Entry
                 x:Name="txtInvestments"                      
-                Text="{Binding Email}"                                         
+                Text=""                                         
                 Placeholder="Amount spent on investments:"                      
                 Background="#191144"
                 TextColor="White"                        
@@ -133,7 +133,7 @@
                 HorizontalOptions="Center"/>
             <Entry
                 x:Name="txtMisc"                      
-                Text="{Binding Email}"                                         
+                Text=""                                         
                 Placeholder="Amount spent on misc:"                      
                 Background="#191144"
                 TextColor="White"                         
