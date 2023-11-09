@@ -35,8 +35,9 @@
                 <Entry 
                     x:Name="txtEmail"                      
                     Text="{Binding Email}"                                         
-                    Placeholder="Email:"                      
-                    TextColor="Black"                      
+                    Placeholder="Email:"      
+                    Background="#191144"
+                    TextColor="White"                      
                     FontAttributes="Bold"                     
                     VerticalOptions="Center"                      
                     HorizontalOptions="Fill"   
@@ -46,6 +47,8 @@
                 <Entry 
                     x:Name="txtPassword"
                     Text="{Binding Password}"
+                    Background="#191144"
+                    TextColor="White"  
                     Placeholder="Password:"
                     VerticalOptions="Center" 
                     HorizontalOptions="Fill" 
