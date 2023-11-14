@@ -149,6 +149,6 @@
             Margin="0,75,0,0"
             Text="Submit"
             HorizontalOptions="CenterAndExpand"
-            Command="{Binding RouteExpenseReportPageCommand}"/>
+            Command="{Binding SubmitExpenseToDatabaseCommand}"/>
     </VerticalStackLayout>
 </ContentPage>
