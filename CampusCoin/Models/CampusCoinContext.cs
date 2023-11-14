@@ -15,7 +15,7 @@ public partial class CampusCoinContext : DbContext
 
     public virtual DbSet<UserData> UserData { get; set; }
 
-    public virtual DbSet<Users> Users { get; set; }
+    public virtual DbSet<User> Users { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

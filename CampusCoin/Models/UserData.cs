@@ -35,5 +35,5 @@ public partial class UserData
 
     [ForeignKey("UserId")]
     [InverseProperty("UserData")]
-    public virtual Users User { get; set; }
+    public virtual User User { get; set; }
 }

@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 namespace CampusCoin.Models;
 
 [Index("Email", Name = "UniqueEmail", IsUnique = true)]
-public partial class Users
+public partial class User
 {
     [Key]
     [Column("UserID")]
