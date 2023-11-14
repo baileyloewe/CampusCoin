@@ -125,9 +125,31 @@ public partial class RegistrationPageViewModel : ObservableValidator
 
                     if (VerificationCode == emailService.verificationCode.ToString())
                     {
+                        try
+                        {
+                            await registrationService.RegisterUser(user);
+                            await EmailService.SendRegistrationSuccessEmail(user.Email);
+                        }
+                        catch (Exception ex)
+                        {
+                            // if it is a duplicate email error
+                            Debug.WriteLine(ex);
+                            if (ex.ToString().Contains("UniqueEmail"))
+                            {
+                                await App.Current.MainPage.DisplayAlert("Error", "Email already registered", "OK");
+                                return;
+                            }
+                            else
+                            {
+                                await App.Current.MainPage.DisplayAlert("Error", "Something went wrong. Please try again.", "OK");
+                                return;
+                            }
+                        }
+                        finally
+                        {
+                            IsBusy = false;
+                        }
 
-                        await registrationService.RegisterUser(user);
-                        await EmailService.SendRegistrationSuccessEmail(user.Email);
                         await App.Current.MainPage.DisplayAlert("Account registered!", "Your account has been successfully registered", "OK");
                         ResetValues();
                         SetVisibilityOfVerification(false);

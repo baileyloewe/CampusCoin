@@ -16,11 +16,15 @@
    "T4TemplatePath": null,
    "Tables": [
       {
+         "Name": "[dbo].[UserData]",
+         "ObjectType": 0
+      },
+      {
          "Name": "[dbo].[Users]",
          "ObjectType": 0
       }
    ],
-   "UiHint": "campuscoin",
+   "UiHint": "bailey-pc\\seniorproject.SeniorProjectDatabase.dbo",
    "UncountableWords": null,
    "UseBoolPropertiesWithoutDefaultSql": false,
    "UseDatabaseNames": false,
@@ -33,6 +37,7 @@
    "UseLegacyPluralizer": false,
    "UseManyToManyEntity": false,
    "UseNoDefaultConstructor": false,
+   "UseNoNavigations": false,
    "UseNoObjectFilter": false,
    "UseNodaTime": false,
    "UseNullableReferences": false,
