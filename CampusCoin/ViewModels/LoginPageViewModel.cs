@@ -58,7 +58,7 @@ public partial class LoginPageViewModel : ObservableValidator
                 Email = null;
                 Password = null;
                 // Temporary route to potential post-login view
-                await Shell.Current.GoToAsync(nameof(ExpensesTestPage));
+                await Shell.Current.GoToAsync(nameof(ExpensesPage));
             }
             else
             {
