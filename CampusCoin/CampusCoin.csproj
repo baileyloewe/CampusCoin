@@ -66,6 +66,12 @@
 	</ItemGroup>
 
 <ItemGroup>
+  <Compile Update="Views\ResetPasswordPage.xaml.cs">
+    <DependentUpon>ResetPasswordPage.xaml</DependentUpon>
+  </Compile>
+  <Compile Update="Views\EditUserIAccountInfoPage.xaml.cs">
+    <DependentUpon>EditUserIAccountInfoPage.xaml</DependentUpon>
+  </Compile>
   <Compile Update="Views\RegistrationPage.xaml.cs">
     <DependentUpon>RegistrationPage.xaml</DependentUpon>
   </Compile>
@@ -75,10 +81,16 @@
 </ItemGroup>
 
 <ItemGroup>
+  <MauiXaml Update="Views\ResetPasswordPage.xaml">
+    <Generator>MSBuild:Compile</Generator>
+  </MauiXaml>
   <MauiXaml Update="Views\ExpensesPage.xaml">
     <Generator>MSBuild:Compile</Generator>
   </MauiXaml>
   <MauiXaml Update="Views\ExpensesTestPage.xaml">
+    <Generator>MSBuild:Compile</Generator>
+  </MauiXaml>
+  <MauiXaml Update="Views\EditUserIAccountInfoPage.xaml">
     <Generator>MSBuild:Compile</Generator>
   </MauiXaml>
   <MauiXaml Update="Views\MainPage.xaml">

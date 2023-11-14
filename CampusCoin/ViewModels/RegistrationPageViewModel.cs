@@ -32,24 +32,21 @@ public partial class RegistrationPageViewModel : ObservableValidator
 
     [PhoneNumberValidation]
     [ObservableProperty]
-    string phonenumber;
+    string phoneNumber;
 
     [FirstnameValidation]
     [ObservableProperty]
-    string firstname;
+    string firstName;
 
     [LastnameValidation]
     [ObservableProperty]
-    string lastname;
+    string lastName;
 
     [ObservableProperty]
-    string verificationcode;
+    string verificationCode;
 
     [ObservableProperty]
-    private bool isVerificationCodeVisible;
-
-    [ObservableProperty]
-    private bool isVerificationCodeBtnVisible;
+    private bool isVerificationVisible;
 
     [ObservableProperty]
     string errorText;
@@ -62,16 +59,17 @@ public partial class RegistrationPageViewModel : ObservableValidator
 
     RegistrationService registrationService;
     EmailService emailService;
+    PersistedLoginService persistedLoginService;
 
     public ObservableCollection<User> UsersCollection { get; } = new();
 
-    public RegistrationPageViewModel(RegistrationService registrationService, EmailService emailService, IMessageOutputHandlingService messageOutputHandlingService)
+    public RegistrationPageViewModel(RegistrationService registrationService, EmailService emailService, PersistedLoginService persistedLoginService ,IMessageOutputHandlingService messageOutputHandlingService)
     {
         this.registrationService = registrationService;
         this.emailService = emailService;
+        this.persistedLoginService = persistedLoginService;
         _messageOutputHandlingService=messageOutputHandlingService;
-        IsVerificationCodeBtnVisible = false;
-        IsVerificationCodeVisible = false;
+        this.isVerificationVisible = false;
     }
 
     [RelayCommand]
@@ -113,7 +111,7 @@ public partial class RegistrationPageViewModel : ObservableValidator
             {
                 user = HashUserPassword(user);
                 await emailService.SendVerificationEmail(user.Email);
-                SetVisibilityOfVerificationButtons(true);
+                SetVisibilityOfVerification(true);
                 await App.Current.MainPage.DisplayAlert("Code sent", "Verification Code was sent to: " + user.Email + "\n\nPlease allow up to 3 minutes for code to arrive", "OK");
 
 
@@ -125,21 +123,20 @@ public partial class RegistrationPageViewModel : ObservableValidator
                         await Task.Delay(100); // Wait for .1 second before checking again
                     }
 
-                    if (Verificationcode == emailService.verificationCode.ToString())
+                    if (VerificationCode == emailService.verificationCode.ToString())
                     {
 
                         await registrationService.RegisterUser(user);
                         await EmailService.SendRegistrationSuccessEmail(user.Email);
                         await App.Current.MainPage.DisplayAlert("Account registered!", "Your account has been successfully registered", "OK");
                         ResetValues();
-                        SetVisibilityOfVerificationButtons(false);
-                        // Change pages to graph test page
-                        await Shell.Current.GoToAsync(nameof(GraphTestPage));
+                        SetVisibilityOfVerification(false);
+                        await Shell.Current.GoToAsync(nameof(MainPage));
                     }
                     else
                     {
                         await App.Current.MainPage.DisplayAlert("Error", "Invalid verification code. Please try again.", "OK");
-                        Verificationcode = null;
+                        VerificationCode = null;
                         VerificationEntered = false; 
                     }
                 }
@@ -164,33 +161,35 @@ public partial class RegistrationPageViewModel : ObservableValidator
     public User SetUserVals(User user)
     {
         user.Email = Email;
-        user.Salt = SaltHash.GenerateSalt();
+        user.Salt = SaltHashService.GenerateSalt();
         user.Password = Password;
-        user.PhoneNumber = Phonenumber;
-        user.FirstName = Firstname;
-        user.LastName = Lastname;
+        user.PhoneNumber = PhoneNumber;
+        user.FirstName = FirstName;
+        user.LastName = LastName;
         return user;
     }
 
     public User HashUserPassword(User user)
     {
-        user.Password = SaltHash.HashPassword(Password, user.Salt);
+        user.Password = SaltHashService.HashPassword(Password, user.Salt);
         return user;
     }
 
-    public void SetVisibilityOfVerificationButtons(bool visibileStatus)
+    public void SetVisibilityOfVerification(bool visibileStatus)
     {
-        IsVerificationCodeVisible = visibileStatus;
-        IsVerificationCodeBtnVisible = visibileStatus;
+        IsVerificationVisible = visibileStatus;
     }
 
     public void ResetValues()
     {
         Email = null;
         Password = null;
-        Phonenumber = null;
-        Firstname = null;
-        Lastname = null;
+        PhoneNumber = null;
+        FirstName = null;
+        LastName = null;
+        VerificationCode = null;
+        VerificationEntered = false;
     }
+
 
 }

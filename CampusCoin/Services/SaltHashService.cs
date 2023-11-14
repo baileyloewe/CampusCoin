@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CampusCoin.Services;
 
-public class SaltHash
+public class SaltHashService
 {
     public static string GenerateSalt()
     {

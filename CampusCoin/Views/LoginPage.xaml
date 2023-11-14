@@ -25,7 +25,7 @@
                 FontSize="32"
                 FontAttributes="Bold"
                 Padding="0"
-                Margin="0"
+                Margin="0,-30,0,0"
                 HorizontalOptions="Center"/>
 
             <StackLayout 
@@ -37,8 +37,7 @@
                     Text="{Binding Email}"                                         
                     Placeholder="Email:"      
                     Background="#191144"
-                    TextColor="White"                      
-                    FontAttributes="Bold"                     
+                    TextColor="White"                                         
                     VerticalOptions="Center"                      
                     HorizontalOptions="Fill"   
                     IsSpellCheckEnabled="False"
@@ -55,25 +54,6 @@
                     IsSpellCheckEnabled="False"
                     IsTextPredictionEnabled="False"
                     Margin="0,0,20,10"/>
-                <StackLayout 
-                    Orientation="Horizontal" 
-                    Margin="0,10,0,0" 
-                    Padding="0">
-                    <CheckBox IsChecked="False"/>
-                    <Label
-                        Text="Remember Me"
-                        TextColor="DarkGray"
-                        VerticalTextAlignment="Center"
-                        HorizontalTextAlignment="Center"/>
-                    <Label
-                        Text="Forgot Password"
-                        TextColor="Blue"
-                        FontAttributes="Bold"
-                        VerticalTextAlignment="Center"
-                        HorizontalTextAlignment="Center"
-                        HorizontalOptions="EndAndExpand"
-                        Margin="50,0,0,0"/>
-                </StackLayout>
                 <Button
                     x:Name="AttemptLoginBtn"
                     Text="Login"
@@ -83,19 +63,51 @@
                     WidthRequest="200"
                     Margin="0,15,0,0"
                     IsEnabled="True"
+                    IsVisible="True"
                     Command="{Binding LoginCommand}"/>
+                <StackLayout 
+                    Orientation="Horizontal" 
+                    Margin="0,10,0,0" 
+                    Padding="0">
+                    <CheckBox IsChecked="False"/>
+                    <Label
+                        Text="Remember Me"
+                        TextColor="Black"
+                        FontAttributes="Bold"
+                        VerticalTextAlignment="Center"
+                        HorizontalTextAlignment="Center"/>
+                    <Label
+                        Text="Forgot Password"
+                        TextColor="Blue"
+                        FontAttributes="Bold"
+                        VerticalTextAlignment="Center"
+                        HorizontalTextAlignment="Center"
+                        HorizontalOptions="EndAndExpand"
+                        Margin="50,0,0,0">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ForgotPasswordCommand}"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                </StackLayout>
+                
                 <StackLayout 
                     Orientation="Horizontal"
                     HorizontalOptions="CenterAndExpand"
-                    Margin="0,60,0,0"
+                    Margin="0,15,0,0"
                     Padding="0">
                     <Label 
                         Text="New User?"
-                        TextColor="DarkGray"/>
+                        TextColor="Black"
+                        Margin="0,0,7,0"/>
                     <Label
-                        Text=" Sign Up"
+                        Text="Sign Up"
+                        FontAttributes="Bold"
                         TextColor="Blue"
-                        FontAttributes="Bold"/>
+                        Margin="0,0,0,0">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SignUpCommand}"/>
+                        </Label.GestureRecognizers>
+                    </Label>
                 </StackLayout>
             </StackLayout>
         </Grid>

@@ -29,6 +29,7 @@
                 Text="Login"
                 SemanticProperties.Hint="Redirects to the login page"
                 Command="{Binding RouteToLoginPageCommand}"
+                IsEnabled="True"
                 HorizontalOptions="Center"/>
 
             <Button 
