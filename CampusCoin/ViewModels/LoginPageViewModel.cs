@@ -27,13 +27,23 @@ public partial class LoginPageViewModel : ObservableValidator
     [ObservableProperty]
     string password;
 
+    [ObservableProperty]
+    string newPassword;
+
+    [ObservableProperty]
+    string confirmNewPassword;
+
     //public bool IsNotBusy => !IsBusy;
 
     LoginService loginService;
+    EmailService emailService;
+    PersistedLoginService persistedLoginService;
 
-    public LoginPageViewModel(LoginService loginService, IMessageOutputHandlingService messageOutputHandlingService)
+    public LoginPageViewModel(LoginService loginService, EmailService emailService, PersistedLoginService persistedLoginService ,IMessageOutputHandlingService messageOutputHandlingService)
     {
         this.loginService = loginService;
+        this.emailService = emailService;
+        this.persistedLoginService = persistedLoginService;
         _messageOutputHandlingService = messageOutputHandlingService;
     }
 
@@ -52,13 +62,18 @@ public partial class LoginPageViewModel : ObservableValidator
                     await Shell.Current.DisplayAlert("Error", "Email not registered", "OK");
                     return;
                 }
-                if (SaltHash.HashPassword(Password, matchedUser.Salt) != matchedUser.Password)
-                    await Shell.Current.DisplayAlert("Error", "Incorrect Password", "OK");
-                else
-                Email = null;
-                Password = null;
-                // Temporary route to potential post-login view
-                await Shell.Current.GoToAsync(nameof(ExpensesPage));
+                if (SaltHashService.HashPassword(Password, matchedUser.Salt) != matchedUser.Password)
+                { 
+                    await Shell.Current.DisplayAlert("Error", "Incorrect Password", "OK"); 
+                    return;
+                }
+                else 
+                {
+                    ResetValues();
+                    await persistedLoginService.SetUser(matchedUser.Email);
+                    // Route to post-login view
+                    await Shell.Current.GoToAsync(nameof(ExpensesPage));
+                }
             }
             else
             {
@@ -76,4 +91,25 @@ public partial class LoginPageViewModel : ObservableValidator
             IsBusy = false; 
         }
     }
+
+    [RelayCommand]
+    async Task SignUp()
+    {
+        ResetValues();
+        await Shell.Current.GoToAsync(nameof(RegistrationPage));
+    }
+
+    [RelayCommand]
+    async Task ForgotPassword()
+    {
+        ResetValues();
+        await Shell.Current.GoToAsync(nameof(ResetPasswordPage));
+    }
+
+    public void ResetValues()
+    {
+        Email = null;
+        Password = null;
+    }
+
 }

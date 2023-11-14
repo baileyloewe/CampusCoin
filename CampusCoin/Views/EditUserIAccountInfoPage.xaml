@@ -2,9 +2,9 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModels="clr-namespace:CampusCoin.ViewModels"
-             x:DataType="viewModels:RegistrationPageViewModel"
-             x:Class="CampusCoin.Views.RegistrationPage"
-             Title="RegistrationPage">
+             x:DataType="viewModels:EditUserAccountInfoPageViewModel"
+             x:Class="CampusCoin.Views.EditUserAccountInfoPage"
+             Title="EditUserAccountInfoPage">
     <VerticalStackLayout 
         Spacing="25"
         Padding="30,0"
@@ -12,7 +12,7 @@
         <Grid 
             RowSpacing="5" 
             Grid.Row="1" 
-            Margin="20,0,20,0">
+            Margin="20,20,20,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="50"/>
@@ -20,32 +20,30 @@
             </Grid.RowDefinitions>
             <Label
                 Grid.Row="1"
-                Text="Registration"
+                Text="Account Information"
                 SemanticProperties.HeadingLevel="Level1"
-                FontSize="60"
-                TextColor="#191144"
+                FontSize="32"
                 FontAttributes="Bold"
                 Padding="0"
-                Margin="0,-60,0,0"
+                Margin="0,-30,0,0"
                 HorizontalOptions="Center"/>
-
             <StackLayout 
                 Grid.Row="2" 
                 Orientation="Vertical" 
-                HorizontalOptions="Center">
+                HorizontalOptions="CenterAndExpand">
                 <Entry 
-                    x:Name="txtEmail" 
+                    x:Name="txtUserEmail" 
                     Background="#191144"
                     Text="{Binding Email}" 
                     TextColor="White"
-                    Placeholder="Email:"                                                      
+                    Placeholder="{Binding UserEmail}"                                             
                     VerticalOptions="Center"                      
                     HorizontalOptions="Fill"    
                     IsSpellCheckEnabled="False"
                     IsTextPredictionEnabled="False"
                     Margin="0,0,0,10"/>
                 <Entry 
-                    x:Name="txtPassword"
+                    x:Name="txtUserPassword"
                     Background="#191144"
                     Text="{Binding Password}"
                     TextColor="White"
@@ -57,72 +55,49 @@
                     IsTextPredictionEnabled="False"
                     Margin="0,0,0,10"/>
                 <Entry 
-                    x:Name="txtPhonenumber"
+                    x:Name="txtUserPhonenumber"
                     Background="#191144"
-                    Text="{Binding PhoneNumber}"
+                    Text="{Binding Phonenumber}"
                     TextColor="White"
-                    Placeholder="Phone number:"
-                    VerticalOptions="Center" 
-                    HorizontalOptions="Fill" 
-                    IsSpellCheckEnabled="False"
-                    IsTextPredictionEnabled="False"
-                    Margin="0,0,0,10"/>    
-                <Entry 
-                    x:Name="txtFirstname"
-                    Background="#191144"
-                    Text="{Binding FirstName}"
-                    TextColor="White"
-                    Placeholder="First name:"
+                    Placeholder="{Binding UserPhoneNumber}"
                     VerticalOptions="Center" 
                     HorizontalOptions="Fill" 
                     IsSpellCheckEnabled="False"
                     IsTextPredictionEnabled="False"
                     Margin="0,0,0,10"/>
                 <Entry 
-                    x:Name="txtLastname"
+                    x:Name="txtUserFirstname"
                     Background="#191144"
-                    Text="{Binding LastName}"
+                    Text="{Binding Firstname}"
                     TextColor="White"
-                    Placeholder="Last name:"
+                    Placeholder="{Binding UserFirstName}"
+                    VerticalOptions="Center" 
+                    HorizontalOptions="Fill" 
+                    IsSpellCheckEnabled="False"
+                    IsTextPredictionEnabled="False"
+                    Margin="0,0,0,10"/>
+                <Entry 
+                    x:Name="txtUserLastname"
+                    Background="#191144"
+                    Text="{Binding Lastname}"
+                    TextColor="White"
+                    Placeholder="{Binding UserLastName}"
                     VerticalOptions="Center" 
                     HorizontalOptions="Fill" 
                     IsSpellCheckEnabled="False"
                     IsTextPredictionEnabled="False"
                     Margin="0,0,0,10"/>
                 <Button
-                    x:Name="AttemptRegistrationBtn"
-                    Text="Create My Account"
-                    SemanticProperties.Hint="Register"
+                    x:Name="SaveBtn"
+                    Text="Save Account Information Changes"
+                    SemanticProperties.Hint="Saves change to your account information"
                     HorizontalOptions="Center"
-                    VerticalOptions="Center"
                     FontAttributes="Bold"
+                    WidthRequest="200"
                     Margin="0,15,0,0"
                     IsEnabled="True"
-                    Command="{Binding RegistrationCommand}"/>
-                <Entry 
-                    x:Name="txtVerificationCode"
-                    Background="#191144"
-                    Text="{Binding VerificationCode}"
-                    TextColor="White"
-                    Placeholder="Type Code Here:"
-                    VerticalOptions="Center" 
-                    HorizontalOptions="Center" 
-                    WidthRequest="200"
-                    Margin="0,35,0,0"
-                    IsSpellCheckEnabled="False"
-                    IsTextPredictionEnabled="False"
-                    IsVisible="{Binding IsVerificationVisible}" />
-                <Button
-                    x:Name="SubmitVerificationCodeBtn"
-                    Text="Submit Verification Code"
-                    SemanticProperties.Hint="Submit Verification Code"
-                    HorizontalOptions="Center"
-                    FontAttributes="Bold"
-                    WidthRequest="200"
-                    Margin="0,12,0,0"
-                    IsEnabled="True"
-                    Command="{Binding VerificationCommand}"
-                    IsVisible="{Binding IsVerificationVisible}"/>
+                    IsVisible="True"
+                    Command="{Binding SaveChangesCommand}"/>
             </StackLayout>
         </Grid>
     </VerticalStackLayout>

@@ -5,6 +5,7 @@ using CampusCoin.Views;
 using Microsoft.EntityFrameworkCore;
 using CampusCoin.Models;
 using SkiaSharp.Views.Maui.Controls.Hosting;
+using Microsoft.Extensions.DependencyInjection;
 
 
 namespace CampusCoin;
@@ -42,54 +43,39 @@ public static class MauiProgram
     public static MauiAppBuilder RegisterViewModels(this MauiAppBuilder mauiAppBuilder)
     {
         mauiAppBuilder.Services.AddSingleton<MainPageViewModel>();
-
-        mauiAppBuilder.Services.AddTransient<LoginPageViewModel>();
-
-        mauiAppBuilder.Services.AddTransient<RegistrationPageViewModel>();
-
+        mauiAppBuilder.Services.AddSingleton<LoginPageViewModel>();
+        mauiAppBuilder.Services.AddSingleton<RegistrationPageViewModel>();
         mauiAppBuilder.Services.AddSingleton<GraphTestPageViewModel>();
-
-        mauiAppBuilder.Services.AddTransient<ExpensesTestPageViewModel>();
-
-        mauiAppBuilder.Services.AddTransient<ExpensesPageViewModel>();
-
-        mauiAppBuilder.Services.AddTransient<ExpenseReportViewModel>();
-
+        mauiAppBuilder.Services.AddSingleton<ExpensesTestPageViewModel>();
+        mauiAppBuilder.Services.AddSingleton<ExpensesPageViewModel>();
+        mauiAppBuilder.Services.AddSingleton<EditUserAccountInfoPageViewModel>();
+        mauiAppBuilder.Services.AddSingleton<ResetPasswordPageViewModel>();
+        mauiAppBuilder.Services.AddSingleton<ExpenseReportViewModel>();
         return mauiAppBuilder;
     }
 
     public static MauiAppBuilder RegisterViews(this MauiAppBuilder mauiAppBuilder)
     {
-        mauiAppBuilder
-            .Services
-            .AddSingleton<MainPage>();
-
-        mauiAppBuilder.Services.AddTransient<LoginPage>();
-        mauiAppBuilder.Services.AddTransient<RegistrationPage>();
-        mauiAppBuilder.Services.AddTransient<ExpensesTestPage>();
-        mauiAppBuilder.Services.AddTransient<ExpensesPage>();
-        mauiAppBuilder.Services.AddTransient<ExpenseReportPage>();
-
-        mauiAppBuilder
-            .Services
-            .AddSingleton<GraphTestPage>();
-
-
+        mauiAppBuilder.Services.AddSingleton<MainPage>();
+        mauiAppBuilder.Services.AddSingleton<LoginPage>();
+        mauiAppBuilder.Services.AddSingleton<RegistrationPage>();
+        mauiAppBuilder.Services.AddSingleton<ExpensesTestPage>();
+        mauiAppBuilder.Services.AddSingleton<ExpensesPage>();
+        mauiAppBuilder.Services.AddSingleton<GraphTestPage>();
+        mauiAppBuilder.Services.AddSingleton<EditUserAccountInfoPage>();
+        mauiAppBuilder.Services.AddSingleton<ResetPasswordPage>();
+        mauiAppBuilder.Services.AddSingleton<ExpenseReportPage>();
         return mauiAppBuilder;
     }
 
     public static MauiAppBuilder RegisterServices(this MauiAppBuilder mauiAppBuilder)
     {
-        mauiAppBuilder
-            .Services
-            .AddSingleton<IMessageOutputHandlingService, MessageOutputHandlingService>();
-
+        mauiAppBuilder.Services.AddSingleton<IMessageOutputHandlingService, MessageOutputHandlingService>();
         mauiAppBuilder.Services.AddSingleton<LoginService>();
         mauiAppBuilder.Services.AddSingleton<RegistrationService>();
         mauiAppBuilder.Services.AddSingleton<EmailService>();
-
-
-
+        mauiAppBuilder.Services.AddSingleton<EditUserAccountInfoService>();
+        mauiAppBuilder.Services.AddSingleton<PersistedLoginService>();
         return mauiAppBuilder;
     }
 
