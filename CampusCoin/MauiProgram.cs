@@ -76,6 +76,7 @@ public static class MauiProgram
         mauiAppBuilder.Services.AddSingleton<EmailService>();
         mauiAppBuilder.Services.AddSingleton<EditUserAccountInfoService>();
         mauiAppBuilder.Services.AddSingleton<PersistedLoginService>();
+        mauiAppBuilder.Services.AddSingleton<ExpensesService>();
         return mauiAppBuilder;
     }
 
