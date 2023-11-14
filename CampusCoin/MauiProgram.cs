@@ -53,8 +53,7 @@ public static class MauiProgram
 
         mauiAppBuilder.Services.AddTransient<ExpensesPageViewModel>();
 
-        
-
+        mauiAppBuilder.Services.AddTransient<ExpenseReportViewModel>();
 
         return mauiAppBuilder;
     }
@@ -69,6 +68,7 @@ public static class MauiProgram
         mauiAppBuilder.Services.AddTransient<RegistrationPage>();
         mauiAppBuilder.Services.AddTransient<ExpensesTestPage>();
         mauiAppBuilder.Services.AddTransient<ExpensesPage>();
+        mauiAppBuilder.Services.AddTransient<ExpenseReportPage>();
 
         mauiAppBuilder
             .Services
