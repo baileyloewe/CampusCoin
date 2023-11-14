@@ -30,15 +30,15 @@ public partial class EditUserAccountInfoPageViewModel : ObservableValidator
 
     [PhoneNumberValidation]
     [ObservableProperty]
-    string phonenumber;
+    string phoneNumber;
 
     [FirstnameValidation]
     [ObservableProperty]
-    string firstname;
+    string firstName;
 
     [LastnameValidation]
     [ObservableProperty]
-    string lastname;
+    string lastName;
 
     [ObservableProperty]
     string userEmail;
@@ -75,15 +75,15 @@ public partial class EditUserAccountInfoPageViewModel : ObservableValidator
             await ChangeEmail();
         }
        
-        if (!UserEmail.Equals(Firstname))
+        if (!UserEmail.Equals(FirstName))
         {
             await ChangeFirstName();
         }
-        if (!UserEmail.Equals(Lastname))
+        if (!UserEmail.Equals(LastName))
         {
             await ChangeLastName();
         }
-        if (!UserEmail.Equals(Phonenumber))
+        if (!UserEmail.Equals(PhoneNumber))
         {
             await ChangePhoneNumber();
         }
@@ -92,40 +92,40 @@ public partial class EditUserAccountInfoPageViewModel : ObservableValidator
     [RelayCommand]
     async Task ChangeEmail()
     {
-        await editUserInfoService.EditEmail(currentUser, "test@gmail.com");
+        await editUserInfoService.EditEmail(currentUser, Email);
     }
 
     [RelayCommand]
     async Task ChangePassword()
     {
-        await editUserInfoService.EditPassword(currentUser, "test");
+        await editUserInfoService.EditPassword(currentUser, SaltHashService.HashPassword(Password, currentUser.Salt));
     }
 
     [RelayCommand]
     async Task ChangePhoneNumber()
     {
-        await editUserInfoService.EditLastName(currentUser, "test1");
+        await editUserInfoService.EditLastName(currentUser, PhoneNumber);
     }
 
     [RelayCommand]
     async Task ChangeFirstName()
     {
-        await editUserInfoService.EditPhoneNumber(currentUser, "test2");
+        await editUserInfoService.EditPhoneNumber(currentUser, FirstName);
     }
 
     [RelayCommand]
     async Task ChangeLastName()
     {
-        await editUserInfoService.EditFirstName(currentUser, "test3");
+        await editUserInfoService.EditFirstName(currentUser, LastName);
     }
 
     public void ResetValues()
     {
         Email = null;
         Password = null;
-        Phonenumber = null;
-        Firstname = null;
-        Lastname = null;
+        PhoneNumber = null;
+        FirstName = null;
+        LastName = null;
     }
 
     public async Task setCurrentUser()
