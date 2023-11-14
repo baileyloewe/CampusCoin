@@ -50,6 +50,7 @@ public static class MauiProgram
         mauiAppBuilder.Services.AddSingleton<ExpensesPageViewModel>();
         mauiAppBuilder.Services.AddSingleton<EditUserAccountInfoPageViewModel>();
         mauiAppBuilder.Services.AddSingleton<ResetPasswordPageViewModel>();
+        mauiAppBuilder.Services.AddSingleton<ExpenseReportViewModel>();
         return mauiAppBuilder;
     }
 
@@ -63,6 +64,7 @@ public static class MauiProgram
         mauiAppBuilder.Services.AddSingleton<GraphTestPage>();
         mauiAppBuilder.Services.AddSingleton<EditUserAccountInfoPage>();
         mauiAppBuilder.Services.AddSingleton<ResetPasswordPage>();
+        mauiAppBuilder.Services.AddSingleton<ExpenseReportPage>();
         return mauiAppBuilder;
     }
 
