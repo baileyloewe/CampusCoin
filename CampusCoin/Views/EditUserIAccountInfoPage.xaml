@@ -57,7 +57,7 @@
                 <Entry 
                     x:Name="txtUserPhonenumber"
                     Background="#191144"
-                    Text="{Binding Phonenumber}"
+                    Text="{Binding PhoneNumber}"
                     TextColor="White"
                     Placeholder="{Binding UserPhoneNumber}"
                     VerticalOptions="Center" 
@@ -68,7 +68,7 @@
                 <Entry 
                     x:Name="txtUserFirstname"
                     Background="#191144"
-                    Text="{Binding Firstname}"
+                    Text="{Binding FirstName}"
                     TextColor="White"
                     Placeholder="{Binding UserFirstName}"
                     VerticalOptions="Center" 
@@ -79,7 +79,7 @@
                 <Entry 
                     x:Name="txtUserLastname"
                     Background="#191144"
-                    Text="{Binding Lastname}"
+                    Text="{Binding LastName}"
                     TextColor="White"
                     Placeholder="{Binding UserLastName}"
                     VerticalOptions="Center" 

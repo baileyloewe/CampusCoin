@@ -137,10 +137,10 @@ public class EmailService
     /// <returns></returns>
     public static async Task SendPasswordResetSuccessEmail(string userEmail)
     {
-        string subject = "Registration Successful for CampusCoin";
+        string subject = "Password Reset Success for Campus Coin";
         string htmlBody = "<html><body>";
         htmlBody += "<h1>Welcome to CampusCoin!</h1>";
-        htmlBody += "<p>Your email for future logins: <strong>" + userEmail + "</strong></p>";
+        htmlBody += "<p>Your password for <strong>" + userEmail + "</strong> was sucessefully reset!</p>";
         htmlBody += "</body></html>";
         await EmailService.SendEmail(subject, htmlBody, userEmail, true);
     }

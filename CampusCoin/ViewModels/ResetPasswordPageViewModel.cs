@@ -47,13 +47,13 @@ public partial class ResetPasswordPageViewModel : ObservableValidator
     LoginService loginService;
     EmailService emailService;
     PersistedLoginService persistedLoginService;
-    EditUserAccountInfoService editUserInfoService;
+    EditUserAccountInfoService editUserAccountInfoService;
 
-    public ResetPasswordPageViewModel(LoginService loginService, EmailService emailService, PersistedLoginService persistedLoginService, EditUserAccountInfoService editUserInfoService, IMessageOutputHandlingService messageOutputHandlingService)
+    public ResetPasswordPageViewModel(LoginService loginService, EmailService emailService, PersistedLoginService persistedLoginService, EditUserAccountInfoService editUserAccountInfoService, IMessageOutputHandlingService messageOutputHandlingService)
     {
         this.loginService = loginService;
         this.emailService = emailService;
-        this.editUserInfoService = editUserInfoService;
+        this.editUserAccountInfoService = editUserAccountInfoService;
         this.persistedLoginService = persistedLoginService;
         _messageOutputHandlingService = messageOutputHandlingService;
         isEmailVisible = true;
@@ -62,7 +62,7 @@ public partial class ResetPasswordPageViewModel : ObservableValidator
     }
 
     [RelayCommand]
-    async Task CheckEmail()
+    async Task SendCode()
     {
          await emailService.SendPasswordResetEmail(Email);
          SetVisibilityOfEmail(false);
@@ -70,24 +70,25 @@ public partial class ResetPasswordPageViewModel : ObservableValidator
          await App.Current.MainPage.DisplayAlert("Password Reset Verification Code Sent"
              , "A verification code has been sent to the email address associated with your CampusCoin account (" + Email +").\n\nPlease allow up to 3 minutes for the code to arrive."
              , "OK");
-         // Wait for the verification code to be entered
-         while (!VerificationEntered)
-         {
-             await Task.Delay(100); // Wait for .1 second before checking again
-         }
-         if (Verificationcode == emailService.verificationCode.ToString())
-         {
-             currentUser = await loginService.GetUserByEmail(Email);
-             SetVisibilityOfVerification(false);
-             SetVisibilityOfPassword(true);
-         }
-         else
-         {
-             await App.Current.MainPage.DisplayAlert("Error", "Invalid verification code. Please try again.", "OK");
-             Verificationcode = null;
-             VerificationEntered = false;
-         }
     }
+    
+    [RelayCommand]
+    async Task SubmitVerificationCode()
+    {
+        if (Verificationcode == emailService.verificationCode.ToString())
+        {
+            currentUser = await loginService.GetUserByEmail(Email);
+            SetVisibilityOfVerification(false);
+            SetVisibilityOfPassword(true);
+        }
+        else
+        {
+            await App.Current.MainPage.DisplayAlert("Error", "Invalid verification code. Please try again.", "OK");
+            Verificationcode = null;
+            VerificationEntered = false;
+        }
+    }
+
 
     [RelayCommand]
     private async Task SubmitPasswordChange()
@@ -111,7 +112,7 @@ public partial class ResetPasswordPageViewModel : ObservableValidator
 
     async Task SavePasswordChange()
     {
-        await editUserInfoService.EditPassword(currentUser, NewPassword);
+        await editUserAccountInfoService.EditPassword(currentUser, SaltHashService.HashPassword(NewPassword, currentUser.Salt));
         await EmailService.SendPasswordResetSuccessEmail(currentUser.Email);
         await App.Current.MainPage.DisplayAlert("Password succesfully reset!", "Your password has been successfully reset", "OK");
     }
