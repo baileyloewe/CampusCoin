@@ -23,7 +23,6 @@ public partial class ResetPasswordPageViewModel : ObservableValidator
     [ObservableProperty]
     string newPassword;
 
-    [PasswordValidation]
     [ObservableProperty]
     string confirmNewPassword;
 
@@ -97,15 +96,28 @@ public partial class ResetPasswordPageViewModel : ObservableValidator
         {
             if (NewPassword != ConfirmNewPassword)
             {
+                Debug.WriteLine("here1");
                 await App.Current.MainPage.DisplayAlert("Your Passwords do not match", "Passwords must be the same", "OK");
                 NewPassword = null;
                 ConfirmNewPassword = null;
             }
             else
             {
-                await SavePasswordChange();
-                ResetValues();
-                await Shell.Current.GoToAsync(nameof(MainPage));
+                ValidateAllProperties();
+                if (!HasErrors)
+                {
+                    Debug.WriteLine("here2");
+                    await SavePasswordChange();
+                    ResetValues();
+                    await Shell.Current.GoToAsync(nameof(MainPage));
+                }
+                else
+                {
+                    Debug.WriteLine("here3");
+                    await _messageOutputHandlingService.OutputValidationErrorsToUser(GetErrors());
+                    NewPassword = "";
+                    ConfirmNewPassword = "";
+                }            
             }
         }
     }
@@ -115,6 +127,7 @@ public partial class ResetPasswordPageViewModel : ObservableValidator
         await editUserAccountInfoService.EditPassword(currentUser, SaltHashService.HashPassword(NewPassword, currentUser.Salt));
         await EmailService.SendPasswordResetSuccessEmail(currentUser.Email);
         await App.Current.MainPage.DisplayAlert("Password succesfully reset!", "Your password has been successfully reset", "OK");
+      
     }
 
     [RelayCommand]
