@@ -8,6 +8,7 @@ using SkiaSharp.Views.Maui.Controls.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 
 
+
 namespace CampusCoin;
 
 public static class MauiProgram
