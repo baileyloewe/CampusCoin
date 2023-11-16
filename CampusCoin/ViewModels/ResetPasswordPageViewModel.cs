@@ -60,6 +60,7 @@ public partial class ResetPasswordPageViewModel : ObservableValidator
         isPasswordVisible = false;
     }
 
+    // Sends a password reset email and displays a message
     [RelayCommand]
     async Task SendCode()
     {
@@ -69,7 +70,6 @@ public partial class ResetPasswordPageViewModel : ObservableValidator
          await App.Current.MainPage.DisplayAlert("Password Reset Verification Code Sent"
              , "A verification code has been sent to the email address associated with your CampusCoin account (" + Email +").\n\nPlease allow up to 3 minutes for the code to arrive."
              , "OK");
-        /// dfsdfdesf
     }
     
     [RelayCommand]
