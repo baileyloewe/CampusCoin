@@ -96,7 +96,6 @@ public partial class ResetPasswordPageViewModel : ObservableValidator
         {
             if (NewPassword != ConfirmNewPassword)
             {
-                Debug.WriteLine("here1");
                 await App.Current.MainPage.DisplayAlert("Your Passwords do not match", "Passwords must be the same", "OK");
                 NewPassword = null;
                 ConfirmNewPassword = null;
@@ -106,14 +105,12 @@ public partial class ResetPasswordPageViewModel : ObservableValidator
                 ValidateAllProperties();
                 if (!HasErrors)
                 {
-                    Debug.WriteLine("here2");
                     await SavePasswordChange();
                     ResetValues();
                     await Shell.Current.GoToAsync(nameof(MainPage));
                 }
                 else
                 {
-                    Debug.WriteLine("here3");
                     await _messageOutputHandlingService.OutputValidationErrorsToUser(GetErrors());
                     NewPassword = "";
                     ConfirmNewPassword = "";
