@@ -27,7 +27,7 @@ public partial class ResetPasswordPageViewModel : ObservableValidator
     string confirmNewPassword;
 
     [ObservableProperty]
-    string verificationcode;
+    string verificationCode;
 
     [ObservableProperty]
     private bool isEmailVisible;
@@ -37,7 +37,6 @@ public partial class ResetPasswordPageViewModel : ObservableValidator
 
     [ObservableProperty]
     private bool isVerificationVisible;
-
 
     public bool VerificationEntered = false;
 
@@ -75,7 +74,7 @@ public partial class ResetPasswordPageViewModel : ObservableValidator
     [RelayCommand]
     async Task SubmitVerificationCode()
     {
-        if (Verificationcode == emailService.verificationCode.ToString())
+        if (VerificationCode == emailService.verificationCode.ToString())
         {
             currentUser = await loginService.GetUserByEmail(Email);
             SetVisibilityOfVerification(false);
@@ -84,7 +83,7 @@ public partial class ResetPasswordPageViewModel : ObservableValidator
         else
         {
             await App.Current.MainPage.DisplayAlert("Error", "Invalid verification code. Please try again.", "OK");
-            Verificationcode = null;
+            VerificationCode = null;
             VerificationEntered = false;
         }
     }
@@ -156,7 +155,7 @@ public partial class ResetPasswordPageViewModel : ObservableValidator
         Email = null;
         NewPassword = null;
         ConfirmNewPassword = null;
-        Verificationcode = null;
+        VerificationCode = null;
         VerificationEntered = false;
         SetVisibilityOfEmail(true);
         SetVisibilityOfVerification(false); 
