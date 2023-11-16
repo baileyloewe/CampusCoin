@@ -10,141 +10,59 @@
         Margin="0,200,0,0"
         WidthRequest="500">
         <Label
-                Text="Expenses"
-                Margin="0,0,0,50"
-                SemanticProperties.HeadingLevel="Level1"
-                FontSize="32"
-                FontAttributes="Bold"
-                HorizontalOptions="Center"/>
-        <HorizontalStackLayout 
-            Spacing="50" 
-            HorizontalOptions="CenterAndExpand">
-            <Label
-                Text="Bills"
-                FontSize="20"
-                FontAttributes="Bold"
-                Padding="0,20,0,0"
-                HorizontalOptions="Center"
-                />
-            <Entry
-                x:Name="txtBills"                      
-                Text=""                                         
-                Placeholder="Amount spent on bills:"                      
-                Background="#191144"
-                TextColor="White"                       
-                FontAttributes="Bold"                     
-                VerticalOptions="Center"                      
-                HorizontalOptions="Fill"
-                Margin="0,20,20,0"/>
+            Text="Check One"
+            FontSize="32"/>
+        <HorizontalStackLayout>
+            <RadioButton 
+            GroupName="ExpenseCategories"
+            Content="Bills"
+            IsChecked="{Binding IsBillsCategory}"/>
+            <RadioButton 
+            GroupName="ExpenseCategories"
+            Content="Food"
+            IsChecked="{Binding IsFoodCategory}"/>
         </HorizontalStackLayout>
-
-        <HorizontalStackLayout 
-            Spacing="50" 
-            HorizontalOptions="CenterAndExpand">
-            <Label
-                Text="Food"
-                FontSize="20"
-                FontAttributes="Bold"
-                Padding="0,20,0,0"
-                HorizontalOptions="Center"/>
-            <Entry
-                x:Name="txtFood"                      
-                Text=""                                         
-                Placeholder="Amount spent on food:"                      
-                Background="#191144"
-                TextColor="White"                      
-                FontAttributes="Bold"                     
-                VerticalOptions="Center"                      
-                HorizontalOptions="Fill"                       
-                Margin="0,20,20,0"/>
+        <HorizontalStackLayout>
+            <RadioButton 
+            GroupName="ExpenseCategories"
+            Content="Auto"
+            IsChecked="{Binding IsAutoCategory}"/>
+            <RadioButton 
+            GroupName="ExpenseCategories"
+            Content="Entertainment"
+            IsChecked="{Binding IsEntertainmentCategory}"/>
         </HorizontalStackLayout>
-
-        <HorizontalStackLayout 
-            Spacing="50"
-            HorizontalOptions="CenterAndExpand">
-            <Label
-                Text="Auto"
-                FontSize="20"
-                FontAttributes="Bold"
-                Padding="0,20,0,0"
-                HorizontalOptions="Center"/>
-            <Entry
-                x:Name="txtAuto"                      
-                Text=""                                         
-                Placeholder="Amount spent on auto:"                      
-                Background="#191144"
-                TextColor="White"                       
-                FontAttributes="Bold"                     
-                VerticalOptions="Center"                      
-                HorizontalOptions="Fill"                       
-                Margin="0,20,20,0"/>
+        <HorizontalStackLayout>
+            <RadioButton 
+            GroupName="ExpenseCategories"
+            Content="Investments"
+            IsChecked="{Binding IsInvestmentsCategory}"/>
+            <RadioButton 
+            GroupName="ExpenseCategories"
+            Content="Misc"
+            IsChecked="{Binding IsMiscCategory}"/>
         </HorizontalStackLayout>
         
-        <HorizontalStackLayout 
-            Spacing="50"
-            HorizontalOptions="CenterAndExpand"
-            Margin="0,0,27,0">
-            <Label
-                Text="Entertainment"
-                FontSize="20"
-                FontAttributes="Bold"
-                Padding="0,20,0,0"
-                HorizontalOptions="Center"/>
-            <Entry
-                x:Name="txtEntertainment"                      
-                Text=""                                         
-                Placeholder="Amount spent on entertainment:"                      
-                Background="#191144"
-                TextColor="White"                         
-                FontAttributes="Bold"                     
-                VerticalOptions="Center"                      
-                HorizontalOptions="Fill"                       
-                Margin="0,20,20,0"/>
-        </HorizontalStackLayout>
+        <Label
+            Margin="0,50,0,0"
+            Text="Amount Spent"
+            FontSize="32"/>
+        <Entry
+            Text="{Binding Amount}"
+            Background="#191144"
+            TextColor="White"
+            Placeholder="$"
+            WidthRequest="220"
+            HorizontalOptions="Start"/>
 
-        <HorizontalStackLayout 
-            Spacing="50"
-            HorizontalOptions="CenterAndExpand"
-            Margin="0,0,25,0">
-            <Label
-                Text="Investments"
-                FontSize="20"
-                FontAttributes="Bold"
-                Padding="0,20,0,0"
-                HorizontalOptions="Center"/>
-            <Entry
-                x:Name="txtInvestments"                      
-                Text=""                                         
-                Placeholder="Amount spent on investments:"                      
-                Background="#191144"
-                TextColor="White"                        
-                FontAttributes="Bold"                     
-                VerticalOptions="Center"                      
-                HorizontalOptions="Fill"                       
-                Margin="0,20,20,0"/>
-        </HorizontalStackLayout>
-
-        <HorizontalStackLayout 
-            Spacing="50"
-            HorizontalOptions="CenterAndExpand">
-            <Label
-                Text="Misc"
-                FontSize="20"
-                FontAttributes="Bold"
-                Padding="0,20,0,0"
-                HorizontalOptions="Center"/>
-            <Entry
-                x:Name="txtMisc"                      
-                Text=""                                         
-                Placeholder="Amount spent on misc:"                      
-                Background="#191144"
-                TextColor="White"                         
-                FontAttributes="Bold"                     
-                VerticalOptions="Center"                      
-                HorizontalOptions="Fill"                       
-                Margin="0,20,20,0"/>
-        </HorizontalStackLayout>
-
+        <Label
+            Margin="0,50,0,0"
+            Text="Description"
+            FontSize="32"/>
+        <Entry
+            Text="{Binding Description}"
+            Background="#191144"
+            TextColor="White"/>
         <Button
             Margin="0,75,0,0"
             Text="Submit"

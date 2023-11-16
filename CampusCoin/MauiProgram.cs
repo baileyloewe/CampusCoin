@@ -8,6 +8,7 @@ using SkiaSharp.Views.Maui.Controls.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 
 
+
 namespace CampusCoin;
 
 public static class MauiProgram
@@ -60,7 +61,7 @@ public static class MauiProgram
         mauiAppBuilder.Services.AddSingleton<LoginPage>();
         mauiAppBuilder.Services.AddSingleton<RegistrationPage>();
         mauiAppBuilder.Services.AddSingleton<ExpensesTestPage>();
-        mauiAppBuilder.Services.AddSingleton<ExpensesPage>();
+        mauiAppBuilder.Services.AddTransient<ExpensesPage>();
         mauiAppBuilder.Services.AddSingleton<GraphTestPage>();
         mauiAppBuilder.Services.AddSingleton<EditUserAccountInfoPage>();
         mauiAppBuilder.Services.AddSingleton<ResetPasswordPage>();

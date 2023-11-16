@@ -4,6 +4,7 @@ using CampusCoin.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
+
 namespace CampusCoin.ViewModels;
 
 public partial class ExpensesPageViewModel : ObservableValidator
@@ -21,6 +22,9 @@ public partial class ExpensesPageViewModel : ObservableValidator
 
     [ObservableProperty]
     string description;
+
+    [ObservableProperty]
+    string selectedCategory;
 
     ExpensesService expensesService;
     PersistedLoginService persistedLoginService;
@@ -40,6 +44,7 @@ public partial class ExpensesPageViewModel : ObservableValidator
             var userData = new UserData();
             userData =  setUserDataValues(userData);
             await expensesService.SubmitExpense(userData);
+            await Shell.Current.GoToAsync(nameof(ExpensesPage));
         }
         catch (Exception ex)
         {
@@ -53,13 +58,49 @@ public partial class ExpensesPageViewModel : ObservableValidator
         User user = persistedLoginService.GetUser();
         DateTime date = DateTime.Now;
 
-        userData.Category = "Bills";
-        userData.Amount = "50";
+        userData.Category = SelectedCategory;
+        userData.Amount = Amount;
         userData.DateEntered = date.ToString("MM,dd,yyyy HH,mm,ss");
-        userData.Description = "Test";
+        userData.Description = Description;
         userData.UserId = user.UserId;
         
         return userData;
+    }
+
+    public string IsBillsCategory
+    {
+        get { return "bills"; }
+        set { SelectedCategory = "Bills"; }
+    }
+
+    public string IsFoodCategory
+    {
+        get { return "food"; }
+        set => SelectedCategory = "Food";
+    }
+
+    public string IsAutoCategory
+    {
+        get { return "auto"; }
+        set { SelectedCategory = "Auto"; }
+    }
+
+    public string IsEntertainmentCategory
+    {
+        get { return "entertainment"; }
+        set { SelectedCategory = "Entertainment"; }
+    }
+
+    public string IsInvestmentsCategory
+    {
+        get { return "investments"; }
+        set { SelectedCategory = "Investments"; }
+    }
+
+    public string IsMiscCategory
+    {
+        get { return "misc"; }
+        set { SelectedCategory = "Misc"; }
     }
 
     [RelayCommand]
