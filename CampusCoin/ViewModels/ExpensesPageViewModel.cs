@@ -76,7 +76,7 @@ public partial class ExpensesPageViewModel : ObservableValidator
     public string IsFoodCategory
     {
         get { return "food"; }
-        set { SelectedCategory = "Food"; }
+        set => SelectedCategory = "Food";
     }
 
     public string IsAutoCategory
