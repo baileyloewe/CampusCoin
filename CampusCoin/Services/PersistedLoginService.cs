@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Net;
 using System.Net.Mail;
 using System.Reflection;
+using System.Security.Cryptography;
 using CampusCoin.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -94,6 +95,16 @@ public class PersistedLoginService
     {
         // Implement your logic to display a confirmation action sheet
         return await Shell.Current.DisplayAlert("Sign Out", "Would you like to sign out?", "Yes", "No");
+    }
+
+    public static String generateAuthToken()
+    {
+        byte[] token = new byte[32];
+        using (RandomNumberGenerator rng = RandomNumberGenerator.Create())
+        {
+            rng.GetBytes(token);
+        }
+        return Convert.ToBase64String(token);
     }
 
 }

@@ -7,6 +7,7 @@ using System.Diagnostics;
 using CampusCoin.Views;
 using System.Collections.Generic;
 using CampusCoin.Validation;
+using Microsoft.Data.SqlClient;
 
 namespace CampusCoin.ViewModels;
 
@@ -188,6 +189,7 @@ public partial class RegistrationPageViewModel : ObservableValidator
         user.PhoneNumber = PhoneNumber;
         user.FirstName = FirstName;
         user.LastName = LastName;
+        user.AuthToken = PersistedLoginService.generateAuthToken();
         return user;
     }
 
