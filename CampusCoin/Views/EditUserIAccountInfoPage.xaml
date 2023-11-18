@@ -97,7 +97,20 @@
                     Margin="0,15,0,0"
                     IsEnabled="True"
                     IsVisible="True"
-                    Command="{Binding SaveChangesCommand}"/>
+                    Command="{Binding SaveChangesCommand}">
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroupList>
+                            <VisualStateGroup Name="ValidityStates">
+                                <VisualState Name="Enabled" />
+                                <VisualState Name="Disabled">
+                                    <VisualState.Setters>
+                                        <Setter Property="IsEnabled" Value="False" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateGroupList>
+                    </VisualStateManager.VisualStateGroups>
+                </Button>
             </StackLayout>
         </Grid>
     </VerticalStackLayout>

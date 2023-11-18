@@ -29,23 +29,40 @@
                 Text="Login"
                 SemanticProperties.Hint="Redirects to the login page"
                 Command="{Binding RouteToLoginPageCommand}"
-                IsEnabled="True"
-                HorizontalOptions="Center"/>
+                HorizontalOptions="Center">
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup Name="ValidityStates">
+                            <VisualState Name="Enabled" />
+                            <VisualState Name="Disabled">
+                                <VisualState.Setters>
+                                    <Setter Property="IsEnabled" Value="False" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
+            </Button>
 
             <Button 
                 x:Name="RegistrationBtn"
                 Text="Registration"
                 SemanticProperties.Hint="Redirects to the login page"
                 Command="{Binding RouteToRegistrationPageCommand}"
-                HorizontalOptions="Center"/>
-
-            <Button 
-                x:Name="DatabaseTestBtn"
-                Text="Test database connection"
-                SemanticProperties.Hint="Test connection"
-                Command="{Binding CheckDatabaseConnectionCommand}"
-                IsVisible="false"
-                HorizontalOptions="Center"/>   
+                HorizontalOptions="Center">
+                <VisualStateManager.VisualStateGroups>
+                <VisualStateGroupList>
+                    <VisualStateGroup Name="ValidityStates">
+                        <VisualState Name="Enabled" />
+                        <VisualState Name="Disabled">
+                            <VisualState.Setters>
+                                <Setter Property="IsEnabled" Value="False" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
+            </Button>
         </VerticalStackLayout>
     </ScrollView>
  

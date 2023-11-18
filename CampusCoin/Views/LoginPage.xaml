@@ -64,7 +64,20 @@
                     Margin="0,15,0,0"
                     IsEnabled="True"
                     IsVisible="True"
-                    Command="{Binding LoginCommand}"/>
+                    Command="{Binding LoginCommand}">
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroupList>
+                            <VisualStateGroup Name="ValidityStates">
+                                <VisualState Name="Enabled" />
+                                <VisualState Name="Disabled">
+                                    <VisualState.Setters>
+                                        <Setter Property="IsEnabled" Value="False" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateGroupList>
+                    </VisualStateManager.VisualStateGroups>
+                </Button>
                 <StackLayout 
                     Orientation="Horizontal" 
                     Margin="0,10,0,0" 

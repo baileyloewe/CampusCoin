@@ -67,6 +67,19 @@
             Margin="0,75,0,0"
             Text="Submit"
             HorizontalOptions="CenterAndExpand"
-            Command="{Binding SubmitExpenseToDatabaseCommand}"/>
+            Command="{Binding SubmitExpenseToDatabaseCommand}">
+            <VisualStateManager.VisualStateGroups>
+                <VisualStateGroupList>
+                    <VisualStateGroup Name="ValidityStates">
+                        <VisualState Name="Enabled" />
+                        <VisualState Name="Disabled">
+                            <VisualState.Setters>
+                                <Setter Property="IsEnabled" Value="False" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </VisualStateManager.VisualStateGroups>
+        </Button>
     </VerticalStackLayout>
 </ContentPage>
