@@ -112,7 +112,7 @@ public partial class RegistrationPageViewModel : ObservableValidator
                 user = HashUserPassword(user);
                 await emailService.SendVerificationEmail(user.Email);
                 SetVisibilityOfVerification(true);
-                await App.Current.MainPage.DisplayAlert("Code sent", "Verification Code was sent to: " + user.Email + "\n\nPlease allow up to 3 minutes for code to arrive", "OK");
+                await Shell.Current.DisplayAlert("Code sent", "Verification Code was sent to: " + user.Email + "\n\nPlease allow up to 3 minutes for code to arrive", "OK");
 
 
                 while (true)
@@ -136,12 +136,12 @@ public partial class RegistrationPageViewModel : ObservableValidator
                             Debug.WriteLine(ex);
                             if (ex.ToString().Contains("UniqueEmail"))
                             {
-                                await App.Current.MainPage.DisplayAlert("Error", "Email already registered", "OK");
+                                await Shell.Current.DisplayAlert("Error", "Email already registered", "OK");
                                 return;
                             }
                             else
                             {
-                                await App.Current.MainPage.DisplayAlert("Error", "Something went wrong. Please try again.", "OK");
+                                await Shell.Current.DisplayAlert("Error", "Something went wrong. Please try again.", "OK");
                                 return;
                             }
                         }
@@ -150,14 +150,14 @@ public partial class RegistrationPageViewModel : ObservableValidator
                             IsBusy = false;
                         }
 
-                        await App.Current.MainPage.DisplayAlert("Account registered!", "Your account has been successfully registered", "OK");
+                        await Shell.Current.DisplayAlert("Account registered!", "Your account has been successfully registered", "OK");
                         ResetValues();
                         SetVisibilityOfVerification(false);
                         await Shell.Current.GoToAsync(nameof(MainPage));
                     }
                     else
                     {
-                        await App.Current.MainPage.DisplayAlert("Error", "Invalid verification code. Please try again.", "OK");
+                        await Shell.Current.DisplayAlert("Error", "Invalid verification code. Please try again.", "OK");
                         VerificationCode = null;
                         VerificationEntered = false; 
                     }
