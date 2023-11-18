@@ -1,12 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CampusCoin.Services;
+using CampusCoin.Views;
+using CampusCoin.Models;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
-namespace CampusCoin.ViewModels
+namespace CampusCoin.ViewModels;
+
+public partial class ExpenseReportViewModel : ObservableValidator
 {
-    class ExpenseReportViewModel
+    private readonly IMessageOutputHandlingService _messageOutputHandlingService;
+    ExpensesService expensesService;
+    PersistedLoginService persistedLoginService;
+
+    public ExpenseReportViewModel(ExpensesService expensesService, PersistedLoginService persistedLoginService, IMessageOutputHandlingService messageOutputHandlingService)
     {
+        this.expensesService = expensesService;
+        this.persistedLoginService = persistedLoginService;
+        _messageOutputHandlingService = messageOutputHandlingService;
     }
 }

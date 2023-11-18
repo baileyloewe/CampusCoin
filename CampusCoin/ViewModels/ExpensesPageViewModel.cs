@@ -4,13 +4,10 @@ using CampusCoin.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
-
 namespace CampusCoin.ViewModels;
 
 public partial class ExpensesPageViewModel : ObservableValidator
 {
-    private readonly IMessageOutputHandlingService _messageOutputHandlingService;
-
     [ObservableProperty]
     string category;
 
@@ -26,6 +23,7 @@ public partial class ExpensesPageViewModel : ObservableValidator
     [ObservableProperty]
     string selectedCategory;
 
+    private readonly IMessageOutputHandlingService _messageOutputHandlingService;
     ExpensesService expensesService;
     PersistedLoginService persistedLoginService;
 
@@ -55,7 +53,7 @@ public partial class ExpensesPageViewModel : ObservableValidator
 
     public UserData setUserDataValues(UserData userData)
     {
-        User user = persistedLoginService.GetUser();
+        User user = persistedLoginService.getLoggedInUser();
         DateTime date = DateTime.Now;
 
         userData.Category = SelectedCategory;
@@ -107,5 +105,14 @@ public partial class ExpensesPageViewModel : ObservableValidator
     async Task RouteExpenseReportPage()
     {
         await Shell.Current.GoToAsync(nameof(ExpenseReportPage));
+    }
+
+    [RelayCommand]
+    async Task Back()
+    {
+        if (await persistedLoginService.logoutPrompt())
+        {
+            await Shell.Current.GoToAsync(nameof(MainPage));
+        }
     }
 }

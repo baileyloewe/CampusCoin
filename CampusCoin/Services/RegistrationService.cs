@@ -21,9 +21,7 @@ public class RegistrationService
         _context = context;
     }
 
-    /// <summary>
-    /// Gets a list of all users from the database
-    /// </summary>
+    /// <summary> Gets a list of all users from the database </summary>
     /// <param></param>
     /// <returns name="usersList"> A list of users from the database </returns>
     public async Task<List<User>> GetUsers()
@@ -32,9 +30,7 @@ public class RegistrationService
         usersList = await dbContext.Users.ToListAsync();
         return usersList;
     }
-    /// <summary>
-    /// Registers a user in the database, then saves the database
-    /// </summary>
+    /// <summary> Registers a user in the database, then saves the database </summary>
     /// <param name="user">The user to be saved</param>
     /// <returns></returns>
     public async Task RegisterUser(User user)

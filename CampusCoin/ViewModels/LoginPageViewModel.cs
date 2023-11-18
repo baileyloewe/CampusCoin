@@ -70,7 +70,7 @@ public partial class LoginPageViewModel : ObservableValidator
                 else 
                 {
                     ResetValues();
-                    await persistedLoginService.SetUser(matchedUser.Email);
+                    await persistedLoginService.login(matchedUser.Email);
                     // Route to post-login view
                     await Shell.Current.GoToAsync(nameof(ExpensesPage));
                 }

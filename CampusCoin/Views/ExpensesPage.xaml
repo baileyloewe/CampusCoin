@@ -5,6 +5,9 @@
              x:DataType="viewModels:ExpensesPageViewModel"
              x:Class="CampusCoin.Views.ExpensesPage"
              Title="ExpensesPage">
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior Command="{Binding BackCommand}" />
+    </Shell.BackButtonBehavior>
     <VerticalStackLayout
         HorizontalOptions="Center"
         Margin="0,200,0,0"

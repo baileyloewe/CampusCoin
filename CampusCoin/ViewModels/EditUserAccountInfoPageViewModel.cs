@@ -130,7 +130,7 @@ public partial class EditUserAccountInfoPageViewModel : ObservableValidator
 
     public async Task setCurrentUser()
     {
-        currentUser = persistedLoginService.GetUser();
+        currentUser = persistedLoginService.getLoggedInUser();
         if (currentUser == null)
         {
             await Shell.Current.DisplayAlert("Error",
