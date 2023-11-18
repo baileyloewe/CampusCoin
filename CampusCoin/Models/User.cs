@@ -39,6 +39,10 @@ public partial class User
     [StringLength(50)]
     public string Salt { get; set; }
 
+    [Required]
+    [StringLength(50)]
+    public string AuthToken { get; set; }
+
     [InverseProperty("User")]
     public virtual ICollection<UserData> UserData { get; set; } = new List<UserData>();
 }
