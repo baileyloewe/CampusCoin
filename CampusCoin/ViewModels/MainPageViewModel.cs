@@ -13,6 +13,7 @@ namespace CampusCoin.ViewModels
         private readonly IMessageOutputHandlingService _messageOutputHandlingService;
         private readonly IDbContextFactory<CampusCoinContext> _testContextFactory;
 
+
         // note that the IMessageOutputHandlingService is injected into the constructor- https://learn.microsoft.com/en-us/dotnet/architecture/maui/dependency-injection
         // this is necessary in our case for unit tests to be able to mock the service
         public MainPageViewModel(IMessageOutputHandlingService messageOutputHandlingService, IDbContextFactory<CampusCoinContext> testContextFactory)
@@ -20,27 +21,6 @@ namespace CampusCoin.ViewModels
             // assign injected services to private variables
             _testContextFactory = testContextFactory;
             _messageOutputHandlingService = messageOutputHandlingService;
-        }
-
-        /// <summary>
-        /// Testing database connection
-        /// </summary>
-        /// <returns></returns>
-        [RelayCommand]
-        public async Task CheckDatabaseConnection()
-        {
-            try
-            {
-                using (var context = _testContextFactory.CreateDbContext())
-                {
-                    var test = context.Users.ToList();
-                    await _messageOutputHandlingService.OutputSuccessToUser($"Database connection successful. Found {test.Count} users.");
-                }
-            }
-            catch (Exception ex)
-            {
-                await _messageOutputHandlingService.OutputValidationErrorsToUser(new List<ValidationResult> { new ValidationResult($"Database connection failed. {ex.Message}") });
-            }
         }
 
         /// <summary>

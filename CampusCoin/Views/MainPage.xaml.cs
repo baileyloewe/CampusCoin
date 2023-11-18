@@ -9,5 +9,10 @@ public partial class MainPage : ContentPage
 		BindingContext = vm;
 		InitializeComponent();
 	}
+
+    private void LoginBtn_Pressed(object sender, EventArgs e)
+    {
+
+    }
 }
 

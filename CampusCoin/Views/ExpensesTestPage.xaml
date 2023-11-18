@@ -12,6 +12,19 @@
             HorizontalOptions="Center" />
         <Button
             Text="Test Button"
-            Command="{Binding RouteExpensesCommand}"/>
+            Command="{Binding RouteExpensesCommand}">
+            <VisualStateManager.VisualStateGroups>
+                <VisualStateGroupList>
+                    <VisualStateGroup Name="ValidityStates">
+                        <VisualState Name="Enabled" />
+                        <VisualState Name="Disabled">
+                            <VisualState.Setters>
+                                <Setter Property="IsEnabled" Value="False" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </VisualStateManager.VisualStateGroups>
+        </Button>
     </VerticalStackLayout>
 </ContentPage>
