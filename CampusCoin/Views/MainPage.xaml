@@ -25,6 +25,17 @@
                 HorizontalOptions="Center" />
 
             <Button 
+                x:Name="TstBtn"
+                Text="TST"
+                IsVisible="False"
+                IsEnabled="False"
+                SemanticProperties.Hint="Test"
+                Command="{Binding ExecuteRememberMeCommand}"
+                HorizontalOptions="Center"/>
+
+
+
+            <Button 
                 x:Name="LoginBtn"
                 Text="Login"
                 SemanticProperties.Hint="Redirects to the login page"
