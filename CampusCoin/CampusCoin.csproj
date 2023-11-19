@@ -53,9 +53,14 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\AuthenticationToken.txt" />
 	  <None Remove="Resources\campuscoin.png" />
 	  <None Remove="Resources\campuscoinlogo2.png" />
 	  <None Remove="Resources\Fonts\fa_solid.ttf" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Include="Resources\AuthenticationToken.txt" />
 	</ItemGroup>
 
 	<ItemGroup>

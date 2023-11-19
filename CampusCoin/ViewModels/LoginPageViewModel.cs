@@ -33,13 +33,16 @@ public partial class LoginPageViewModel : ObservableValidator
     [ObservableProperty]
     string confirmNewPassword;
 
+    [ObservableProperty]
+    bool rememberMe;
+
     //public bool IsNotBusy => !IsBusy;
 
     LoginService loginService;
     EmailService emailService;
     PersistedLoginService persistedLoginService;
 
-    public LoginPageViewModel(LoginService loginService, EmailService emailService, PersistedLoginService persistedLoginService ,IMessageOutputHandlingService messageOutputHandlingService)
+    public LoginPageViewModel(LoginService loginService, EmailService emailService, PersistedLoginService persistedLoginService, IMessageOutputHandlingService messageOutputHandlingService)
     {
         this.loginService = loginService;
         this.emailService = emailService;
@@ -71,6 +74,10 @@ public partial class LoginPageViewModel : ObservableValidator
                 {
                     ResetValues();
                     await persistedLoginService.login(matchedUser.Email);
+                    if (RememberMe)
+                    {
+                        await persistedLoginService.SaveAuthToken();
+                    }
                     // Route to post-login view
                     await Shell.Current.GoToAsync(nameof(ExpensesPage));
                 }
