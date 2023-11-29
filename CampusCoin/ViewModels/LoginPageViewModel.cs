@@ -92,6 +92,7 @@ public partial class LoginPageViewModel : ObservableValidator
             Debug.WriteLine(ex);
             await Shell.Current.DisplayAlert("Error",
                 $"Something went wrong :(", "OK");
+            throw;
         }
         finally 
         { 

@@ -12,7 +12,7 @@ public partial class ExpensesPageViewModel : ObservableValidator
     string category;
 
     [ObservableProperty]
-    string amount;
+    string? amount;
 
     [ObservableProperty]
     string dateEntered;
@@ -56,9 +56,9 @@ public partial class ExpensesPageViewModel : ObservableValidator
         User user = persistedLoginService.getLoggedInUser();
         DateTime date = DateTime.Now;
 
+        userData.Amount = int.Parse(Amount ?? "0");
         userData.Category = SelectedCategory;
-        userData.Amount = Amount;
-        userData.DateEntered = date.ToString("MM,dd,yyyy HH,mm,ss");
+        userData.DateEntered = date;
         userData.Description = Description;
         userData.UserId = user.UserId;
         

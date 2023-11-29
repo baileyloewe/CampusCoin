@@ -31,6 +31,7 @@ public class LoginService
         catch (Exception ex)
         {
             Debug.WriteLine(ex);
+            throw;
         }
         return user;
     }
