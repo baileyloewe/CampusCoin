@@ -49,10 +49,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <AndroidResource Remove="Platforms\Android\Resources\xml\network_security_config.xml" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <Compile Remove="Services\Interface1.cs" />
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Platforms\Android\Resources\xml\network_security_config.xml" />
 	  <None Remove="Resources\AuthenticationToken.txt" />
 	  <None Remove="Resources\campuscoin.png" />
 	  <None Remove="Resources\campuscoinlogo2.png" />
@@ -60,6 +65,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Include="Platforms\Android\Resources\xml\network_security_config.xml" />
 	  <Compile Include="Resources\AuthenticationToken.txt" />
 	</ItemGroup>
 
