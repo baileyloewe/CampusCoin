@@ -28,7 +28,7 @@ public partial class UserData
     [Required]
     [Column("Date Entered")]
     [StringLength(50)]
-    public string DateEntered { get; set; }
+    public DateTime DateEntered { get; set; }
 
     [StringLength(50)]
     public string Description { get; set; }

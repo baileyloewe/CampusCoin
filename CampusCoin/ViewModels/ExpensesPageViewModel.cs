@@ -15,7 +15,7 @@ public partial class ExpensesPageViewModel : ObservableValidator
     string amount;
 
     [ObservableProperty]
-    string dateEntered;
+    DateTime dateEntered;
 
     [ObservableProperty]
     string description;
@@ -42,6 +42,8 @@ public partial class ExpensesPageViewModel : ObservableValidator
             var userData = new UserData();
             userData =  setUserDataValues(userData);
             await expensesService.SubmitExpense(userData);
+            await Shell.Current.DisplayAlert("Success",
+                $"Entry Submitted Successfully", "OK");
             await Shell.Current.GoToAsync(nameof(ExpensesPage));
         }
         catch (Exception ex)
@@ -58,7 +60,7 @@ public partial class ExpensesPageViewModel : ObservableValidator
 
         userData.Category = SelectedCategory;
         userData.Amount = Amount;
-        userData.DateEntered = date.ToString("MM,dd,yyyy HH,mm,ss");
+        userData.DateEntered = date;
         userData.Description = Description;
         userData.UserId = user.UserId;
         
