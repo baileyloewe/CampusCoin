@@ -74,7 +74,11 @@
             <ShellContent ContentTemplate="{DataTemplate views:MainPage}" Route="LogInPage" />
         </Tab>
     </FlyoutItem>
-
+    <FlyoutItem Icon="{StaticResource IconDashboard}" Title="Home" FlyoutItemIsVisible="True">
+        <Tab Title="Dashboard Page" Icon="{StaticResource IconDashboard }">
+            <ShellContent ContentTemplate="{DataTemplate views:DashboardPage}" Route="DashboardPage" />
+        </Tab>
+    </FlyoutItem>
     <!-- Tabbed Section -->
     <FlyoutItem Title="Tabbed Section">
         <Tab Title="Tab 1" Icon="{StaticResource IconOne}">

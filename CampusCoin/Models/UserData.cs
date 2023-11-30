@@ -22,12 +22,10 @@ public partial class UserData
     public string Category { get; set; }
 
     [Required]
-    [StringLength(50)]
-    public string Amount { get; set; }
+    public int Amount { get; set; }
 
     [Required]
     [Column("Date Entered")]
-    [StringLength(50)]
     public DateTime DateEntered { get; set; }
 
     [StringLength(50)]

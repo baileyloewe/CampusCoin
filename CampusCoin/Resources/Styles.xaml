@@ -55,6 +55,8 @@
                 Color ="{StaticResource Primary}"
                 Glyph="{x:Static resources:IconFont.User }"/>
 
+   
+
     <Style TargetType="ActivityIndicator">
         <Setter Property="Color" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
     </Style>
