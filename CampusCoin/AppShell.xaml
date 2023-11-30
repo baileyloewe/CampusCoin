@@ -45,28 +45,6 @@
     </Shell.FlyoutHeader>
 
     <Shell.FlyoutFooter>
-        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
-
-            <Frame BorderColor="{StaticResource Primary}" Padding="10" Margin="10" CornerRadius="30" HeightRequest="60" WidthRequest="60" HorizontalOptions="StartAndExpand" VerticalOptions="Center" BackgroundColor="#7FFFFFFF">
-                <ImageButton Command="{Binding NavigateToSettingsCommand}" BackgroundColor="Transparent">
-                    <ImageButton.Source>
-                        <FontImageSource FontFamily="FontAwesome" Glyph="{x:Static resources:IconFont.Cog}"
-                                         Size="40" Color="{StaticResource Primary}" />
-                    </ImageButton.Source>
-                </ImageButton>
-            </Frame>
-
-
-            <Frame BorderColor="{StaticResource Primary}" Padding="10" Margin="10" HeightRequest="60" WidthRequest="60" CornerRadius="30" HorizontalOptions="EndAndExpand" VerticalOptions="Center" BackgroundColor="#7FFFFFFF">
-                <ImageButton BackgroundColor="Transparent" Command="{Binding NavigateToSettingsCommand}">
-                    <ImageButton.Source>
-                        <FontImageSource FontFamily="FontAwesome" Glyph="{x:Static resources:IconFont.SignOutAlt}"
-                                         Size="40" Color="{StaticResource Primary}" />
-                    </ImageButton.Source>
-                </ImageButton>
-            </Frame>
-
-        </StackLayout>
     </Shell.FlyoutFooter>
     <!-- Main Sections -->
     <FlyoutItem FlyoutItemIsVisible="False">
@@ -74,12 +52,17 @@
             <ShellContent ContentTemplate="{DataTemplate views:MainPage}" Route="LogInPage" />
         </Tab>
     </FlyoutItem>
-    <FlyoutItem Icon="{StaticResource IconDashboard}" Title="Home" FlyoutItemIsVisible="True">
+    <FlyoutItem Icon="{StaticResource IconDashboard}" Title="Dashboard" FlyoutItemIsVisible="True">
         <Tab Title="Dashboard Page" Icon="{StaticResource IconDashboard }">
             <ShellContent ContentTemplate="{DataTemplate views:DashboardPage}" Route="DashboardPage" />
         </Tab>
     </FlyoutItem>
-    <!-- Tabbed Section -->
+    <FlyoutItem Icon="{StaticResource IconWallet}" Title="Expense Entry" FlyoutItemIsVisible="True">
+        <Tab Title="Dashboard Page" Icon="{StaticResource IconWallet }">
+            <ShellContent ContentTemplate="{DataTemplate views:ExpensesPage}" Route="ExpensePage" />
+        </Tab>
+    </FlyoutItem>
+    <!-- Tabbed Section --><!--
     <FlyoutItem Title="Tabbed Section">
         <Tab Title="Tab 1" Icon="{StaticResource IconOne}">
             <ShellContent Title="Tab One" ContentTemplate="{DataTemplate views:DashboardPage}" Route="TabOnePage" />
@@ -98,9 +81,15 @@
         </Tab>
     </FlyoutItem>
 
-    <!-- Additional Sections -->
+    --><!-- Additional Sections --><!--
     <FlyoutItem Title="Additional Sections">
         <ShellContent Title="Section Three" ContentTemplate="{DataTemplate views:MainPage}" Route="AdditionalOnePage" />
         <ShellContent Title="Section Four" ContentTemplate="{DataTemplate views:MainPage}" Route="AdditionalTwoPage" />
+    </FlyoutItem>-->
+
+    <FlyoutItem Icon="{StaticResource IconSettings}" Title="Settings" FlyoutItemIsVisible="True">
+        <Tab Title="Settings Page" Icon="{StaticResource IconSettings }">
+            <ShellContent ContentTemplate="{DataTemplate views:EditUserAccountInfoPage}" Route="SettingsPage" />
+        </Tab>
     </FlyoutItem>
 </Shell>

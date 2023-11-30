@@ -54,8 +54,13 @@
                 FontFamily="FontAwesome"
                 Color ="{StaticResource Primary}"
                 Glyph="{x:Static resources:IconFont.User }"/>
+    //settings icon
+    <FontImage x:Key="IconSettings"
+                FontFamily="FontAwesome"
+                Color ="{StaticResource Primary}"
+                Glyph="{x:Static resources:IconFont.Cog }"/>
 
-   
+
 
     <Style TargetType="ActivityIndicator">
         <Setter Property="Color" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
