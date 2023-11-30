@@ -75,8 +75,8 @@
   <Compile Update="Views\ResetPasswordPage.xaml.cs">
     <DependentUpon>ResetPasswordPage.xaml</DependentUpon>
   </Compile>
-  <Compile Update="Views\EditUserIAccountInfoPage.xaml.cs">
-    <DependentUpon>EditUserIAccountInfoPage.xaml</DependentUpon>
+  <Compile Update="Views\EditUserAccountInfoPage.xaml.cs">
+    <DependentUpon>EditUserAccountInfoPage.xaml</DependentUpon>
   </Compile>
   <Compile Update="Views\RegistrationPage.xaml.cs">
     <DependentUpon>RegistrationPage.xaml</DependentUpon>
@@ -102,7 +102,7 @@
   <MauiXaml Update="Views\ExpensesTestPage.xaml">
     <Generator>MSBuild:Compile</Generator>
   </MauiXaml>
-  <MauiXaml Update="Views\EditUserIAccountInfoPage.xaml">
+  <MauiXaml Update="Views\EditUserAccountInfoPage.xaml">
     <Generator>MSBuild:Compile</Generator>
   </MauiXaml>
   <MauiXaml Update="Views\MainPage.xaml">
