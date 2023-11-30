@@ -17,26 +17,26 @@ public partial class LoginPageViewModel : ObservableValidator
     private readonly PersistedLoginService persistedLoginService;
 
     [ObservableProperty]
-    bool isBusy;
+    private bool isBusy;
 
     [ObservableProperty]
-    string title;
+    private string title;
 
     [EmailValidation]
     [ObservableProperty]
-    string email;
+    private string email;
 
     [ObservableProperty]
-    string password;
+    private string password;
 
     [ObservableProperty]
-    string newPassword;
+    private string newPassword;
 
     [ObservableProperty]
-    string confirmNewPassword;
+    private string confirmNewPassword;
 
     [ObservableProperty]
-    bool rememberMe;
+    private bool rememberMe;
 
     public LoginPageViewModel(LoginService loginService, EmailService emailService, PersistedLoginService persistedLoginService, IMessageOutputHandlingService messageOutputHandlingService)
     {
@@ -47,7 +47,7 @@ public partial class LoginPageViewModel : ObservableValidator
     }
 
     [RelayCommand]
-    async Task Login()
+    private async Task Login()
     {
         try
         {
@@ -97,20 +97,20 @@ public partial class LoginPageViewModel : ObservableValidator
     }
 
     [RelayCommand]
-    async Task SignUp()
+    private async Task SignUp()
     {
         ResetValues();
         await Shell.Current.GoToAsync(nameof(RegistrationPage));
     }
 
     [RelayCommand]
-    async Task ForgotPassword()
+    private async Task ForgotPassword()
     {
         ResetValues();
         await Shell.Current.GoToAsync(nameof(ResetPasswordPage));
     }
 
-    public void ResetValues()
+    private void ResetValues()
     {
         Email = null;
         Password = null;

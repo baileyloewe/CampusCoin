@@ -21,47 +21,47 @@ public partial class RegistrationPageViewModel : ObservableValidator
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(IsNotBusy))]
-    bool isBusy;
+    private bool isBusy;
 
     [ObservableProperty]
     private string title;
 
     [EmailValidation]
     [ObservableProperty]
-    string email;
+    private string email;
 
     [PasswordValidation]
     [ObservableProperty]
-    string password;
+    private string password;
 
     [PhoneNumberValidation]
     [ObservableProperty]
-    string phoneNumber;
+    private string phoneNumber;
 
     [FirstnameValidation]
     [ObservableProperty]
-    string firstName;
+    private string firstName;
 
     [LastnameValidation]
     [ObservableProperty]
-    string lastName;
+    private string lastName;
 
     [ObservableProperty]
-    string verificationCode;
+    private string verificationCode;
 
     [ObservableProperty]
     private bool isVerificationVisible;
 
     [ObservableProperty]
-    string errorText;
+    private string errorText;
 
     [ObservableProperty]
-    List<String> errorList;
+    private List<String> errorList;
 
-    public bool IsNotBusy => !IsBusy;
-    public bool VerificationEntered = false;
+    private bool IsNotBusy => !IsBusy;
+    private bool VerificationEntered = false;
 
-    public ObservableCollection<User> UsersCollection { get; } = new();
+    private ObservableCollection<User> UsersCollection { get; } = new();
 
     public RegistrationPageViewModel(RegistrationService registrationService, EmailService emailService, PersistedLoginService persistedLoginService ,IMessageOutputHandlingService messageOutputHandlingService)
     {
@@ -73,7 +73,7 @@ public partial class RegistrationPageViewModel : ObservableValidator
     }
 
     [RelayCommand]
-    async Task GetUsersAsync()
+    private async Task GetUsersAsync()
     {
         try
         {
@@ -97,7 +97,7 @@ public partial class RegistrationPageViewModel : ObservableValidator
     }
 
     [RelayCommand]
-    async Task Registration()
+    private async Task Registration()
     {
         ErrorText = "";
         try
@@ -180,7 +180,7 @@ public partial class RegistrationPageViewModel : ObservableValidator
         VerificationEntered = true;
     }
 
-    public User SetUserVals(User user)
+    private User SetUserVals(User user)
     {
         user.Email = Email;
         user.Salt = SaltHashService.GenerateSalt();
@@ -192,18 +192,18 @@ public partial class RegistrationPageViewModel : ObservableValidator
         return user;
     }
 
-    public User HashUserPassword(User user)
+    private User HashUserPassword(User user)
     {
         user.Password = SaltHashService.HashPassword(Password, user.Salt);
         return user;
     }
 
-    public void SetVisibilityOfVerification(bool visibileStatus)
+    private void SetVisibilityOfVerification(bool visibileStatus)
     {
         IsVerificationVisible = visibileStatus;
     }
 
-    public void ResetValues()
+    private void ResetValues()
     {
         Email = null;
         Password = null;
@@ -213,6 +213,4 @@ public partial class RegistrationPageViewModel : ObservableValidator
         VerificationCode = null;
         VerificationEntered = false;
     }
-
-
 }

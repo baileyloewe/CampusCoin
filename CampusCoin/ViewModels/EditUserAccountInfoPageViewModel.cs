@@ -30,10 +30,10 @@ public partial class EditUserAccountInfoPageViewModel : ObservableValidator
     private string email;
 
     [ObservableProperty]
-    bool editEmailEntry;
+    private bool editEmailEntry;
 
     [ObservableProperty]
-    bool editEmailFields;
+    private bool editEmailFields;
 
     [PasswordValidation]
     [ObservableProperty]
@@ -43,7 +43,7 @@ public partial class EditUserAccountInfoPageViewModel : ObservableValidator
     private bool editPasswordEntry;
 
     [ObservableProperty]
-    bool editPasswordFields;
+    private bool editPasswordFields;
 
     [ObservableProperty]
     private string userPhoneNumber;
@@ -53,10 +53,10 @@ public partial class EditUserAccountInfoPageViewModel : ObservableValidator
     private string phoneNumber;
 
     [ObservableProperty]
-    bool editPhoneNumberEntry;
+    private bool editPhoneNumberEntry;
 
     [ObservableProperty]
-    bool editPhoneNumberFields;
+    private bool editPhoneNumberFields;
 
     [ObservableProperty]
     private string userFirstName;
@@ -66,10 +66,10 @@ public partial class EditUserAccountInfoPageViewModel : ObservableValidator
     private string firstName;
 
     [ObservableProperty]
-    bool editFirstNameEntry;
+    private bool editFirstNameEntry;
 
     [ObservableProperty]
-    bool editFirstNameFields;
+    private bool editFirstNameFields;
 
     [ObservableProperty]
     private string userLastName;
@@ -79,10 +79,10 @@ public partial class EditUserAccountInfoPageViewModel : ObservableValidator
     private string lastName;
 
     [ObservableProperty]
-    bool editLastNameEntry;
+    private bool editLastNameEntry;
 
     [ObservableProperty]
-    bool editLastNameFields;
+    private bool editLastNameFields;
 
     User currentUser;
 
@@ -138,7 +138,7 @@ public partial class EditUserAccountInfoPageViewModel : ObservableValidator
     }
 
     [RelayCommand]
-    async Task SaveEmail()
+    private async Task SaveEmail()
     {
         if (!string.IsNullOrEmpty(Email))
         {
@@ -160,7 +160,7 @@ public partial class EditUserAccountInfoPageViewModel : ObservableValidator
     }
 
     [RelayCommand]
-    async Task SavePassword()
+    private async Task SavePassword()
     {
         if (!string.IsNullOrEmpty(Password))
         {
@@ -181,7 +181,7 @@ public partial class EditUserAccountInfoPageViewModel : ObservableValidator
     }
 
     [RelayCommand]
-    async Task SavePhoneNumber()
+    private async Task SavePhoneNumber()
     {
         if (!string.IsNullOrEmpty(PhoneNumber))
         {
@@ -203,7 +203,7 @@ public partial class EditUserAccountInfoPageViewModel : ObservableValidator
     }
 
     [RelayCommand]
-    async Task SaveFirstName()
+    private async Task SaveFirstName()
     {
         if (!string.IsNullOrEmpty(FirstName))
         {
@@ -225,7 +225,7 @@ public partial class EditUserAccountInfoPageViewModel : ObservableValidator
     }
 
     [RelayCommand]
-    async Task SaveLastName()
+    private async Task SaveLastName()
     {
         if (!string.IsNullOrEmpty(LastName))
         {
@@ -247,36 +247,36 @@ public partial class EditUserAccountInfoPageViewModel : ObservableValidator
     }
 
     [RelayCommand]
-    async Task ChangeEmail()
+    private async Task ChangeEmail()
     {
         await editUserInfoService.EditEmail(currentUser, Email);
     }
 
     [RelayCommand]
-    async Task ChangePassword()
+    private async Task ChangePassword()
     {
         await editUserInfoService.EditPassword(currentUser, SaltHashService.HashPassword(Password, currentUser.Salt));
     }
 
     [RelayCommand]
-    async Task ChangePhoneNumber()
+    private async Task ChangePhoneNumber()
     {
         await editUserInfoService.EditPhoneNumber(currentUser, PhoneNumber);
     }
 
     [RelayCommand]
-    async Task ChangeFirstName()
+    private async Task ChangeFirstName()
     {
         await editUserInfoService.EditFirstName(currentUser, FirstName);
     }
 
     [RelayCommand]
-    async Task ChangeLastName()
+    private async Task ChangeLastName()
     {
         await editUserInfoService.EditLastName(currentUser, LastName);
     }
 
-    public void ResetValues()
+    private void ResetValues()
     {
         Email = null;
         Password = null;
@@ -289,7 +289,7 @@ public partial class EditUserAccountInfoPageViewModel : ObservableValidator
         UserLastName = null;
     }
 
-    public async Task setCurrentUser()
+    private async Task setCurrentUser()
     {
         currentUser = persistedLoginService.getLoggedInUser();
         if (currentUser == null)
@@ -300,12 +300,12 @@ public partial class EditUserAccountInfoPageViewModel : ObservableValidator
         }
     }
 
-    public void clearCurrentUser()
+    private void clearCurrentUser()
     {
         currentUser = null;
     }
 
-    public void initializeVals() 
+    private void initializeVals() 
     {
         User user = persistedLoginService.getLoggedInUser();
         UserEmail = user.Email;
@@ -325,7 +325,4 @@ public partial class EditUserAccountInfoPageViewModel : ObservableValidator
         EditFirstNameFields = false;
         EditLastNameFields = false;
     }
-
- 
-
 }

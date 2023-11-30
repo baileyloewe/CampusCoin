@@ -15,7 +15,7 @@ namespace CampusCoin.ViewModels
         }
 
         [RelayCommand]
-        async Task RouteExpenses()
+        private async Task RouteExpenses()
         {
             await Shell.Current.GoToAsync(nameof(ExpensesPage));
         }

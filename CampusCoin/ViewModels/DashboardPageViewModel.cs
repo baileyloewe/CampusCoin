@@ -33,10 +33,10 @@ namespace CampusCoin.ViewModels
         private ObservableCollection<double> _investmentExpenses;
 
         [ObservableProperty]
-        int height;
+        private int height;
 
         [ObservableProperty]
-        string incomeAmount;
+        private string incomeAmount;
 
         [ObservableProperty]
         private bool isIncomeVisible;

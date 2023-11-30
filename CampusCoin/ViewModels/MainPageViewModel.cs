@@ -29,14 +29,14 @@ namespace CampusCoin.ViewModels
         }
         /// <summary> Logs in the user who AutoToken is stored and routes to ExpensesPage </summary>
         /// <returns> Returns if an AuthToken exists, which indicates RememberMe preference is enabled</returns>
-        public bool isRememberMeEnabled()
+        private bool isRememberMeEnabled()
         {
             return Preferences.Default.ContainsKey("AuthToken");
         }
 
         /// <summary> Logs in the user who AutoToken is stored and routes to ExpensesPage </summary>
         [RelayCommand]
-        public async Task ExecuteRememberMe()
+        private async Task ExecuteRememberMe()
         {
             var dbContext = await _context.CreateDbContextAsync();
             string storedToken = Preferences.Default.Get("AuthToken", "Unknown");
@@ -58,14 +58,14 @@ namespace CampusCoin.ViewModels
 
         /// <summary> Routes to login page </summary>
         [RelayCommand]
-        public async Task RouteToLoginPage()
+        private async Task RouteToLoginPage()
         {
             await Shell.Current.GoToAsync(nameof(LoginPage));
         }
 
         /// <summary> Routes to registration page </summary>
         [RelayCommand]
-        public async Task RouteToRegistrationPage()
+        private async Task RouteToRegistrationPage()
         {
             await Shell.Current.GoToAsync(nameof(RegistrationPage));
         }

@@ -13,19 +13,19 @@ public partial class ExpensesPageViewModel : ObservableValidator
     private readonly PersistedLoginService persistedLoginService;
 
     [ObservableProperty]
-    string category;
+    private string category;
 
     [ObservableProperty]
-    string amount;
+    private string amount;
 
     [ObservableProperty]
-    DateTime dateEntered;
+    private DateTime dateEntered;
 
     [ObservableProperty]
-    string description;
+    private string description;
 
     [ObservableProperty]
-    string selectedCategory;
+    private string selectedCategory;
 
     public ExpensesPageViewModel(ExpensesService expensesService, PersistedLoginService persistedLoginService, IMessageOutputHandlingService messageOutputHandlingService)
     {
@@ -35,7 +35,7 @@ public partial class ExpensesPageViewModel : ObservableValidator
     }
 
     [RelayCommand]
-    async Task SubmitExpenseToDatabase()
+    private async Task SubmitExpenseToDatabase()
     {
         try
         {
@@ -53,7 +53,7 @@ public partial class ExpensesPageViewModel : ObservableValidator
         }
     }
 
-    public UserExpenseData setUserDataValues(UserExpenseData userData)
+    private UserExpenseData setUserDataValues(UserExpenseData userData)
     {
         User user = persistedLoginService.getLoggedInUser();
         DateTime date = DateTime.Now;
@@ -67,44 +67,44 @@ public partial class ExpensesPageViewModel : ObservableValidator
         return userData;
     }
 
-    public string IsBillsCategory
+    private string IsBillsCategory
     {
         get { return "bills"; }
         set { SelectedCategory = "Bills"; }
     }
 
-    public string IsFoodCategory
+    private string IsFoodCategory
     {
         get { return "food"; }
         set => SelectedCategory = "Food";
     }
 
-    public string IsAutoCategory
+    private string IsAutoCategory
     {
         get { return "auto"; }
         set { SelectedCategory = "Auto"; }
     }
 
-    public string IsEntertainmentCategory
+    private string IsEntertainmentCategory
     {
         get { return "entertainment"; }
         set { SelectedCategory = "Entertainment"; }
     }
 
-    public string IsInvestmentsCategory
+    private string IsInvestmentsCategory
     {
         get { return "investments"; }
         set { SelectedCategory = "Investments"; }
     }
 
-    public string IsMiscCategory
+    private string IsMiscCategory
     {
         get { return "misc"; }
         set { SelectedCategory = "Misc"; }
     }
 
     [RelayCommand]
-    async Task RouteDashboardPage()
+    private async Task RouteDashboardPage()
     {
         await Shell.Current.GoToAsync(nameof(DashboardPage));
     }
