@@ -82,19 +82,19 @@
     <!-- Tabbed Section -->
     <FlyoutItem Title="Tabbed Section">
         <Tab Title="Tab 1" Icon="{StaticResource IconOne}">
-            <ShellContent Title="Tab One" ContentTemplate="{DataTemplate views:GraphTestPage}" Route="TabOnePage" />
+            <ShellContent Title="Tab One" ContentTemplate="{DataTemplate views:DashboardPage}" Route="TabOnePage" />
         </Tab>
         <Tab Title="Tab 2" Icon="{StaticResource IconTwo}">
             <ShellContent Title="Tab Two" ContentTemplate="{DataTemplate views:LoginPage}" Route="TabTwoPage" />
         </Tab>
         <Tab Title="Tab 3" Icon="{StaticResource IconThree}">
-            <ShellContent Title="Tab Three" ContentTemplate="{DataTemplate views:GraphTestPage}" Route="TabThreePage" />
+            <ShellContent Title="Tab Three" ContentTemplate="{DataTemplate views:DashboardPage}" Route="TabThreePage" />
         </Tab>
         <Tab Title="Tab 4" Icon="{StaticResource IconFour}">
             <ShellContent Title="Tab Four" ContentTemplate="{DataTemplate views:LoginPage}" Route="TabFourPage" />
         </Tab>
         <Tab Title="Tab 5" Icon="{StaticResource IconGraph}">
-            <ShellContent Title="Graph Test" ContentTemplate="{DataTemplate views:GraphTestPage}" Route="GraphTestPage" />
+            <ShellContent Title="Graph Test" ContentTemplate="{DataTemplate views:DashboardPage}" Route="DashboardPage" />
         </Tab>
     </FlyoutItem>
 

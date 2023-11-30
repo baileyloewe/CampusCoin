@@ -19,7 +19,7 @@ using SkiaSharp;
 
 namespace CampusCoin.ViewModels
 {
-    public partial class GraphTestPageViewModel : ObservableValidator
+    public partial class DashboardTestPageViewModel : ObservableValidator
     {
         private readonly LoginService loginService;
         private readonly EmailService emailService;
@@ -32,7 +32,7 @@ namespace CampusCoin.ViewModels
 
         public Func<double, string> XAxisLabelFormatter => value => DateTime.FromOADate(value).ToString("d");
 
-        public GraphTestPageViewModel(LoginService loginService, EmailService emailService,
+        public DashboardTestPageViewModel(LoginService loginService, EmailService emailService,
             PersistedLoginService persistedLoginService, IMessageOutputHandlingService messageOutputHandlingService,
             IDbContextFactory<CampusCoinContext> dbContextFactory)
         {

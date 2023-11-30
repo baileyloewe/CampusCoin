@@ -81,15 +81,12 @@
   <Compile Update="Views\RegistrationPage.xaml.cs">
     <DependentUpon>RegistrationPage.xaml</DependentUpon>
   </Compile>
-  <Compile Update="Views\GraphTestPage.xaml.cs">
-    <DependentUpon>GraphTestPage.xaml</DependentUpon>
+  <Compile Update="Views\DashboardPage.xaml.cs">
+    <DependentUpon>DashboardPage.xaml</DependentUpon>
   </Compile>
 </ItemGroup>
 
 <ItemGroup>
-  <MauiXaml Update="Views\DashboardPage.xaml">
-    <Generator>MSBuild:Compile</Generator>
-  </MauiXaml>
   <MauiXaml Update="Views\ResetPasswordPage.xaml">
     <Generator>MSBuild:Compile</Generator>
   </MauiXaml>
@@ -111,7 +108,7 @@
   <MauiXaml Update="Views\RegistrationPage.xaml">
     <Generator>MSBuild:Compile</Generator>
   </MauiXaml>
-  <MauiXaml Update="Views\GraphTestPage.xaml">
+  <MauiXaml Update="Views\DashboardPage.xaml">
     <Generator>MSBuild:Compile</Generator>
   </MauiXaml>
   <MauiXaml Update="Views\LoginPage.xaml">
