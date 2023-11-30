@@ -85,7 +85,7 @@
             Margin="0,75,0,0"
             Text="Back to Dashboard"
             HorizontalOptions="CenterAndExpand"
-            Command="{Binding RouteExpenseReportPageCommand}">
+            Command="{Binding RouteDashboardPageCommand}">
             <VisualStateManager.VisualStateGroups>
                 <VisualStateGroupList>
                     <VisualStateGroup Name="ValidityStates">

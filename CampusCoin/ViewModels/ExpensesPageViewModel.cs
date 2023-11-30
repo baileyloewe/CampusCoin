@@ -104,8 +104,8 @@ public partial class ExpensesPageViewModel : ObservableValidator
     }
 
     [RelayCommand]
-    async Task RouteExpenseReportPage()
+    async Task RouteDashboardPage()
     {
-        await Shell.Current.GoToAsync(nameof(ExpenseReportPage));
+        await Shell.Current.GoToAsync(nameof(DashboardPage));
     }
 }
