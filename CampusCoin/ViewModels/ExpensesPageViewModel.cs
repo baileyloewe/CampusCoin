@@ -8,6 +8,10 @@ namespace CampusCoin.ViewModels;
 
 public partial class ExpensesPageViewModel : ObservableValidator
 {
+    private readonly IMessageOutputHandlingService _messageOutputHandlingService;
+    private readonly ExpensesService expensesService;
+    private readonly PersistedLoginService persistedLoginService;
+
     [ObservableProperty]
     string category;
 
@@ -22,10 +26,6 @@ public partial class ExpensesPageViewModel : ObservableValidator
 
     [ObservableProperty]
     string selectedCategory;
-
-    private readonly IMessageOutputHandlingService _messageOutputHandlingService;
-    ExpensesService expensesService;
-    PersistedLoginService persistedLoginService;
 
     public ExpensesPageViewModel(ExpensesService expensesService, PersistedLoginService persistedLoginService, IMessageOutputHandlingService messageOutputHandlingService)
     {

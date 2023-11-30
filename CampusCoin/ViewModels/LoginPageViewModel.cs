@@ -12,6 +12,9 @@ namespace CampusCoin.ViewModels;
 public partial class LoginPageViewModel : ObservableValidator
 {
     private readonly IMessageOutputHandlingService _messageOutputHandlingService;
+    private readonly LoginService loginService;
+    private readonly EmailService emailService;
+    private readonly PersistedLoginService persistedLoginService;
 
     [ObservableProperty]
     bool isBusy;
@@ -23,7 +26,6 @@ public partial class LoginPageViewModel : ObservableValidator
     [ObservableProperty]
     string email;
 
-    //[PasswordValidation]
     [ObservableProperty]
     string password;
 
@@ -35,12 +37,6 @@ public partial class LoginPageViewModel : ObservableValidator
 
     [ObservableProperty]
     bool rememberMe;
-
-    //public bool IsNotBusy => !IsBusy;
-
-    LoginService loginService;
-    EmailService emailService;
-    PersistedLoginService persistedLoginService;
 
     public LoginPageViewModel(LoginService loginService, EmailService emailService, PersistedLoginService persistedLoginService, IMessageOutputHandlingService messageOutputHandlingService)
     {

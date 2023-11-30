@@ -14,7 +14,6 @@ public partial class ResetPasswordPageViewModel : ObservableValidator
 {
     private readonly IMessageOutputHandlingService _messageOutputHandlingService;
 
-
     [EmailValidation]
     [ObservableProperty]
     string email;
@@ -71,6 +70,7 @@ public partial class ResetPasswordPageViewModel : ObservableValidator
              , "OK");
     }
     
+    // Submits your verification code and if it is correct, hides the buttons, else reject it and reset the field
     [RelayCommand]
     async Task SubmitVerificationCode()
     {
@@ -87,9 +87,8 @@ public partial class ResetPasswordPageViewModel : ObservableValidator
             VerificationEntered = false;
         }
     }
-
-
-
+    
+    // Validates then calls the savepasswordchange function to save the password to database
     [RelayCommand]
     private async Task SubmitPasswordChange()
     {
@@ -120,6 +119,7 @@ public partial class ResetPasswordPageViewModel : ObservableValidator
         }
     }
 
+    // Saves the password to the database
     async Task SavePasswordChange()
     {
         await editUserAccountInfoService.EditPassword(currentUser, SaltHashService.HashPassword(NewPassword, currentUser.Salt));
@@ -128,27 +128,32 @@ public partial class ResetPasswordPageViewModel : ObservableValidator
       
     }
 
+    // Sets the VerificationEntered ObservableProperty to true
     [RelayCommand]
     private void Verification()
     {
         VerificationEntered = true;
     }
 
+    // Sets the isEmailVisible ObservableProperty to visibleStatus (t/f)
     public void SetVisibilityOfEmail(bool visibileStatus)
     {
         IsEmailVisible = visibileStatus;
     }
 
+    // Sets the isVerificationVisible ObservableProperty to visibleStatus (t/f)
     public void SetVisibilityOfVerification(bool visibileStatus)
     {
         IsVerificationVisible = visibileStatus;
     }
 
+    // Sets the isPasswordVisible ObservableProperty to visibleStatus (t/f)
     public void SetVisibilityOfPassword(bool visibileStatus)
     {
         IsPasswordVisible = visibileStatus;
     }
 
+    // Resets all values on the page
     public void ResetValues()
     {
         currentUser = null;

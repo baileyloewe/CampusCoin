@@ -8,6 +8,7 @@ namespace CampusCoin.ViewModels
     public partial class ExpensesTestPageViewModel : ObservableValidator
     {
         private readonly IMessageOutputHandlingService _messageOutputHandlingService;
+
         public ExpensesTestPageViewModel(IMessageOutputHandlingService messageOutputHandlingService) 
         {
             _messageOutputHandlingService = messageOutputHandlingService;

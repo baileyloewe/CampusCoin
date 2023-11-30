@@ -13,6 +13,12 @@ namespace CampusCoin.ViewModels;
 
 public partial class EditUserAccountInfoPageViewModel : ObservableValidator
 {
+    private readonly LoginService loginService;
+    private readonly EmailService emailService;
+    private readonly PersistedLoginService persistedLoginService;
+    private readonly EditUserAccountInfoService editUserInfoService;
+    private readonly IMessageOutputHandlingService _messageOutputHandlingService;
+
     [ObservableProperty]
     private string title;
 
@@ -79,12 +85,6 @@ public partial class EditUserAccountInfoPageViewModel : ObservableValidator
     bool editLastNameFields;
 
     User currentUser;
-
-    private readonly LoginService loginService;
-    private readonly EmailService emailService;
-    private readonly PersistedLoginService persistedLoginService;
-    private readonly EditUserAccountInfoService editUserInfoService;
-    private readonly IMessageOutputHandlingService _messageOutputHandlingService;
 
     public EditUserAccountInfoPageViewModel(LoginService loginService, EmailService emailService, PersistedLoginService persistedLoginService, EditUserAccountInfoService editUserInfoService, IMessageOutputHandlingService messageOutputHandlingService)
     {

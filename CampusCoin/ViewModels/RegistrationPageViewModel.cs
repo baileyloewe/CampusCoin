@@ -15,6 +15,9 @@ public partial class RegistrationPageViewModel : ObservableValidator
 {
 
     private readonly IMessageOutputHandlingService _messageOutputHandlingService;
+    private readonly RegistrationService registrationService;
+    private readonly EmailService emailService;
+    private readonly PersistedLoginService persistedLoginService;
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(IsNotBusy))]
@@ -57,10 +60,6 @@ public partial class RegistrationPageViewModel : ObservableValidator
 
     public bool IsNotBusy => !IsBusy;
     public bool VerificationEntered = false;
-
-    RegistrationService registrationService;
-    EmailService emailService;
-    PersistedLoginService persistedLoginService;
 
     public ObservableCollection<User> UsersCollection { get; } = new();
 

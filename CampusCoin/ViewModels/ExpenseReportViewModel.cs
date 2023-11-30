@@ -9,8 +9,8 @@ namespace CampusCoin.ViewModels;
 public partial class ExpenseReportViewModel : ObservableValidator
 {
     private readonly IMessageOutputHandlingService _messageOutputHandlingService;
-    ExpensesService expensesService;
-    PersistedLoginService persistedLoginService;
+    private readonly ExpensesService expensesService;
+    private readonly PersistedLoginService persistedLoginService;
 
     public ExpenseReportViewModel(ExpensesService expensesService, PersistedLoginService persistedLoginService, IMessageOutputHandlingService messageOutputHandlingService)
     {

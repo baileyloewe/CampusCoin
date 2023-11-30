@@ -6,11 +6,9 @@
              xmlns:maui="clr-namespace:LiveChartsCore.SkiaSharpView.Maui;assembly=LiveChartsCore.SkiaSharpView.Maui"
              x:DataType="viewmodel:DashboardPageViewModel"
              Title="Financial Dashboard">
-
     <Shell.BackButtonBehavior>
         <BackButtonBehavior Command="{Binding BackCommand}" />
     </Shell.BackButtonBehavior>
-
     <ScrollView>
         <StackLayout >
             <!-- Financial Summary and Actions -->
@@ -80,10 +78,8 @@
                             </VisualStateGroupList>
                         </VisualStateManager.VisualStateGroups>
                     </Button>
-
                 </VerticalStackLayout>
             </Frame>
-
             <!-- Charts and Graphs -->
             <Frame Margin="25" CornerRadius="10" Padding="15" BackgroundColor="White" HorizontalOptions="FillAndExpand">
                 <VerticalStackLayout>
