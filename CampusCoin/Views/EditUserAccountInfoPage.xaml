@@ -93,7 +93,7 @@
                     SemanticProperties.Hint="Saves change to your account information"
                     HorizontalOptions="Center"
                     FontAttributes="Bold"
-                    WidthRequest="200"
+                    WidthRequest="300"
                     Margin="0,15,0,0"
                     IsEnabled="True"
                     IsVisible="True"

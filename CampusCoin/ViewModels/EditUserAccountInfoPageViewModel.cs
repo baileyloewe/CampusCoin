@@ -65,6 +65,11 @@ public partial class EditUserAccountInfoPageViewModel : ObservableValidator
         this.emailService = emailService;
         this.editUserInfoService = editUserInfoService;
         this.persistedLoginService = persistedLoginService;
+        User user = persistedLoginService.getLoggedInUser();
+        email = user.Email;
+        phoneNumber = user.PhoneNumber;
+        firstName = user.FirstName;
+        lastName = user.LastName;
     }
 
     [RelayCommand]
