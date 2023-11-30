@@ -11,6 +11,10 @@ namespace CampusCoin.Services;
 
 public class SaltHashService
 {
+
+    /// <summary> Generates a salt for hashing a password </summary>
+    /// <param></param>
+    /// <returns> A salt value in base64 string format</returns>
     public static string GenerateSalt()
     {
         byte[] salt = new byte[32];
@@ -21,6 +25,10 @@ public class SaltHashService
         return Convert.ToBase64String(salt);
     }
 
+    /// <summary> Hashes a password with the salt </summary>
+    /// <param name="password">The password to be hashed</param>
+    /// <param name="salt">The salt to use for hashing the password</param>
+    /// <returns> The hashed password in base64 string format</returns>
     public static string HashPassword(string password, string salt)
     {
         using var pbkdf2 = new Rfc2898DeriveBytes(password, Convert.FromBase64String(salt), 10000, HashAlgorithmName.SHA256);

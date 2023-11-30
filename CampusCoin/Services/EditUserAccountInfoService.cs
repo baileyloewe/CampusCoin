@@ -20,6 +20,10 @@ public class EditUserAccountInfoService
         _context = context;
     }
 
+    /// <summary> Changes the email of the user to the parameter passed in </summary>
+    /// <param name="user">User to be changed</param>
+    /// <param name="email">Email to be changed to</param>
+    /// <returns></returns>
     public async Task EditEmail(User user, String email)
     {
         var dbContext = await _context.CreateDbContextAsync(); // Create database context
@@ -30,6 +34,10 @@ public class EditUserAccountInfoService
         dbContext.SaveChanges(); // Save the changes to the database
     }
 
+    /// <summary> Changes the password of the user to the password passed in </summary>
+    /// <param name="user">User to be changed</param>
+    /// <param name="password">Password to be changed to</param>
+    /// <returns></returns>
     public async Task EditPassword(User user, String password)
     {
         var dbContext = await _context.CreateDbContextAsync(); // Create database context
@@ -40,6 +48,10 @@ public class EditUserAccountInfoService
         dbContext.SaveChanges(); // Save the changes to the database
     }
 
+    /// <summary> Changes the phone number of the user to the phone number passed in </summary>
+    /// <param name="user">User to be changed</param>
+    /// <param name="phoneNumber">Phone number to be changed to</param>
+    /// <returns></returns>
     public async Task EditPhoneNumber(User user, String phoneNumber)
     {
         var dbContext = await _context.CreateDbContextAsync(); // Create database context
@@ -50,6 +62,10 @@ public class EditUserAccountInfoService
         dbContext.SaveChanges(); // Save the changes to the database
     }
 
+    /// <summary> Changes the first name of the user to the first name passed in </summary>
+    /// <param name="user">User to be changed</param>
+    /// <param name="firstName">First name to be changed</param>
+    /// <returns></returns>
     public async Task EditFirstName(User user, String firstName)
     {
         var dbContext = await _context.CreateDbContextAsync(); // Create database context
@@ -60,6 +76,10 @@ public class EditUserAccountInfoService
         dbContext.SaveChanges(); // Save the changes to the database
     }
 
+    /// <summary> Changes the last name of the user to the last name passed in </summary>
+    /// <param name="user">User to be changed</param>
+    /// <param name="lastName">Last name to be changed to</param>
+    /// <returns></returns>
     public async Task EditLastName(User user, String lastName)
     {
         var dbContext = await _context.CreateDbContextAsync(); // Create database context

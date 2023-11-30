@@ -18,19 +18,13 @@ public class EmailService
         _context = context;
     }
 
-    /// <summary>
-    /// Generates a verification code
-    /// </summary>
-    /// <param></param>
-    /// <returns></returns>
+    /// <summary> Generates a verification code </summary>
     public void GenerateCode()
     {
         verificationCode = new Random().Next(10000000, 100000000);
     }
 
-    /// <summary>
-    /// Outputs validation errors to the user
-    /// </summary>
+    /// <summary> Outputs validation errors to the user </summary>
     /// <param name="subject">Subject of the email</param>
     /// <param name="body">Body of the email</param>
     /// <param name="userEmail">The email address that will recieve this email</param>
@@ -80,9 +74,7 @@ public class EmailService
         }
     }
 
-    /// <summary>
-    /// Sends a verification email
-    /// </summary>
+    /// <summary> Sends a verification email </summary>
     /// <param name="userEmail">The email address that will recieve this email</param>
     /// <returns></returns>
     public async Task SendVerificationEmail(string userEmail)
@@ -97,9 +89,8 @@ public class EmailService
         htmlBody += "</body></html>";
         await EmailService.SendEmail(subject, htmlBody, userEmail, true);
     }
-    /// <summary>
-    /// Sends a sucessful sign up email
-    /// </summary>
+
+    /// <summary> Sends a sucessful sign up email </summary>
     /// <param name="userEmail">The email address that will recieve this email</param>
     /// <returns></returns>
     public static async Task SendRegistrationSuccessEmail(string userEmail)
@@ -112,9 +103,7 @@ public class EmailService
         await EmailService.SendEmail(subject, htmlBody, userEmail, true);
     }
 
-    /// <summary>
-    /// Sends a reset password email
-    /// </summary>
+    /// <summary> Sends a reset password email  </summary>
     /// <param name="userEmail">The email address that will recieve this email</param>
     /// <returns></returns>
     public async Task SendPasswordResetEmail(string userEmail)
@@ -130,9 +119,7 @@ public class EmailService
         await EmailService.SendEmail(subject, htmlBody, userEmail, true);
     }
 
-    /// <summary>
-    /// Sends a sucessful password reset email
-    /// </summary>
+    /// <summary> Sends a sucessful password reset email </summary>
     /// <param name="userEmail">The email address that will recieve this email</param>
     /// <returns></returns>
     public static async Task SendPasswordResetSuccessEmail(string userEmail)

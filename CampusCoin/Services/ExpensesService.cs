@@ -12,6 +12,8 @@ namespace CampusCoin.Services
             _context = context;
         }
 
+        /// <summary> Submits an expense to database </summary>
+        /// <param name="userData">User expense data to be sent to UserExpenseData table in database</param>
         public async Task SubmitExpense(UserExpenseData userData)
         {
             var dbContext = await _context.CreateDbContextAsync(); // Create database context
