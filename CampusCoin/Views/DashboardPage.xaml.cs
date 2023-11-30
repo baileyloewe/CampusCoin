@@ -4,7 +4,7 @@ namespace CampusCoin.Views;
 
 public partial class DashboardPage : ContentPage
 {
-	public DashboardPage(DashboardTestPageViewModel vm)
+	public DashboardPage(DashboardPageViewModel vm)
 	{
 		BindingContext = vm; 
 		InitializeComponent();
