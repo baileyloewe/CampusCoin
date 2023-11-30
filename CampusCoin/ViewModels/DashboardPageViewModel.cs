@@ -19,7 +19,7 @@ using SkiaSharp;
 
 namespace CampusCoin.ViewModels
 {
-    public partial class DashboardTestPageViewModel : ObservableValidator
+    public partial class DashboardPageViewModel : ObservableValidator
     {
         private readonly LoginService loginService;
         private readonly EmailService emailService;
@@ -32,7 +32,7 @@ namespace CampusCoin.ViewModels
 
         public Func<double, string> XAxisLabelFormatter => value => DateTime.FromOADate(value).ToString("d");
 
-        public DashboardTestPageViewModel(LoginService loginService, EmailService emailService,
+        public DashboardPageViewModel(LoginService loginService, EmailService emailService,
             PersistedLoginService persistedLoginService, IMessageOutputHandlingService messageOutputHandlingService,
             IDbContextFactory<CampusCoinContext> dbContextFactory)
         {
@@ -73,11 +73,7 @@ namespace CampusCoin.ViewModels
         {
             await Shell.Current.GoToAsync(nameof(ExpensesPage));
         }
-        [RelayCommand]
-        public async Task RouteToRegistrationPage()
-        {
-            
-        }
+    
         private static List<ICartesianAxis> CreateAxes()
         {
             return new List<ICartesianAxis>
@@ -91,6 +87,15 @@ namespace CampusCoin.ViewModels
                     MaxLimit = DateTime.Now.Date.ToOADate(),
                 }
             };
+        }
+
+        [RelayCommand]
+        async Task Back()
+        {
+            if (await persistedLoginService.logoutPrompt())
+            {
+                await Shell.Current.GoToAsync(nameof(MainPage));
+            }
         }
 
         private void UpdateSeries()

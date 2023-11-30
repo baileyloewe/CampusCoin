@@ -108,13 +108,4 @@ public partial class ExpensesPageViewModel : ObservableValidator
     {
         await Shell.Current.GoToAsync(nameof(ExpenseReportPage));
     }
-
-    [RelayCommand]
-    async Task Back()
-    {
-        if (await persistedLoginService.logoutPrompt())
-        {
-            await Shell.Current.GoToAsync(nameof(MainPage));
-        }
-    }
 }

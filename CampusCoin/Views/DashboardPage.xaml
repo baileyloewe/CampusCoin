@@ -4,9 +4,13 @@
              x:Class="CampusCoin.Views.DashboardPage"
              xmlns:viewmodel="clr-namespace:CampusCoin.ViewModels"
              xmlns:maui="clr-namespace:LiveChartsCore.SkiaSharpView.Maui;assembly=LiveChartsCore.SkiaSharpView.Maui"
-             x:DataType="viewmodel:DashboardTestPageViewModel"
+             x:DataType="viewmodel:DashboardPageViewModel"
              Title="Financial Dashboard">
-
+    
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior Command="{Binding BackCommand}" />
+    </Shell.BackButtonBehavior>
+    
     <ScrollView>
         <StackLayout>
 

@@ -79,7 +79,7 @@ public partial class LoginPageViewModel : ObservableValidator
                         await persistedLoginService.SaveAuthToken();
                     }
                     // Route to post-login view
-                    await Shell.Current.GoToAsync(nameof(ExpensesPage));
+                    await Shell.Current.GoToAsync(nameof(DashboardPage));
                 }
             }
             else

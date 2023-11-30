@@ -46,7 +46,8 @@ public static class MauiProgram
         mauiAppBuilder.Services.AddTransient<MainPageViewModel>();
         mauiAppBuilder.Services.AddTransient<LoginPageViewModel>();
         mauiAppBuilder.Services.AddTransient<RegistrationPageViewModel>();
-        mauiAppBuilder.Services.AddSingleton<DashboardTestPageViewModel>();
+        mauiAppBuilder.Services.AddTransient<SettingsPageViewModel>();
+        mauiAppBuilder.Services.AddSingleton<DashboardPageViewModel>();
         mauiAppBuilder.Services.AddSingleton<ExpensesTestPageViewModel>();
         mauiAppBuilder.Services.AddSingleton<ExpensesPageViewModel>();
         mauiAppBuilder.Services.AddSingleton<EditUserAccountInfoPageViewModel>();

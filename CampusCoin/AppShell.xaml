@@ -38,7 +38,7 @@
                     </Image>
 
                     <!-- Username -->
-                    <Label Grid.Column="1" Text="Username Placeholder" VerticalOptions="Center" FontSize="Small" Margin="10,10,10,10" />
+                    <Label Grid.Column="1" Text="" VerticalOptions="Center" FontSize="Small" Margin="10,10,10,10" />
                 </HorizontalStackLayout>
             </Frame>
         </StackLayout>
