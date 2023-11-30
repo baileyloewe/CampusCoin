@@ -11,67 +11,41 @@
         <StackLayout>
 
             <!-- Financial Summary and Actions -->
-            <Frame CornerRadius="10" Margin="25" Padding="15" BackgroundColor="White">
+            <Frame CornerRadius="10" Margin="25" Padding="15" BackgroundColor="White" HorizontalOptions="FillAndExpand">
                 <VerticalStackLayout Spacing="10">
                     <Label Text="Financial Summary" FontSize="Medium" FontAttributes="Bold"/>
-                    <Label Text="{Binding }" FontSize="Large" FontAttributes="Bold"/>
-                    <Button Text="Modify Expenses" Command="{Binding }" Margin="0,10,0,0"/>
+                    <Button Text="Modify Expenses" Command="{Binding RouteToExpensePageCommand}" Margin="0,10,0,0"/>
                     <Button Text="Add Income" Command="{Binding }"/>
                 </VerticalStackLayout>
             </Frame>
 
             <!-- Charts and Graphs -->
-            <Frame Margin="25" CornerRadius="10" Padding="15" BackgroundColor="White">
+            <Frame Margin="25" CornerRadius="10" Padding="15" BackgroundColor="White" HorizontalOptions="FillAndExpand">
                 <VerticalStackLayout>
 
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="2*"/>
-                            <ColumnDefinition Width="2*"/>
-                            <ColumnDefinition Width="2*"/>
-                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
-                        <!-- Pie Charts and Expense Info -->
-                        <Frame Grid.Column="0" Grid.Row="0" CornerRadius="10" Padding="15" BackgroundColor="White" Margin="5">
-                            <VerticalStackLayout>
-                                <Label Text="Expense Breakdown - Chart 1" FontSize="Medium" FontAttributes="Bold"/>
-                                <maui:PieChart Series="{Binding Series}" HeightRequest="250" WidthRequest="250"/>
-                            </VerticalStackLayout>
-                        </Frame>
-
-                        <!-- Total Expenses Display -->
-                        <Frame Grid.Column="1" Grid.Row="0" CornerRadius="10" Padding="15" BackgroundColor="White" Margin="5">
-                            <VerticalStackLayout>
-                                <Label Text="Total Expenses" FontSize="Medium" FontAttributes="Bold"/>
-                                <Label Text="{Binding }" FontSize="Large" HorizontalOptions="Center"/>
-                            </VerticalStackLayout>
-                        </Frame>
-
-                        <!-- Monthly Expenses Display -->
-                        <Frame Grid.Column="2" Grid.Row="0" CornerRadius="10" Padding="15" BackgroundColor="White" Margin="5">
-                            <VerticalStackLayout>
-                                <Label Text="Monthly Expenses" FontSize="Medium" FontAttributes="Bold"/>
-                                <Label Text="{Binding }" FontSize="Large" HorizontalOptions="Center"/>
-                            </VerticalStackLayout>
-                        </Frame>
-
-                        <!-- Pie Chart 2 -->
-                        <Frame Grid.Column="3" Padding="15" BackgroundColor="White" Margin="5">
-                            <VerticalStackLayout>
-                                <Label Text="Expense Breakdown - Chart 2" FontSize="Medium" FontAttributes="Bold"/>
-                                <maui:PieChart Series="{Binding Series}" HeightRequest="250" WidthRequest="250"/>
+                        <!-- Pie Chart 1 -->
+                        <Frame Grid.Column="0" CornerRadius="10" BackgroundColor="White" Margin="5"
+                               HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                            <VerticalStackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                                <Label Text="Expense Breakdown" FontSize="Medium" FontAttributes="Bold"/>
+                                <maui:PieChart Series="{Binding Series}"  LegendPosition="Bottom"
+                                               HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" MinimumWidthRequest="250" MinimumHeightRequest="250"/>
                             </VerticalStackLayout>
                         </Frame>
                     </Grid>
 
-                <!-- Detailed Expense Analysis Chart -->
-                    <Frame CornerRadius="10" Padding="15" BackgroundColor="White" Margin="5,10,5,0">
-                        <VerticalStackLayout>
+                    <!-- Detailed Expense Analysis Chart -->
+                    <Frame CornerRadius="10" Padding="15" BackgroundColor="White" Margin="5,10,5,0" HorizontalOptions="FillAndExpand">
+                        <VerticalStackLayout HorizontalOptions="Fill">
                             <Label Text="Detailed Expense Analysis" FontSize="Medium" FontAttributes="Bold"/>
                             <maui:CartesianChart Series="{Binding Series2}" XAxes="{Binding xAxes}"
-                                                 HeightRequest="500" ZoomMode="Both"
-                                                 HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+                                                 HeightRequest="600" ZoomMode="X" 
+                                                 HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" LegendPosition="Bottom"/>
                         </VerticalStackLayout>
                     </Frame>
 

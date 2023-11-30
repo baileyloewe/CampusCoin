@@ -1,7 +1,9 @@
 ﻿using System.Collections.ObjectModel;
 using CampusCoin.Models;
 using CampusCoin.Services;
+using CampusCoin.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using LiveChartsCore;
 using LiveChartsCore.Defaults;
 using LiveChartsCore.Kernel;
@@ -19,15 +21,17 @@ namespace CampusCoin.ViewModels
 {
     public partial class GraphTestPageViewModel : ObservableValidator
     {
-        LoginService loginService;
-        EmailService emailService;
-        PersistedLoginService persistedLoginService;
-        IMessageOutputHandlingService messageOutputHandlingService;
-        IDbContextFactory<CampusCoinContext> dbContextFactory;
+        private readonly LoginService loginService;
+        private readonly EmailService emailService;
+        private readonly PersistedLoginService persistedLoginService;
+        private readonly IMessageOutputHandlingService messageOutputHandlingService;
+        private readonly IDbContextFactory<CampusCoinContext> dbContextFactory;
 
-        [ObservableProperty] private ObservableCollection<double> _investmentExpenses;
+        [ObservableProperty]
+        private ObservableCollection<double> _investmentExpenses;
 
         public Func<double, string> XAxisLabelFormatter => value => DateTime.FromOADate(value).ToString("d");
+
         public GraphTestPageViewModel(LoginService loginService, EmailService emailService,
             PersistedLoginService persistedLoginService, IMessageOutputHandlingService messageOutputHandlingService,
             IDbContextFactory<CampusCoinContext> dbContextFactory)
@@ -37,51 +41,60 @@ namespace CampusCoin.ViewModels
             this.persistedLoginService = persistedLoginService;
             this.messageOutputHandlingService = messageOutputHandlingService;
             this.dbContextFactory = dbContextFactory;
-            OnLoaded();
-
-
+            Initialize();
         }
 
-        public LabelVisual Title { get; set; } =
-            new LabelVisual
+        public LabelVisual Title { get; set; } = CreateTitle();
+
+        public List<ICartesianAxis> xAxes { get; set; } = CreateAxes();
+
+        public IEnumerable<ISeries> Series { get; set; }
+
+        public IEnumerable<ISeries> Series2 { get; set; }
+
+        private void Initialize()
+        {
+            UpdateSeries();
+            UpdateLineSeries();
+        }
+
+        private static LabelVisual CreateTitle()
+        {
+            return new LabelVisual
             {
                 Text = "Expense Overview",
                 TextSize = 25,
                 Padding = new LiveChartsCore.Drawing.Padding(15),
                 Paint = new SolidColorPaint(SKColors.DarkSlateGray)
             };
-        public List<ICartesianAxis> xAxes { get; set; } = new List<ICartesianAxis>
-        {
-            new Axis
-            {
-                LabelsRotation = 45,
-                Labeler = value => DateTime.FromOADate(value).ToString("d"),
-                Name = "Date"
-            }
-        };
-        public IEnumerable<ISeries> Series { get; set; }
-
-        public IEnumerable<ISeries> Series2 { get; set; } = new ISeries[]
-        {
-            new PieSeries<double>
-            {
-                Values = new ObservableCollection<double> { 3 },
-                Pushout = 10,
-                DataLabelsPosition = PolarLabelsPosition.ChartCenter,
-
-            }
-        };
-
-        private void OnLoaded()
-        {
-            UpdateSeries();
-            UpdateLineSeries();
         }
-
+        [RelayCommand]
+        public async Task RouteToExpensePage()
+        {
+            await Shell.Current.GoToAsync(nameof(ExpensesPage));
+        }
+        [RelayCommand]
+        public async Task RouteToRegistrationPage()
+        {
+            
+        }
+        private static List<ICartesianAxis> CreateAxes()
+        {
+            return new List<ICartesianAxis>
+            {
+                new Axis
+                {
+                    LabelsRotation = 45,
+                    Labeler = value => DateTime.FromOADate(value).ToString("d"),
+                    Name = "Date",
+                    MinLimit = DateTime.Now.AddDays(-14).Date.ToOADate(),
+                    MaxLimit = DateTime.Now.Date.ToOADate(),
+                }
+            };
+        }
 
         private void UpdateSeries()
         {
-
             using var dbContext = dbContextFactory.CreateDbContext();
             var userData = dbContext.UserData.ToList();
             var groupedData = userData
@@ -92,101 +105,83 @@ namespace CampusCoin.ViewModels
                     TotalAmount = group.Sum(x => x.Amount)
                 }).ToList();
 
-            // Assuming Series is a collection of ISeries
             var seriesCollection = new ObservableCollection<ISeries>();
             var totalExpense = userData.Sum(x => x.Amount);
+
             foreach (var group in groupedData)
             {
-                var pieSeries = new PieSeries<double>
-                {
-                    Values = new double[] { group.TotalAmount },
-                    Name = group.Category, // This sets the name of the series to the category name
-                    DataLabelsPaint = new SolidColorPaint(SKColors.White)
-                    {
-                        SKTypeface = SKTypeface.FromFamilyName("Arial", SKFontStyle.Bold)
-                    },
-                    MaxRadialColumnWidth = 50,
-                    DataLabelsRotation = LiveCharts.TangentAngle, // the tangent + 30 degrees
-                    ToolTipLabelFormatter = point =>
-                    {
-                        // This will show the category name and total amount in the tooltip
-                        return $": {group.TotalAmount}/{totalExpense}";
-                    },
-                    DataLabelsFormatter = point =>
-                    {
-                        // Format for labels on the pie slices if needed
-                        return $"{group.TotalAmount}/{totalExpense}";
-                    }
-                };
-
-                seriesCollection.Add(pieSeries);
+                seriesCollection.Add(CreatePieSeries(group, totalExpense));
             }
 
-            // Assuming you have a property for the series collection bound to the chart
             Series = seriesCollection;
-
-
         }
 
-        //get the expenses per day over the last 30 days and return the corresponding line series
+        private static PieSeries<double> CreatePieSeries(dynamic group, double totalExpense)
+        {
+            return new PieSeries<double>
+            {
+                Values = new double[] { group.TotalAmount },
+                Name = group.Category,
+                DataLabelsPaint = new SolidColorPaint(SKColors.White)
+                {
+                    SKTypeface = SKTypeface.FromFamilyName("Arial", SKFontStyle.Bold)
+                },
+                DataLabelsRotation = LiveCharts.TangentAngle,
+                ToolTipLabelFormatter = point => $": {group.TotalAmount}/{totalExpense}",
+                DataLabelsFormatter = point => $"${group.TotalAmount}"
+            };
+        }
+
         private void UpdateLineSeries()
         {
             using var dbContext = dbContextFactory.CreateDbContext();
             var userData = dbContext.UserData.ToList();
 
-            var startDate = DateTime.Now.AddDays(-30).Date; // Ensure start date is at the beginning of the day
-            var endDate = DateTime.Now.Date; // Similarly, ensure end date is at the beginning of the day
+            var startDate = DateTime.Now.AddDays(-14).Date;
+            var endDate = DateTime.Now.Date;
 
-            // Generate a list of all dates from the last 30 days
-            var uniqueDates = Enumerable.Range(0, (endDate - startDate).Days + 1)
+            var dateRange = Enumerable.Range(0, (endDate - startDate).Days + 1)
                 .Select(days => startDate.AddDays(days))
                 .ToList();
 
-            // Group by Category and then by Date
             var groupedData = userData
                 .Where(x => x.DateEntered.Date >= startDate && x.DateEntered.Date <= endDate)
                 .GroupBy(x => x.Category)
+                .Select(catGroup => new
+                {
+                    Category = catGroup.Key,
+                    DailyAmounts = catGroup
+                        .GroupBy(x => x.DateEntered.Date)
+                        .ToDictionary(dateGroup => dateGroup.Key, dateGroup => dateGroup.Sum(x => x.Amount))
+                })
                 .ToList();
 
             var seriesCollection = new ObservableCollection<ISeries>();
 
-            foreach (var categoryGroup in groupedData)
+            foreach (var category in groupedData)
             {
-                var categoryData = categoryGroup
-                    .GroupBy(x => x.DateEntered.Date)
-                    .ToDictionary(g => g.Key, g => g.Sum(x => x.Amount));
-
-                var points = uniqueDates.Select(date =>
-                {
-                    categoryData.TryGetValue(date, out var totalAmount);
-                    return new ObservablePoint(date.ToOADate(), totalAmount);
-                }).ToList();
-
-                var lineSeries = new LineSeries<ObservablePoint>
-                {
-                    Values = points,
-                    Name = categoryGroup.Key, // Set the name to the category
-                    LineSmoothness = 2,
-                    YToolTipLabelFormatter = point =>
-                    {
-                        return $"{point.PrimaryValue}";
-                    },
-                    DataLabelsFormatter = point =>
-                    {
-                        return $"{point.PrimaryValue}";
-                    }
-                };
-
-                seriesCollection.Add(lineSeries);
+                seriesCollection.Add(CreateLineSeries(category, dateRange));
             }
 
             Series2 = seriesCollection;
         }
 
-        
+        private static LineSeries<ObservablePoint> CreateLineSeries(dynamic category, List<DateTime> dateRange)
+        {
+            var points = dateRange.Select(date =>
+            {
+                category.DailyAmounts.TryGetValue(date, out int totalAmount);
+                return new ObservablePoint(date.ToOADate(), totalAmount);
+            }).ToList();
 
-        
-
-
+            return new LineSeries<ObservablePoint>
+            {
+                Values = points,
+                Name = category.Category,
+                LineSmoothness = 2,
+                YToolTipLabelFormatter = point => $"{point.PrimaryValue}",
+                DataLabelsFormatter = point => $"{point.PrimaryValue}"
+            };
+        }
     }
 }

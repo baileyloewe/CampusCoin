@@ -87,8 +87,7 @@ public static class MauiProgram
             .Services
             .AddDbContextFactory<CampusCoinContext>(options =>
             {
-                //todo: replace with environment variable or config file rather than hard coded connection string
-                options.UseSqlServer("Server=tcp:136.55.236.20,1438;Initial Catalog=SeniorProjectDatabase;Persist Security Info=False;User ID=Remote1;Password=SeniorProject;MultipleActiveResultSets=False;Encrypt=True;Connection Timeout=30;TrustServerCertificate=True;");
+                options.UseSqlServer("Server=tcp:campuscoin.database.windows.net,1433;Initial Catalog=CampusCoin;Persist Security Info=False;User ID=Remote1;Password=SeniorProject1;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
             });
 
         return mauiAppBuilder;
