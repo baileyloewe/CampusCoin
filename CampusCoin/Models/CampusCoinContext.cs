@@ -13,19 +13,30 @@ public partial class CampusCoinContext : DbContext
     {
     }
 
-    public virtual DbSet<UserData> UserData { get; set; }
+    public virtual DbSet<UserExpenseData> UserExpenseData { get; set; }
+
+    public virtual DbSet<UserIncomeData> UserIncomeData { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<UserData>(entity =>
+        modelBuilder.Entity<UserExpenseData>(entity =>
         {
             entity.HasKey(e => e.ExpenseId).HasName("PK_UserData_1");
 
-            entity.HasOne(d => d.User).WithMany(p => p.UserData)
+            entity.HasOne(d => d.User).WithMany(p => p.UserExpenseData)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_UserData_Users");
+        });
+
+        modelBuilder.Entity<UserIncomeData>(entity =>
+        {
+            entity.HasKey(e => e.IncomeId).HasName("PK_UserIncomeData_1");
+
+            entity.HasOne(d => d.User).WithMany(p => p.UserIncomeData)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_UserIncomeData_Users");
         });
 
         OnModelCreatingPartial(modelBuilder);

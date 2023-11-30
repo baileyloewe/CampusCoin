@@ -44,5 +44,8 @@ public partial class User
     public string AuthToken { get; set; }
 
     [InverseProperty("User")]
-    public virtual ICollection<UserData> UserData { get; set; } = new List<UserData>();
+    public virtual ICollection<UserExpenseData> UserExpenseData { get; set; } = new List<UserExpenseData>();
+
+    [InverseProperty("User")]
+    public virtual ICollection<UserIncomeData> UserIncomeData { get; set; } = new List<UserIncomeData>();
 }

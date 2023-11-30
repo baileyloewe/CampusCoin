@@ -39,7 +39,7 @@ public partial class ExpensesPageViewModel : ObservableValidator
     {
         try
         {
-            var userData = new UserData();
+            var userData = new UserExpenseData();
             userData =  setUserDataValues(userData);
             await expensesService.SubmitExpense(userData);
             await Shell.Current.DisplayAlert("Success",
@@ -53,7 +53,7 @@ public partial class ExpensesPageViewModel : ObservableValidator
         }
     }
 
-    public UserData setUserDataValues(UserData userData)
+    public UserExpenseData setUserDataValues(UserExpenseData userData)
     {
         User user = persistedLoginService.getLoggedInUser();
         DateTime date = DateTime.Now;

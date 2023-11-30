@@ -83,8 +83,6 @@ namespace CampusCoin.ViewModels
                     LabelsRotation = 45,
                     Labeler = value => DateTime.FromOADate(value).ToString("d"),
                     Name = "Date",
-                    MinLimit = DateTime.Now.AddDays(-14).Date.ToOADate(),
-                    MaxLimit = DateTime.Now.Date.ToOADate(),
                 }
             };
         }
@@ -101,7 +99,7 @@ namespace CampusCoin.ViewModels
         private void UpdateSeries()
         {
             using var dbContext = dbContextFactory.CreateDbContext();
-            var userData = dbContext.UserData.ToList();
+            var userData = dbContext.UserExpenseData.ToList();
             var groupedData = userData
                 .GroupBy(x => x.Category)
                 .Select(group => new
@@ -140,7 +138,7 @@ namespace CampusCoin.ViewModels
         private void UpdateLineSeries()
         {
             using var dbContext = dbContextFactory.CreateDbContext();
-            var userData = dbContext.UserData.ToList();
+            var userData = dbContext.UserExpenseData.ToList();
 
             var startDate = DateTime.Now.AddDays(-14).Date;
             var endDate = DateTime.Now.Date;

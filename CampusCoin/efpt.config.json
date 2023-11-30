@@ -16,7 +16,11 @@
    "T4TemplatePath": null,
    "Tables": [
       {
-         "Name": "[dbo].[UserData]",
+         "Name": "[dbo].[UserExpenseData]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[UserIncomeData]",
          "ObjectType": 0
       },
       {
@@ -24,7 +28,7 @@
          "ObjectType": 0
       }
    ],
-   "UiHint": "bailey-pc\\seniorproject.SeniorProjectDatabase.dbo",
+   "UiHint": "campuscoin.CampusCoin.dbo",
    "UncountableWords": null,
    "UseBoolPropertiesWithoutDefaultSql": false,
    "UseDatabaseNames": false,

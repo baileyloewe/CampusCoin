@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CampusCoin.Models;
 
-public partial class UserData
+public partial class UserExpenseData
 {
     [Key]
     [Column("ExpenseID")]
@@ -21,17 +21,15 @@ public partial class UserData
     [StringLength(50)]
     public string Category { get; set; }
 
-    [Required]
     public int Amount { get; set; }
 
-    [Required]
-    [Column("Date Entered")]
+    [Column("Date Entered", TypeName = "datetime")]
     public DateTime DateEntered { get; set; }
 
     [StringLength(50)]
     public string Description { get; set; }
 
     [ForeignKey("UserId")]
-    [InverseProperty("UserData")]
+    [InverseProperty("UserExpenseData")]
     public virtual User User { get; set; }
 }

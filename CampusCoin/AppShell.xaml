@@ -44,8 +44,7 @@
         </StackLayout>
     </Shell.FlyoutHeader>
 
-    <Shell.FlyoutFooter>
-    </Shell.FlyoutFooter>
+
     <!-- Main Sections -->
     <FlyoutItem FlyoutItemIsVisible="False">
         <Tab Title="Log In Page" Icon="{StaticResource IconLogin }">
