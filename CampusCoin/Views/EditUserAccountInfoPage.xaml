@@ -6,112 +6,449 @@
              x:Class="CampusCoin.Views.EditUserAccountInfoPage"
              Title="EditUserAccountInfoPage">
     <VerticalStackLayout 
-        Spacing="25"
-        Padding="30,0"
-        VerticalOptions="Center">
-        <Grid 
-            RowSpacing="5" 
-            Grid.Row="1" 
-            Margin="20,20,20,0">
+        HorizontalOptions="CenterAndExpand"
+        Margin="0,200,0,0">
+        <Label
+            Text="Edit Your Account Information"
+            SemanticProperties.HeadingLevel="Level1"
+            FontSize="32"
+            FontAttributes="Bold"
+            Padding="0"
+            Margin="0,-30,0,0"
+            HorizontalOptions="Center"/>
+        <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="300"/>
+                <RowDefinition Height="50" />
+                <RowDefinition Height="50" />
+                <RowDefinition Height="50" />
+                <RowDefinition Height="50" />
+                <RowDefinition Height="50" />
+                <RowDefinition Height="50" />
             </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200" />
+                <ColumnDefinition Width="80" />
+                <ColumnDefinition Width="250" />
+                <ColumnDefinition Width="80" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
             <Label
+                Grid.Row="0"
+                Grid.Column="0"
+                x:Name="txtCurrentAccountInfo" 
+                Text=" Current Account Info" 
+                TextColor="#191144"     
+                VerticalOptions="Center" 
+                Margin="0,0,0,0"/>
+            <Label
+                Grid.Row="0"
+                Grid.Column="2"
+                x:Name="txtNewAccountInfo" 
+                Text=" New Account Info" 
+                TextColor="#191144"     
+                VerticalOptions="Center" 
+                Margin="0,0,0,0"/>
+            <Entry
                 Grid.Row="1"
-                Text="Edit Your Account Information"
-                SemanticProperties.HeadingLevel="Level1"
-                FontSize="32"
+                Grid.Column="0"
+                x:Name="txtUserEmail" 
+                Text="{Binding UserEmail}" 
+                TextColor="White"     
+                Background="#191144"
+                VerticalOptions="Center"                      
+                HorizontalOptions="Fill" 
+                IsReadOnly="True"
+                Margin="0,0,0,10"/>
+            <Button
+                Grid.Row="1"
+                Grid.Column="1"
+                x:Name="EditEmailBtn"
+                Text="Edit"
+                Background="DarkSlateGray" 
+                SemanticProperties.Hint="Edit"
+                VerticalOptions="CenterAndExpand"        
+                HeightRequest="35"
+                WidthRequest="70"
                 FontAttributes="Bold"
-                Padding="0"
-                Margin="0,-30,0,0"
-                HorizontalOptions="Center"/>
-            <StackLayout 
-                Grid.Row="2" 
-                Orientation="Vertical" 
-                HorizontalOptions="CenterAndExpand">
-                <Entry 
-                    x:Name="txtUserEmail" 
-                    Background="#191144"
-                    Text="{Binding Email}" 
-                    TextColor="White"
-                    Placeholder="{Binding UserEmail}"                                             
-                    VerticalOptions="Center"                      
-                    HorizontalOptions="Fill"    
-                    IsSpellCheckEnabled="False"
-                    IsTextPredictionEnabled="False"
-                    Margin="0,0,0,10"/>
-                <Entry 
-                    x:Name="txtUserPassword"
-                    Background="#191144"
-                    Text="{Binding Password}"
-                    TextColor="White"
-                    Placeholder="Password:"
-                    VerticalOptions="Center" 
-                    HorizontalOptions="Fill" 
-                    IsPassword="True"
-                    IsSpellCheckEnabled="False"
-                    IsTextPredictionEnabled="False"
-                    Margin="0,0,0,10"/>
-                <Entry 
-                    x:Name="txtUserPhonenumber"
-                    Background="#191144"
-                    Text="{Binding PhoneNumber}"
-                    TextColor="White"
-                    Placeholder="{Binding UserPhoneNumber}"
-                    VerticalOptions="Center" 
-                    HorizontalOptions="Fill" 
-                    IsSpellCheckEnabled="False"
-                    IsTextPredictionEnabled="False"
-                    Margin="0,0,0,10"/>
-                <Entry 
-                    x:Name="txtUserFirstname"
-                    Background="#191144"
-                    Text="{Binding FirstName}"
-                    TextColor="White"
-                    Placeholder="{Binding UserFirstName}"
-                    VerticalOptions="Center" 
-                    HorizontalOptions="Fill" 
-                    IsSpellCheckEnabled="False"
-                    IsTextPredictionEnabled="False"
-                    Margin="0,0,0,10"/>
-                <Entry 
-                    x:Name="txtUserLastname"
-                    Background="#191144"
-                    Text="{Binding LastName}"
-                    TextColor="White"
-                    Placeholder="{Binding UserLastName}"
-                    VerticalOptions="Center" 
-                    HorizontalOptions="Fill" 
-                    IsSpellCheckEnabled="False"
-                    IsTextPredictionEnabled="False"
-                    Margin="0,0,0,10"/>
-                <Button
-                    x:Name="SaveBtn"
-                    Text="Save Account Information Changes"
-                    SemanticProperties.Hint="Saves change to your account information"
-                    HorizontalOptions="Center"
-                    FontAttributes="Bold"
-                    WidthRequest="300"
-                    Margin="0,15,0,0"
-                    IsEnabled="True"
-                    IsVisible="True"
-                    Command="{Binding SaveChangesCommand}">
-                    <VisualStateManager.VisualStateGroups>
-                        <VisualStateGroupList>
-                            <VisualStateGroup Name="ValidityStates">
-                                <VisualState Name="Enabled" />
-                                <VisualState Name="Disabled">
-                                    <VisualState.Setters>
-                                        <Setter Property="IsEnabled" Value="False" />
-                                    </VisualState.Setters>
-                                </VisualState>
-                            </VisualStateGroup>
-                        </VisualStateGroupList>
-                    </VisualStateManager.VisualStateGroups>
-                </Button>
-            </StackLayout>
+                Margin="0,0,0,10"
+                IsEnabled="True"
+                Command="{Binding EditEmailCommand}">
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup Name="ValidityStates">
+                            <VisualState Name="Enabled" />
+                            <VisualState Name="Disabled">
+                                <VisualState.Setters>
+                                    <Setter Property="IsEnabled" Value="False" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
+            </Button>
+            <Entry  
+                Grid.Row="1"
+                Grid.Column="2"  
+                x:Name="txtEmail" 
+                Background="#191144"
+                Text="{Binding Email}" 
+                TextColor="White"
+                Placeholder="New Email:"                                             
+                VerticalOptions="Center"                      
+                HorizontalOptions="Fill"   
+                IsReadOnly="{Binding EditEmailEntry}"
+                IsSpellCheckEnabled="False"
+                IsTextPredictionEnabled="False"
+                Margin="0,0,0,10"/>
+            <Button
+                Grid.Row="1"
+                Grid.Column="3"
+                x:Name="SaveEmailBtn"
+                Text="Save"
+                Background="DarkSlateGray" 
+                SemanticProperties.Hint="Save"
+                VerticalOptions="CenterAndExpand"        
+                HeightRequest="35"
+                WidthRequest="70"
+                FontAttributes="Bold"
+                Margin="0,0,0,10"
+                IsEnabled="{Binding EditEmailFields}"
+                IsVisible="{Binding EditEmailFields}"
+                Command="{Binding SaveEmailCommand}">
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup Name="ValidityStates">
+                            <VisualState Name="Enabled" />
+                            <VisualState Name="Disabled">
+                                <VisualState.Setters>
+                                    <Setter Property="IsEnabled" Value="False" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
+            </Button>
+            <Entry
+                Grid.Row="2"
+                Grid.Column="0"
+                x:Name="txtUserPassword"
+                Background="#191144"
+                Text="●●●●●●●●●●●●●●" 
+                TextColor="White"                                         
+                VerticalOptions="Center"                      
+                HorizontalOptions="Fill" 
+                IsReadOnly="True"
+                Margin="0,0,0,10"/>
+            <Button
+                Grid.Row="2"
+                Grid.Column="1"
+                x:Name="EditPasswordBtn"
+                Text="Edit"
+                Background="DarkSlateGray" 
+                SemanticProperties.Hint="Edit"
+                VerticalOptions="CenterAndExpand"        
+                HeightRequest="35"
+                WidthRequest="70"
+                FontAttributes="Bold"
+                Margin="0,0,0,10"
+                IsEnabled="True"
+                Command="{Binding EditPasswordCommand}">
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup Name="ValidityStates">
+                            <VisualState Name="Enabled" />
+                            <VisualState Name="Disabled">
+                                <VisualState.Setters>
+                                    <Setter Property="IsEnabled" Value="False" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
+            </Button>
+            <Entry  
+                Grid.Row="2"
+                Grid.Column="2"
+                x:Name="txtPassword"
+                Background="#191144"
+                Text="{Binding Password}"
+                TextColor="White"
+                Placeholder="New Password:"
+                VerticalOptions="Center" 
+                HorizontalOptions="Fill" 
+                IsReadOnly="{Binding EditPasswordEntry}"
+                IsPassword="True"
+                IsSpellCheckEnabled="False"
+                IsTextPredictionEnabled="False"
+                Margin="0,0,0,10"/>
+            <Button
+                Grid.Row="2"
+                Grid.Column="3"
+                x:Name="SavePasswordBtn"
+                Text="Save"
+                Background="DarkSlateGray" 
+                SemanticProperties.Hint="Save"
+                VerticalOptions="CenterAndExpand"        
+                HeightRequest="35"
+                WidthRequest="70"
+                FontAttributes="Bold"
+                Margin="0,0,0,10"
+                IsEnabled="{Binding EditPasswordFields}"
+                IsVisible="{Binding EditPasswordFields}"
+                Command="{Binding SavePasswordCommand}">
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup Name="ValidityStates">
+                            <VisualState Name="Enabled" />
+                            <VisualState Name="Disabled">
+                                <VisualState.Setters>
+                                    <Setter Property="IsEnabled" Value="False" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
+            </Button>
+            <Entry
+                Grid.Row="3"
+                Grid.Column="0"
+                x:Name="txtUserPhoneNumber" 
+                Background="#191144"
+                Text="{Binding UserPhoneNumber}" 
+                TextColor="White"                                        
+                VerticalOptions="Center"                      
+                HorizontalOptions="Fill"  
+                IsReadOnly="True"
+                Margin="0,0,0,10"/>
+            <Button
+                Grid.Row="3"
+                Grid.Column="1"
+                x:Name="EditPhoneNumberBtn"
+                Text="Edit"
+                Background="DarkSlateGray" 
+                SemanticProperties.Hint="Edit"
+                VerticalOptions="CenterAndExpand"        
+                HeightRequest="35"
+                WidthRequest="70"
+                FontAttributes="Bold"
+                Margin="0,0,0,10"
+                IsEnabled="True"
+                Command="{Binding EditPhoneNumberCommand}">
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup Name="ValidityStates">
+                            <VisualState Name="Enabled" />
+                            <VisualState Name="Disabled">
+                                <VisualState.Setters>
+                                    <Setter Property="IsEnabled" Value="False" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
+            </Button>
+            <Entry  
+                Grid.Row="3"
+                Grid.Column="2"
+                x:Name="txtPhoneNumber" 
+                Background="#191144"
+                Text="{Binding PhoneNumber}" 
+                TextColor="White"
+                Placeholder="New Phone Number:"                                             
+                VerticalOptions="Center"                      
+                HorizontalOptions="Fill"    
+                IsReadOnly="{Binding EditPhoneNumberEntry}"
+                IsSpellCheckEnabled="False"
+                IsTextPredictionEnabled="False"
+                Margin="0,0,0,10"/>
+            <Button
+                Grid.Row="3"
+                Grid.Column="3"
+                x:Name="SavePhoneNumberBtn"
+                Text="Save"
+                Background="DarkSlateGray" 
+                SemanticProperties.Hint="Save"
+                VerticalOptions="CenterAndExpand"        
+                HeightRequest="35"
+                WidthRequest="70"
+                FontAttributes="Bold"
+                Margin="0,0,0,10"
+                IsEnabled="{Binding EditPhoneNumberFields}"
+                IsVisible="{Binding EditPhoneNumberFields}"
+                Command="{Binding SavePhoneNumberCommand}">
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup Name="ValidityStates">
+                            <VisualState Name="Enabled" />
+                            <VisualState Name="Disabled">
+                                <VisualState.Setters>
+                                    <Setter Property="IsEnabled" Value="False" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
+            </Button>
+            <Entry
+                Grid.Row="4"
+                Grid.Column="0"
+                x:Name="txtUserFirstName" 
+                Background="#191144"
+                Text="{Binding UserFirstName}" 
+                TextColor="White"                                        
+                VerticalOptions="Center"                      
+                HorizontalOptions="Fill"   
+                IsReadOnly="True"
+                Margin="0,0,0,10"/>
+            <Button
+                Grid.Row="4"
+                Grid.Column="1"
+                x:Name="EditFirstNameBtn"
+                Text="Edit"
+                Background="DarkSlateGray" 
+                SemanticProperties.Hint="Edit"
+                VerticalOptions="CenterAndExpand"        
+                HeightRequest="35"
+                WidthRequest="70"
+                FontAttributes="Bold"
+                Margin="0,0,0,10"
+                IsEnabled="True"
+                Command="{Binding EditFirstNameCommand}">
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup Name="ValidityStates">
+                            <VisualState Name="Enabled" />
+                            <VisualState Name="Disabled">
+                                <VisualState.Setters>
+                                    <Setter Property="IsEnabled" Value="False" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
+            </Button>
+            <Entry  
+                Grid.Row="4"
+                Grid.Column="2"
+                x:Name="txtFirstName" 
+                Background="#191144"
+                Text="{Binding FirstName}" 
+                TextColor="White"
+                Placeholder="New First Name:"                                             
+                VerticalOptions="Center"                      
+                HorizontalOptions="Fill"   
+                IsReadOnly="{Binding EditFirstNameEntry}"
+                IsSpellCheckEnabled="False"
+                IsTextPredictionEnabled="False"
+                Margin="0,0,0,10"/>
+            <Button
+                Grid.Row="4"
+                Grid.Column="3"
+                x:Name="SaveFirstNameBtn"
+                Text="Save"
+                Background="DarkSlateGray" 
+                SemanticProperties.Hint="Save"
+                VerticalOptions="CenterAndExpand"        
+                HeightRequest="35"
+                WidthRequest="70"
+                FontAttributes="Bold"
+                Margin="0,0,0,10"
+                IsEnabled="{Binding EditFirstNameFields}"
+                IsVisible="{Binding EditFirstNameFields}"
+                Command="{Binding SaveFirstNameCommand}">
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup Name="ValidityStates">
+                            <VisualState Name="Enabled" />
+                            <VisualState Name="Disabled">
+                                <VisualState.Setters>
+                                    <Setter Property="IsEnabled" Value="False" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
+            </Button>
+            <Entry
+                Grid.Row="5"
+                Grid.Column="0"
+                x:Name="txtUserLastName" 
+                Background="#191144"
+                Text="{Binding UserLastName}" 
+                TextColor="White"                                        
+                VerticalOptions="Center"                      
+                HorizontalOptions="Fill"    
+                IsReadOnly="True"
+                Margin="0,0,0,10"/>
+            <Button
+                Grid.Row="5"
+                Grid.Column="1"
+                x:Name="EditLastNameBtn"
+                Text="Edit"
+                Background="DarkSlateGray" 
+                SemanticProperties.Hint="Edit"
+                VerticalOptions="CenterAndExpand"        
+                HeightRequest="35"
+                WidthRequest="70"
+                FontAttributes="Bold"
+                Margin="0,0,0,10"
+                IsEnabled="True"
+                Command="{Binding EditLastNameCommand}">
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup Name="ValidityStates">
+                            <VisualState Name="Enabled" />
+                            <VisualState Name="Disabled">
+                                <VisualState.Setters>
+                                    <Setter Property="IsEnabled" Value="False" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
+            </Button>
+            <Entry  
+                Grid.Row="5"
+                Grid.Column="2"
+                x:Name="txtLastName" 
+                Background="#191144"
+                Text="{Binding LastName}" 
+                TextColor="White"
+                Placeholder="New Last Name:"                                             
+                VerticalOptions="Center"                      
+                HorizontalOptions="Fill"    
+                IsReadOnly="{Binding EditLastNameEntry}"
+                IsSpellCheckEnabled="False"
+                IsTextPredictionEnabled="False"
+                Margin="0,0,0,10"/>
+            <Button
+                Grid.Row="5"
+                Grid.Column="3"
+                x:Name="SaveLastNameBtn"
+                Text="Save"
+                Background="DarkSlateGray" 
+                SemanticProperties.Hint="Save"
+                VerticalOptions="CenterAndExpand"        
+                HeightRequest="35"
+                WidthRequest="70"
+                FontAttributes="Bold"
+                Margin="0,0,0,10"
+                IsEnabled="{Binding EditLastNameFields}"
+                IsVisible="{Binding EditLastNameFields}"
+                Command="{Binding SaveLastNameCommand}">
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup Name="ValidityStates">
+                            <VisualState Name="Enabled" />
+                            <VisualState Name="Disabled">
+                                <VisualState.Setters>
+                                    <Setter Property="IsEnabled" Value="False" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
+            </Button>
         </Grid>
     </VerticalStackLayout>
 </ContentPage>

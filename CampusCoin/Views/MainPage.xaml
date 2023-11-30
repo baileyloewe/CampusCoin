@@ -16,14 +16,12 @@
                 WidthRequest="500"
                 HeightRequest="500"
                 HorizontalOptions="Center" />
-
             <Label 
                 Text="Welcome to CampusCoin"
                 SemanticProperties.HeadingLevel="Level2"
                 SemanticProperties.Description="Welcome to CampusCoin Template"
                 FontSize="18"
                 HorizontalOptions="Center" />
-
             <Button 
                 x:Name="TstBtn"
                 Text="TST"
@@ -32,9 +30,6 @@
                 SemanticProperties.Hint="Test"
                 Command="{Binding ExecuteRememberMeCommand}"
                 HorizontalOptions="Center"/>
-
-
-
             <Button 
                 x:Name="LoginBtn"
                 Text="Login"
@@ -54,7 +49,6 @@
                     </VisualStateGroupList>
                 </VisualStateManager.VisualStateGroups>
             </Button>
-
             <Button 
                 x:Name="RegistrationBtn"
                 Text="Registration"

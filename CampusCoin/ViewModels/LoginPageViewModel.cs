@@ -73,7 +73,7 @@ public partial class LoginPageViewModel : ObservableValidator
                 else 
                 {
                     ResetValues();
-                    await persistedLoginService.login(matchedUser.Email);
+                    await persistedLoginService.login(matchedUser.UserId);
                     if (RememberMe)
                     {
                         await persistedLoginService.SaveAuthToken();

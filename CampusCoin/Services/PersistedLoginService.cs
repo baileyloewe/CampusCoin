@@ -14,7 +14,7 @@ public class PersistedLoginService
 {
     private readonly IDbContextFactory<CampusCoinContext> _context;
     public int verificationCode { get; private set; }
-    public User currentUser { get; private set; }
+    private User currentUser { get; set; }
     public bool userIsLoggedIn { get; private set; }
 
     public PersistedLoginService(IDbContextFactory<CampusCoinContext> context)
@@ -27,16 +27,17 @@ public class PersistedLoginService
     /// <returns>Returns the current user who is logged in</returns>
     public User getLoggedInUser()
     {
+        _=RefreshUser();
         return this.currentUser;
     }
 
     /// <summary> Logs in user by email </summary>
-    /// <param name="email">The email of user to be logged in</param>
+    /// <param name="userID">The email of user to be logged in</param>
     /// <returns></returns>
-    public async Task login(String email)
+    public async Task login(int userID)
     {
         userIsLoggedIn = true;
-        this.currentUser = await GetUserByEmail(email);
+        this.currentUser = await GetUserByID(userID);
     }
 
     /// <summary> Logs in user  </summary>
@@ -68,9 +69,9 @@ public class PersistedLoginService
     }
 
     /// <summary> Gets a user by email from the database </summary>
-    /// <param name="email"> email of the user</param>
+    /// <param name="userID"> email of the user</param>
     /// <returns> user from the database </returns>
-    async Task<User> GetUserByEmail(string email)
+    async Task<User> GetUserByID(int userID)
     {
         var dbContext = await _context.CreateDbContextAsync();
         User user = null;
@@ -78,7 +79,7 @@ public class PersistedLoginService
         {
             using (dbContext)
             {
-                user = dbContext.Users.FirstOrDefault(u => u.Email == email);
+                user = dbContext.Users.FirstOrDefault(u => u.UserId == userID);
             }
         }
         catch (Exception ex)
@@ -185,5 +186,13 @@ public class PersistedLoginService
         }
 
         return string.Equals(storedToken, authToken);
+    }
+
+    /// <summary> Refreshes logged in user </summary>
+    /// <param></param>
+    /// <returns></returns>
+    public async Task RefreshUser()
+    {
+        currentUser = await GetUserByID(currentUser.UserId);
     }
 }
