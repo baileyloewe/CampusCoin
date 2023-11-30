@@ -59,7 +59,7 @@ public partial class ExpensesPageViewModel : ObservableValidator
         DateTime date = DateTime.Now;
 
         userData.Category = SelectedCategory;
-        userData.Amount = Amount;
+        userData.Amount = int.Parse(Amount);
         userData.DateEntered = date;
         userData.Description = Description;
         userData.UserId = user.UserId;
