@@ -20,7 +20,7 @@
             </Grid.RowDefinitions>
             <Label
                 Grid.Row="1"
-                Text="Account Information"
+                Text="Edit Your Account Information"
                 SemanticProperties.HeadingLevel="Level1"
                 FontSize="32"
                 FontAttributes="Bold"

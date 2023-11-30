@@ -138,7 +138,7 @@ namespace CampusCoin.ViewModels
                 IsIncomeVisible = false;
                 IncomeAmount = null;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 await Shell.Current.DisplayAlert("Error!",
                     $"Your income must be an integer amount", "OK");

@@ -12,7 +12,6 @@ namespace CampusCoin.ViewModels;
 
 public partial class EditUserAccountInfoPageViewModel : ObservableValidator
 {
-
     [ObservableProperty]
     string title;
 
@@ -24,7 +23,6 @@ public partial class EditUserAccountInfoPageViewModel : ObservableValidator
     [ObservableProperty]
     string password;
 
-    [PasswordValidation]
     [ObservableProperty]
     string confirmPassword;
 
@@ -54,17 +52,19 @@ public partial class EditUserAccountInfoPageViewModel : ObservableValidator
 
     User currentUser;
 
-    LoginService loginService;
-    EmailService emailService;
-    PersistedLoginService persistedLoginService;
-    EditUserAccountInfoService editUserInfoService;
+    private readonly LoginService loginService;
+    private readonly EmailService emailService;
+    private readonly PersistedLoginService persistedLoginService;
+    private readonly EditUserAccountInfoService editUserInfoService;
+    private readonly IMessageOutputHandlingService _messageOutputHandlingService;
 
-    public EditUserAccountInfoPageViewModel(LoginService loginService, EmailService emailService, PersistedLoginService persistedLoginService, EditUserAccountInfoService editUserInfoService)
+    public EditUserAccountInfoPageViewModel(LoginService loginService, EmailService emailService, PersistedLoginService persistedLoginService, EditUserAccountInfoService editUserInfoService, IMessageOutputHandlingService messageOutputHandlingService)
     {
         this.loginService = loginService;
         this.emailService = emailService;
         this.editUserInfoService = editUserInfoService;
         this.persistedLoginService = persistedLoginService;
+        this._messageOutputHandlingService = messageOutputHandlingService;
         User user = persistedLoginService.getLoggedInUser();
         email = user.Email;
         phoneNumber = user.PhoneNumber;
@@ -74,23 +74,31 @@ public partial class EditUserAccountInfoPageViewModel : ObservableValidator
 
     [RelayCommand]
     async Task SaveChanges() 
-    { 
-        if (!UserEmail.Equals(Email))
+    {
+        if (UserEmail != null && !UserEmail.Equals(Email))
         {
             await ChangeEmail();
+            await Shell.Current.DisplayAlert("Account Email Change Submitted", "Your account's email has been changed", "OK");
         }
-       
-        if (!UserEmail.Equals(FirstName))
+        if (Password  != null && !Password.Equals(Password))
+        {
+            await ChangePassword();
+            await Shell.Current.DisplayAlert("Account Password Change Submitted", "Your account's password has been changed", "OK");
+        }
+        if (FirstName != null && !FirstName.Equals(FirstName))
         {
             await ChangeFirstName();
+            await Shell.Current.DisplayAlert("Account First Name Change Submitted", "Your account's first name has been changed", "OK");
         }
-        if (!UserEmail.Equals(LastName))
+        if (LastName != null && !LastName.Equals(LastName))
         {
             await ChangeLastName();
+            await Shell.Current.DisplayAlert("Account Last Name Change Submitted", "Your account's last name has been changed", "OK");
         }
-        if (!UserEmail.Equals(PhoneNumber))
+        if (PhoneNumber != null && !PhoneNumber.Equals(PhoneNumber))
         {
             await ChangePhoneNumber();
+            await Shell.Current.DisplayAlert("Account Phone Change Submitted", "Your account's phone number has been changed", "OK");
         }
     }
 
