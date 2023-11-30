@@ -46,7 +46,7 @@ public static class MauiProgram
         mauiAppBuilder.Services.AddTransient<MainPageViewModel>();
         mauiAppBuilder.Services.AddTransient<LoginPageViewModel>();
         mauiAppBuilder.Services.AddTransient<RegistrationPageViewModel>();
-        mauiAppBuilder.Services.AddSingleton<DashboardPageViewModel>();
+        mauiAppBuilder.Services.AddTransient<DashboardPageViewModel>();
         mauiAppBuilder.Services.AddSingleton<ExpensesTestPageViewModel>();
         mauiAppBuilder.Services.AddSingleton<ExpensesPageViewModel>();
         mauiAppBuilder.Services.AddSingleton<EditUserAccountInfoPageViewModel>();
@@ -78,6 +78,7 @@ public static class MauiProgram
         mauiAppBuilder.Services.AddSingleton<EditUserAccountInfoService>();
         mauiAppBuilder.Services.AddSingleton<PersistedLoginService>();
         mauiAppBuilder.Services.AddSingleton<ExpensesService>();
+        mauiAppBuilder.Services.AddSingleton<IncomeService>();
         return mauiAppBuilder;
     }
 

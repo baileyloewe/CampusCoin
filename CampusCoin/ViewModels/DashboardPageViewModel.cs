@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Diagnostics;
 using CampusCoin.Models;
 using CampusCoin.Services;
 using CampusCoin.Views;
@@ -23,6 +24,7 @@ namespace CampusCoin.ViewModels
     {
         private readonly LoginService loginService;
         private readonly EmailService emailService;
+        private readonly IncomeService incomeService;
         private readonly PersistedLoginService persistedLoginService;
         private readonly IMessageOutputHandlingService messageOutputHandlingService;
         private readonly IDbContextFactory<CampusCoinContext> dbContextFactory;
@@ -30,18 +32,32 @@ namespace CampusCoin.ViewModels
         [ObservableProperty]
         private ObservableCollection<double> _investmentExpenses;
 
+        [ObservableProperty]
+        int height;
+
+        [ObservableProperty]
+        string incomeAmount;
+
+        [ObservableProperty]
+        private bool isIncomeVisible;
+
+        [ObservableProperty]
+        private bool isAddIncomeBtnVisible;
+
         public Func<double, string> XAxisLabelFormatter => value => DateTime.FromOADate(value).ToString("d");
 
-        public DashboardPageViewModel(LoginService loginService, EmailService emailService,
-            PersistedLoginService persistedLoginService, IMessageOutputHandlingService messageOutputHandlingService,
-            IDbContextFactory<CampusCoinContext> dbContextFactory)
+        public DashboardPageViewModel(LoginService loginService, EmailService emailService, PersistedLoginService persistedLoginService, IMessageOutputHandlingService messageOutputHandlingService, IDbContextFactory<CampusCoinContext> dbContextFactory, IncomeService incomeService)
         {
             this.loginService = loginService;
             this.emailService = emailService;
+            this.incomeService = incomeService;
             this.persistedLoginService = persistedLoginService;
             this.messageOutputHandlingService = messageOutputHandlingService;
             this.dbContextFactory = dbContextFactory;
             Initialize();
+            IsAddIncomeBtnVisible = true;
+            IsIncomeVisible = false;
+            Height = 200;
         }
 
         public LabelVisual Title { get; set; } = CreateTitle();
@@ -73,7 +89,7 @@ namespace CampusCoin.ViewModels
         {
             await Shell.Current.GoToAsync(nameof(ExpensesPage));
         }
-    
+
         private static List<ICartesianAxis> CreateAxes()
         {
             return new List<ICartesianAxis>
@@ -83,8 +99,52 @@ namespace CampusCoin.ViewModels
                     LabelsRotation = 45,
                     Labeler = value => DateTime.FromOADate(value).ToString("d"),
                     Name = "Date",
+                    MinLimit = DateTime.Now.AddDays(-14).Date.ToOADate(),
+                    MaxLimit = DateTime.Now.Date.ToOADate(),
                 }
             };
+        }
+
+        [RelayCommand]
+        private void AddIncome()
+        {
+            IsIncomeVisible = true;
+            Height = 400;
+        }
+
+        private UserIncomeData setUserIncomeValues(UserIncomeData userData)
+        {
+            User user = persistedLoginService.getLoggedInUser();
+            DateTime date = DateTime.Now;
+
+            userData.Category = "Income";
+            userData.Amount = int.Parse(IncomeAmount);
+            userData.DateEntered = date;
+            userData.UserId = user.UserId;
+            return userData;
+        }
+
+        [RelayCommand]
+        async Task SubmitIncome()
+        {
+            try
+            {
+                Height = 200;
+                var userData = new UserIncomeData();
+                userData = setUserIncomeValues(userData);
+                await incomeService.SubmitIncome(userData);
+                await Shell.Current.DisplayAlert("Success",
+                    $"Income Submitted Successfully", "OK");
+                IsIncomeVisible = false;
+                IncomeAmount = null;
+            }
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlert("Error!",
+                    $"Your income must be an integer amount", "OK");
+                IncomeAmount = null;
+            }
+
         }
 
         [RelayCommand]

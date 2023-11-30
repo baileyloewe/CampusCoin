@@ -53,7 +53,7 @@ namespace CampusCoin.ViewModels
                 Debug.WriteLine(ex);
             }
             _persistedLoginService.login(user);
-            await Shell.Current.GoToAsync(nameof(ExpensesPage));
+            await Shell.Current.GoToAsync(nameof(DashboardPage));
         }
 
         /// <summary> Routes to login page </summary>
