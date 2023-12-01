@@ -201,4 +201,45 @@ public class PersistedLoginService
         { 
         }
     }
+
+    /// <summary> Deletes a user </summary>
+    /// <param name="user">User to be deleted</param>
+    /// <returns></returns>
+    public async Task DeleteUser(User user)
+    {
+        var dbContext = await _context.CreateDbContextAsync();
+        try
+        {
+            if (user != null)
+            {
+                // Remove entries in UserExpensesData
+                var userExpensesDataEntries = dbContext.UserExpenseData
+                    .Where(entry => entry.UserId == user.UserId);
+                dbContext.UserExpenseData.RemoveRange(userExpensesDataEntries);
+
+                // Remove entries in UserIncomeData
+                var userIncomeDataEntries = dbContext.UserIncomeData
+                    .Where(entry => entry.UserId == user.UserId);
+                dbContext.UserIncomeData.RemoveRange(userIncomeDataEntries);
+
+                // Remove the user
+                dbContext.Users.Remove(user);
+
+                await dbContext.SaveChangesAsync();
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error deleting user: {ex.Message}");
+            // Handle the exception or log it as needed
+        }
+    }
+
+    /// <summary> Creates the prompt for the user to sign out </summary>
+    /// <param></param>
+    /// <returns></returns>
+    public async Task<bool> deleteAccountConfirmation()
+    {
+        return await Shell.Current.DisplayAlert("Delete your account", "Are you sure you want to delete your account? All information associated with your account will be deleted", "Yes", "No");
+    }
 }

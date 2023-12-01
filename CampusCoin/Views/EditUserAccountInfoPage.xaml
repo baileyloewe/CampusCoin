@@ -450,5 +450,28 @@
                 </VisualStateManager.VisualStateGroups>
             </Button>
         </Grid>
+        <Button
+            x:Name="DeleteAccountBtn"
+            Text="Delete My Account"
+            Background="Red" 
+            SemanticProperties.Hint="Edit" 
+            WidthRequest="560"
+            HorizontalOptions="CenterAndExpand"
+            Margin="0,50,0,0"
+            IsEnabled="True"
+            Command="{Binding DeleteAccountCommand}">
+            <VisualStateManager.VisualStateGroups>
+                <VisualStateGroupList>
+                    <VisualStateGroup Name="ValidityStates">
+                        <VisualState Name="Enabled" />
+                        <VisualState Name="Disabled">
+                            <VisualState.Setters>
+                                <Setter Property="IsEnabled" Value="False" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </VisualStateManager.VisualStateGroups>
+        </Button>
     </VerticalStackLayout>
 </ContentPage>

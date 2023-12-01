@@ -305,6 +305,19 @@ public partial class EditUserAccountInfoPageViewModel : ObservableValidator
         currentUser = null;
     }
 
+    [RelayCommand]
+    async Task DeleteAccount()
+    {
+        if (await persistedLoginService.deleteAccountConfirmation())
+        {
+            currentUser = persistedLoginService.getLoggedInUser();
+            await persistedLoginService.DeleteUser(currentUser);
+            await Shell.Current.GoToAsync(nameof(MainPage));
+        }
+    }
+
+
+
     private void initializeVals() 
     {
         User user = persistedLoginService.getLoggedInUser();
