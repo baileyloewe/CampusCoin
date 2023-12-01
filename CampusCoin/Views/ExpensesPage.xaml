@@ -6,9 +6,8 @@
              x:Class="CampusCoin.Views.ExpensesPage"
              Title="ExpensesPage">
     <VerticalStackLayout
-        HorizontalOptions="Center"
-        Margin="0,200,0,0"
-        WidthRequest="500">
+        HorizontalOptions="CenterAndExpand"
+        Margin="0,50,0,0">
         <Label
             Text="Check One"
             FontSize="32"/>
@@ -52,8 +51,7 @@
             Background="#191144"
             TextColor="White"
             Placeholder="$"
-            WidthRequest="220"
-            HorizontalOptions="Start"/>
+            />
 
         <Label
             Margin="0,50,0,0"

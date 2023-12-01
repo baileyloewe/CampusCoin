@@ -16,14 +16,13 @@
                    HeightRequest="{Binding Height}">
                 <VerticalStackLayout Spacing="10">
                     <Label Text="Financial Summary" FontSize="Medium" FontAttributes="Bold"/>
-                    <Button Text="Modify Expenses" Command="{Binding RouteToExpensePageCommand}" Margin="0,10,0,0"/>
+                    <Button Text="Modify Expenses" HorizontalOptions="CenterAndExpand" Command="{Binding RouteToExpensePageCommand}" Margin="0,10,0,0"/>
                     <Button
                         x:Name="AddIncomeBtn"
                         Text="Add Income"
                         SemanticProperties.Hint="Submit Verification Code"
-                        HorizontalOptions="Center"
+                        HorizontalOptions="CenterAndExpand"
                         FontAttributes="Bold"
-                        WidthRequest="200"
                         Margin="0,12,0,0"
                         IsEnabled="True"
                         Command="{Binding AddIncomeCommand}"
@@ -46,7 +45,7 @@
                         Background="#191144"
                         Text="{Binding IncomeAmount}"
                         TextColor="White"
-                        Placeholder="Enter your monthly income:"
+                        Placeholder="Enter your yearly income:"
                         VerticalOptions="Center" 
                         HorizontalOptions="Center" 
                         WidthRequest="200"
@@ -94,7 +93,7 @@
                                HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
                             <VerticalStackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
                                 <Label Text="Expense Breakdown" FontSize="Medium" FontAttributes="Bold"/>
-                                <maui:PieChart Series="{Binding Series}"  LegendPosition="Bottom"
+                                <maui:PieChart Series="{Binding ExpensePieChartSeries}"  LegendPosition="Bottom"
                                                HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" MinimumWidthRequest="250" MinimumHeightRequest="250"/>
                             </VerticalStackLayout>
                         </Frame>
@@ -104,19 +103,20 @@
                     <Frame CornerRadius="10" Padding="15" BackgroundColor="White" Margin="5,10,5,0" HorizontalOptions="FillAndExpand">
                         <VerticalStackLayout HorizontalOptions="Fill">
                             <Label Text="Detailed Expense Analysis" FontSize="Medium" FontAttributes="Bold"/>
-                            <maui:CartesianChart Series="{Binding Series2}" XAxes="{Binding xAxes}"
+                            <maui:CartesianChart Series="{Binding ExpenseCartesianSeries}" XAxes="{Binding xAxes}"
                                                  HeightRequest="600" ZoomMode="X" 
                                                  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" LegendPosition="Bottom"/>
                         </VerticalStackLayout>
                     </Frame>
 
 
-                    <Frame CornerRadius="10" Padding="15" BackgroundColor="Transparent">
+                    <Frame CornerRadius="10" Padding="15" Margin="5,10,5,0" BackgroundColor="Transparent">
                         <VerticalStackLayout>
-                            <Label Text="Income Sources" FontSize="Medium" FontAttributes="Bold"/>
-                            <maui:PieChart  Series="{Binding Series}" 
-                                   HeightRequest="250"/>
-                        </VerticalStackLayout>
+                            <Label Text="Income Expense Comparison" FontSize="Medium" FontAttributes="Bold"/>
+                            <maui:CartesianChart  Series="{Binding ComparisonSeries}" XAxes="{Binding yearXAxes}" 
+                                                  HeightRequest="600" ZoomMode="X" 
+                                                  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" LegendPosition="Bottom"/>
+                            </VerticalStackLayout>
                     </Frame>
                 </VerticalStackLayout>
             </Frame>

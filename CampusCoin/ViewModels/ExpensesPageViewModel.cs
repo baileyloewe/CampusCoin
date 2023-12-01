@@ -67,37 +67,37 @@ public partial class ExpensesPageViewModel : ObservableValidator
         return userData;
     }
 
-    private string IsBillsCategory
+    public string IsBillsCategory
     {
         get { return "bills"; }
         set { SelectedCategory = "Bills"; }
     }
 
-    private string IsFoodCategory
+    public string IsFoodCategory
     {
         get { return "food"; }
         set => SelectedCategory = "Food";
     }
 
-    private string IsAutoCategory
+    public string IsAutoCategory
     {
         get { return "auto"; }
         set { SelectedCategory = "Auto"; }
     }
 
-    private string IsEntertainmentCategory
+    public string IsEntertainmentCategory
     {
         get { return "entertainment"; }
         set { SelectedCategory = "Entertainment"; }
     }
 
-    private string IsInvestmentsCategory
+    public string IsInvestmentsCategory
     {
         get { return "investments"; }
         set { SelectedCategory = "Investments"; }
     }
 
-    private string IsMiscCategory
+    public string IsMiscCategory
     {
         get { return "misc"; }
         set { SelectedCategory = "Misc"; }

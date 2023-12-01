@@ -60,37 +60,32 @@ namespace CampusCoin.ViewModels
             Height = 200;
         }
 
-        public LabelVisual Title { get; set; } = CreateTitle();
+        public List<ICartesianAxis> xAxes { get; set; } = CreateXAxes();
 
-        public List<ICartesianAxis> xAxes { get; set; } = CreateAxes();
+        public List<ICartesianAxis> yAxes { get; set; } = CreateYAxes();
 
-        public IEnumerable<ISeries> Series { get; set; }
+        public List<ICartesianAxis> yearXAxes { get; set; } = CreateYearXAxes();
 
-        public IEnumerable<ISeries> Series2 { get; set; }
+        public IEnumerable<ISeries> ExpensePieChartSeries { get; set; }
+
+        public IEnumerable<ISeries> ExpenseCartesianSeries { get; set; }
+
+        [ObservableProperty] private IEnumerable<ISeries> _comparisonSeries;
 
         private void Initialize()
         {
             UpdateSeries();
             UpdateLineSeries();
+            UpdateComparisonSeries();
         }
 
-        private static LabelVisual CreateTitle()
-        {
-            return new LabelVisual
-            {
-                Text = "Expense Overview",
-                TextSize = 25,
-                Padding = new LiveChartsCore.Drawing.Padding(15),
-                Paint = new SolidColorPaint(SKColors.DarkSlateGray)
-            };
-        }
         [RelayCommand]
         public async Task RouteToExpensePage()
         {
             await Shell.Current.GoToAsync(nameof(ExpensesPage));
         }
 
-        private static List<ICartesianAxis> CreateAxes()
+        private static List<ICartesianAxis> CreateXAxes()
         {
             return new List<ICartesianAxis>
             {
@@ -101,6 +96,47 @@ namespace CampusCoin.ViewModels
                     Name = "Date",
                     MinLimit = DateTime.Now.AddDays(-14).Date.ToOADate(),
                     MaxLimit = DateTime.Now.Date.ToOADate(),
+                }
+            };
+        }
+        private static List<ICartesianAxis> CreateYearXAxes()
+        {
+            return new List<ICartesianAxis>
+            {
+                new Axis
+                {
+                    LabelsRotation = 45,
+                    Name = "Month",
+                    MinLimit = 1,
+                    MinStep = 1,
+                    ForceStepToMin = true,
+                    MaxLimit = 12,
+                    Labeler = MonthLabelFormatter
+                }
+            };
+        }
+        public static Func<double, string> MonthLabelFormatter => value =>
+        {
+            int monthNumber = (int)value;
+            if (monthNumber < 1 || monthNumber > 12)
+            {
+                return string.Empty;
+            }
+            var monthName = new DateTime(DateTime.Now.Year, monthNumber, 1).ToString("MMMM yyyy");
+            return monthName;
+        };
+
+
+        private static List<ICartesianAxis> CreateYAxes()
+        {
+            return new List<ICartesianAxis>
+            {
+                new Axis
+                {
+                    Name = "Amount",
+                    MinLimit = 0,
+                    MaxLimit = 1000,
+                    Labeler = value => $"{value:C}"
                 }
             };
         }
@@ -137,6 +173,7 @@ namespace CampusCoin.ViewModels
                     $"Income Submitted Successfully", "OK");
                 IsIncomeVisible = false;
                 IncomeAmount = null;
+                UpdateComparisonSeries();
             }
             catch (Exception)
             {
@@ -176,7 +213,7 @@ namespace CampusCoin.ViewModels
                 seriesCollection.Add(CreatePieSeries(group, totalExpense));
             }
 
-            Series = seriesCollection;
+            ExpensePieChartSeries = seriesCollection;
         }
 
         private static PieSeries<double> CreatePieSeries(dynamic group, double totalExpense)
@@ -226,8 +263,55 @@ namespace CampusCoin.ViewModels
                 seriesCollection.Add(CreateLineSeries(category, dateRange));
             }
 
-            Series2 = seriesCollection;
+            ExpenseCartesianSeries = seriesCollection;
         }
+        private void UpdateComparisonSeries()
+        {
+            using var dbContext = dbContextFactory.CreateDbContext();
+            var expenseData = dbContext.UserExpenseData.ToList();
+            var loggedInUser = persistedLoginService.getLoggedInUser();
+            var incomeData = dbContext.UserIncomeData.Where(x=>x.UserId == loggedInUser.UserId ).ToList();
+
+            var currentYear = DateTime.Now.Year;
+         
+            // Group and process data
+            var monthlyExpenses = expenseData
+                .Where(x => x.DateEntered.Year == currentYear)
+                .GroupBy(x => x.DateEntered.Month)
+                .Select(g => new { Month = g.Key, Total = g.Sum(x => x.Amount) });
+
+            // Calculate the total income for the current year
+            var totalYearlyIncome = incomeData
+                .Where(x => x.DateEntered.Year == currentYear)
+                .Sum(x => x.Amount);
+
+            // Calculate the average monthly income
+            var averageMonthlyIncome = totalYearlyIncome / 12; // Dividing by the number of months in a year
+
+            // Create a collection for each month with the calculated average
+            var monthlyIncomes = Enumerable.Range(1, 12) // 1 to 12 for January to December
+                .Select(month => new { Month = month, Average = averageMonthlyIncome })
+                .ToList();
+
+
+
+
+            // Prepare series
+            var expenseSeries = new LineSeries<ObservablePoint>
+            {
+                Values = monthlyExpenses.Select(m => new ObservablePoint(m.Month, m.Total)).ToList(),
+                Name = "Monthly Expenses"
+            };
+
+            var incomeSeries = new LineSeries<ObservablePoint>
+            {
+                Values = monthlyIncomes.Select(m => new ObservablePoint(m.Month, m.Average)).ToList(),
+                Name = "Average Monthly Income"
+            };
+
+            ComparisonSeries = new List<ISeries> { expenseSeries, incomeSeries };
+        }
+
 
         private static LineSeries<ObservablePoint> CreateLineSeries(dynamic category, List<DateTime> dateRange)
         {
