@@ -44,6 +44,8 @@ public partial class ExpensesPageViewModel : ObservableValidator
             await expensesService.SubmitExpense(userData);
             await Shell.Current.DisplayAlert("Success",
                 $"Entry Submitted Successfully", "OK");
+            SetProperty(ref amount, "");
+            SetProperty(ref description, "");
             await Shell.Current.GoToAsync(nameof(ExpensesPage));
         }
         catch (Exception ex)
