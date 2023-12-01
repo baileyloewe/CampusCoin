@@ -42,7 +42,7 @@
                     HorizontalOptions="Fill"   
                     IsSpellCheckEnabled="False"
                     IsTextPredictionEnabled="False"
-                    Margin="0,0,20,10"/>
+                    Margin="0,0,0,10"/>
                 <Entry 
                     x:Name="txtPassword"
                     Text="{Binding Password}"
@@ -53,7 +53,7 @@
                     HorizontalOptions="Fill" 
                     IsSpellCheckEnabled="False"
                     IsTextPredictionEnabled="False"
-                    Margin="0,0,20,10"/>
+                    Margin="0,0,0,10"/>
                 <Button
                     x:Name="AttemptLoginBtn"
                     Text="Login"
