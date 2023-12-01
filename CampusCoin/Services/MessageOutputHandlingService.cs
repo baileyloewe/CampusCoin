@@ -10,9 +10,7 @@ namespace CampusCoin.Services
     }
     internal class MessageOutputHandlingService: IMessageOutputHandlingService
     {
-        /// <summary>
-        /// Outputs validation errors to the user
-        /// </summary>
+        /// <summary> Outputs validation errors to the user </summary>
         /// <param name="errors"></param>
         /// <returns></returns>
 #pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
@@ -25,9 +23,7 @@ namespace CampusCoin.Services
             errorMessage = errorMessage.Trim(); // Remove the leading & trailing newline characters
             await App.Current.MainPage.DisplayAlert("Error", errorMessage, "OK");
         }
-        /// <summary>
-        /// Outputs success message to user
-        /// </summary>
+        /// <summary> Outputs success message to user </summary>
         /// <param name="message"></param>
         /// <returns></returns>
         public async Task OutputSuccessToUser(string message)

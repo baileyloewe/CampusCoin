@@ -70,7 +70,7 @@ public class PersistedLoginService
 
     /// <summary> Gets a user by email from the database </summary>
     /// <param name="userID"> email of the user</param>
-    /// <returns> user from the database </returns>
+    /// <returns>User from the database matching the userID</returns>
     async Task<User> GetUserByID(int userID)
     {
         var dbContext = await _context.CreateDbContextAsync();

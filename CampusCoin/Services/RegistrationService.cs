@@ -23,7 +23,7 @@ public class RegistrationService
 
     /// <summary> Gets a list of all users from the database </summary>
     /// <param></param>
-    /// <returns name="usersList"> A list of users from the database </returns>
+    /// <returns> A list of users from the database </returns>
     public async Task<List<User>> GetUsers()
     {
         var dbContext = await _context.CreateDbContextAsync();

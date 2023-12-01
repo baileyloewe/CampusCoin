@@ -12,11 +12,9 @@ public class LoginService
         _context = context;
     }
 
-    /// <summary>
-    /// Gets a user from the user database by email
-    /// </summary>
+    /// <summary> Gets a user from the user database by email </summary>
     /// <param name="email">The email address to search for in the database</param>
-    /// <returns name = "user"> The user who matches the email, or null if none match</returns>
+    /// <returns> The user who matches the email, or null if none match</returns>
     public async Task<User> GetUserByEmail(string email)
     {
         var dbContext = await _context.CreateDbContextAsync();

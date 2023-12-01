@@ -13,20 +13,24 @@ namespace CampusCoin.ViewModels;
 public partial class ResetPasswordPageViewModel : ObservableValidator
 {
     private readonly IMessageOutputHandlingService _messageOutputHandlingService;
+    private readonly LoginService loginService;
+    private readonly EmailService emailService;
+    private readonly PersistedLoginService persistedLoginService;
+    private readonly EditUserAccountInfoService editUserAccountInfoService;
 
     [EmailValidation]
     [ObservableProperty]
-    string email;
+    private string email;
 
     [PasswordValidation]
     [ObservableProperty]
-    string newPassword;
+    private string newPassword;
 
     [ObservableProperty]
-    string confirmNewPassword;
+    private string confirmNewPassword;
 
     [ObservableProperty]
-    string verificationCode;
+    private string verificationCode;
 
     [ObservableProperty]
     private bool isEmailVisible;
@@ -37,14 +41,9 @@ public partial class ResetPasswordPageViewModel : ObservableValidator
     [ObservableProperty]
     private bool isVerificationVisible;
 
-    public bool VerificationEntered = false;
+    private bool VerificationEntered = false;
 
-    User currentUser;
-
-    LoginService loginService;
-    EmailService emailService;
-    PersistedLoginService persistedLoginService;
-    EditUserAccountInfoService editUserAccountInfoService;
+    private User currentUser;
 
     public ResetPasswordPageViewModel(LoginService loginService, EmailService emailService, PersistedLoginService persistedLoginService, EditUserAccountInfoService editUserAccountInfoService, IMessageOutputHandlingService messageOutputHandlingService)
     {
@@ -60,7 +59,7 @@ public partial class ResetPasswordPageViewModel : ObservableValidator
 
     // Sends a password reset email and displays a message
     [RelayCommand]
-    async Task SendCode()
+    private async Task SendCode()
     {
          await emailService.SendPasswordResetEmail(Email);
          SetVisibilityOfEmail(false);
@@ -72,7 +71,7 @@ public partial class ResetPasswordPageViewModel : ObservableValidator
     
     // Submits your verification code and if it is correct, hides the buttons, else reject it and reset the field
     [RelayCommand]
-    async Task SubmitVerificationCode()
+    private async Task SubmitVerificationCode()
     {
         if (VerificationCode == emailService.verificationCode.ToString())
         {
@@ -120,7 +119,7 @@ public partial class ResetPasswordPageViewModel : ObservableValidator
     }
 
     // Saves the password to the database
-    async Task SavePasswordChange()
+    private async Task SavePasswordChange()
     {
         await editUserAccountInfoService.EditPassword(currentUser, SaltHashService.HashPassword(NewPassword, currentUser.Salt));
         await EmailService.SendPasswordResetSuccessEmail(currentUser.Email);
@@ -136,25 +135,25 @@ public partial class ResetPasswordPageViewModel : ObservableValidator
     }
 
     // Sets the isEmailVisible ObservableProperty to visibleStatus (t/f)
-    public void SetVisibilityOfEmail(bool visibileStatus)
+    private void SetVisibilityOfEmail(bool visibileStatus)
     {
         IsEmailVisible = visibileStatus;
     }
 
     // Sets the isVerificationVisible ObservableProperty to visibleStatus (t/f)
-    public void SetVisibilityOfVerification(bool visibileStatus)
+    private void SetVisibilityOfVerification(bool visibileStatus)
     {
         IsVerificationVisible = visibileStatus;
     }
 
     // Sets the isPasswordVisible ObservableProperty to visibleStatus (t/f)
-    public void SetVisibilityOfPassword(bool visibileStatus)
+    private void SetVisibilityOfPassword(bool visibileStatus)
     {
         IsPasswordVisible = visibileStatus;
     }
 
     // Resets all values on the page
-    public void ResetValues()
+    private void ResetValues()
     {
         currentUser = null;
         Email = null;
