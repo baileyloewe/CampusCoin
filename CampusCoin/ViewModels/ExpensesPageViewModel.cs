@@ -110,4 +110,10 @@ public partial class ExpensesPageViewModel : ObservableValidator
     {
         await Shell.Current.GoToAsync(nameof(DashboardPage));
     }
+
+    [RelayCommand]
+    async Task Back()
+    {
+        await Shell.Current.GoToAsync(nameof(DashboardPage));
+    }
 }
