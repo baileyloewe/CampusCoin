@@ -91,4 +91,10 @@
             <ShellContent ContentTemplate="{DataTemplate views:EditUserAccountInfoPage}" Route="SettingsPage" />
         </Tab>
     </FlyoutItem>
+
+    <FlyoutItem Icon="{StaticResource IconSettings}" Title="Sign out" FlyoutItemIsVisible="True">
+        <Tab Title="Sign out" Icon="{StaticResource IconSettings }">
+            <ShellContent ContentTemplate="{DataTemplate views:MainPage}" Route="MainPage" />
+        </Tab>
+    </FlyoutItem>
 </Shell>

@@ -193,6 +193,12 @@ public class PersistedLoginService
     /// <returns></returns>
     public async Task RefreshUser()
     {
-        currentUser = await GetUserByID(currentUser.UserId);
+        try
+        {
+            currentUser = await GetUserByID(currentUser.UserId);
+        }
+        catch
+        { 
+        }
     }
 }

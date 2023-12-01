@@ -168,7 +168,7 @@ public partial class EditUserAccountInfoPageViewModel : ObservableValidator
             if (!HasErrors)
             {
                 await ChangePassword();
-                await Shell.Current.DisplayAlert("Account Password Change Submitted", "Your account's email has been changed", "OK");
+                await Shell.Current.DisplayAlert("Account Password Change Submitted", "Your account's password has been changed", "OK");
             }
             else
             {
@@ -189,7 +189,7 @@ public partial class EditUserAccountInfoPageViewModel : ObservableValidator
             if (!HasErrors)
             {
                 await ChangePhoneNumber();
-                await Shell.Current.DisplayAlert("Account Phone Number Change Submitted", "Your account's email has been changed", "OK");
+                await Shell.Current.DisplayAlert("Account Phone Number Change Submitted", "Your account's phone number has been changed", "OK");
                 UserPhoneNumber = persistedLoginService.getLoggedInUser().PhoneNumber;
             }
             else
@@ -211,7 +211,7 @@ public partial class EditUserAccountInfoPageViewModel : ObservableValidator
             if (!HasErrors)
             {
                 await ChangeFirstName();
-                await Shell.Current.DisplayAlert("Account First Name Change Submitted", "Your account's email has been changed", "OK");
+                await Shell.Current.DisplayAlert("Account First Name Change Submitted", "Your account's first name has been changed", "OK");
                 UserFirstName = persistedLoginService.getLoggedInUser().FirstName;
             }
             else
@@ -233,7 +233,7 @@ public partial class EditUserAccountInfoPageViewModel : ObservableValidator
             if (!HasErrors)
             {
                 await ChangeLastName();
-                await Shell.Current.DisplayAlert("Account Last Name Change Submitted", "Your account's email has been changed", "OK");
+                await Shell.Current.DisplayAlert("Account Last Name Change Submitted", "Your account's last name has been changed", "OK");
                 UserLastName = persistedLoginService.getLoggedInUser().LastName;
             }
             else

@@ -24,7 +24,14 @@ namespace CampusCoin.ViewModels
             _context = context;
             _messageOutputHandlingService = messageOutputHandlingService;
             _persistedLoginService = persistedLoginService;
-            if (isRememberMeEnabled()) { Task task = ExecuteRememberMe(); }
+            if (persistedLoginService.loggedIn())
+            {
+                persistedLoginService.logout();
+            }
+            else if (isRememberMeEnabled())
+            {
+                Task task = ExecuteRememberMe();
+            }
 
         }
         /// <summary> Logs in the user who AutoToken is stored and routes to ExpensesPage </summary>

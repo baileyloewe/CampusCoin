@@ -196,7 +196,10 @@ namespace CampusCoin.ViewModels
         private void UpdateSeries()
         {
             using var dbContext = dbContextFactory.CreateDbContext();
-            var userData = dbContext.UserExpenseData.ToList();
+            User user = persistedLoginService.getLoggedInUser();
+            var userData = dbContext.UserExpenseData
+                .Where(x => x.UserId == user.UserId)
+                .ToList();
             var groupedData = userData
                 .GroupBy(x => x.Category)
                 .Select(group => new
@@ -235,7 +238,10 @@ namespace CampusCoin.ViewModels
         private void UpdateLineSeries()
         {
             using var dbContext = dbContextFactory.CreateDbContext();
-            var userData = dbContext.UserExpenseData.ToList();
+            User user = persistedLoginService.getLoggedInUser();
+            var userData = dbContext.UserExpenseData
+                .Where(x => x.UserId == user.UserId)
+                .ToList();
 
             var startDate = DateTime.Now.AddDays(-14).Date;
             var endDate = DateTime.Now.Date;
@@ -268,7 +274,10 @@ namespace CampusCoin.ViewModels
         private void UpdateComparisonSeries()
         {
             using var dbContext = dbContextFactory.CreateDbContext();
-            var expenseData = dbContext.UserExpenseData.ToList();
+            User user = persistedLoginService.getLoggedInUser();
+            var expenseData = dbContext.UserExpenseData
+                .Where(x => x.UserId == user.UserId)
+                .ToList();
             var loggedInUser = persistedLoginService.getLoggedInUser();
             var incomeData = dbContext.UserIncomeData.Where(x=>x.UserId == loggedInUser.UserId ).ToList();
 
