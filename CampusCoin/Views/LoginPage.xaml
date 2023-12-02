@@ -51,6 +51,7 @@
                     Placeholder="Password:"
                     VerticalOptions="Center" 
                     HorizontalOptions="Fill" 
+                    IsPassword="True"
                     IsSpellCheckEnabled="False"
                     IsTextPredictionEnabled="False"
                     Margin="0,0,0,10"/>
