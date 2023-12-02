@@ -118,6 +118,12 @@ public partial class ResetPasswordPageViewModel : ObservableValidator
         }
     }
 
+    [RelayCommand]
+    async Task Back()
+    {
+        await Shell.Current.GoToAsync(nameof(MainPage));
+    }
+
     // Saves the password to the database
     private async Task SavePasswordChange()
     {
