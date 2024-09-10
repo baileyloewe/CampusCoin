@@ -1,4 +1,4 @@
-#CampusCoin
+# CampusCoin
 
 KSU 2023 Senior Project
 
